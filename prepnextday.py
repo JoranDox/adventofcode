@@ -13,7 +13,8 @@ with open("{basename}inputtest.txt") as f:
 #with open("{basename}input.txt") as f:
     data = f.readlines()
             """)
-        with open("{basename}inputtest.txt", "w") as f:
-        with open("{basename}input.txt", "w") as f:
-
+        with open(f"{currentyear}/{basename}inputtest.txt", "w") as f:
+            pass
+        with open(f"{currentyear}/{basename}input.txt", "w") as f:
+            pass
         break
