@@ -11,8 +11,12 @@ for day in range(1,26):
             f.write(f"""
 with open("{basename}inputtest.txt") as f:
 #with open("{basename}input.txt") as f:
-    data = f.readlines()
-            """)
+    data = f.read().strip()
+
+for line in data.splitlines():
+
+
+""")
         with open(f"{currentyear}/{basename}inputtest.txt", "w") as f:
             pass
         with open(f"{currentyear}/{basename}input.txt", "w") as f:
