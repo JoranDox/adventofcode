@@ -17,6 +17,18 @@ def hmirror(x,y, xmirror):
 def vmirror(x,y, ymirror):
     return (x, (2*ymirror)-y) if (y > ymirror) else (x,y)
 
+def printdots(dots):
+    printdata = [
+        [
+            ' ' for _ in range(max([i for i,_ in dots])+1) # max x
+        ] for _ in range(max([i for _,i in dots])+1) # max y
+    ]
+
+    for i,j in dots:
+        printdata[j][i] = '#'
+
+    print("\n".join([''.join(p) for p in printdata]))
+
 firstpart = True
 for line in fold.splitlines():
     if not line:
@@ -29,17 +41,8 @@ for line in fold.splitlines():
     if firstpart:
         print("part 1:", len(dots))
         firstpart = False
-# print(sorted(dots))
-# print(len(dots))
-
-printdata = [
-    [
-        ' ' for _ in range(max([i for i,_ in dots])+1) # max x
-    ] for _ in range(max([i for _,i in dots])+1) # max y
-]
-
-for i,j in dots:
-    printdata[j][i] = '#'
+    # print(line)
+    # printdots(dots)
 
 print('part 2:')
-print("\n".join([''.join(p) for p in printdata]))
+printdots(dots)
