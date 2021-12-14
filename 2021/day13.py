@@ -25,7 +25,7 @@ def printdots(dots):
     ]
 
     for i,j in dots:
-        printdata[j][i] = '#'
+        printdata[j][i] = '█'
 
     print("\n".join([''.join(p) for p in printdata]))
 
