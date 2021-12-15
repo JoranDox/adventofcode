@@ -77,31 +77,17 @@ def doapass2(mymap, risks):
 
             risks[i][j] = val + min(up,left,down,right)
 
-result = 0
+prevrisks = mybigrisks2.copy()
 while True:
     doapass2(mybigmap2,mybigrisks2)
-    newresult = mybigrisks2[-1][-1]
-    if newresult != result:
-        print("intermediary result:", newresult)
-        result = newresult
+    result = mybigrisks2[-1][-1]
+    if (prevrisks - mybigrisks2).any():
+        print("intermediary result:", result)
+        prevrisks = mybigrisks2.copy()
     else:
-        print("maybe done?", result)
+        print("done", result)
+        break
         # not sure what the right exit condition is
         # break
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
