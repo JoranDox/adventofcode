@@ -3,7 +3,7 @@
 with open("day15input.txt") as f:
     data = f.read().strip()
 
-alot = 100000000
+alot = 10000
 mymap = [[(int(d),alot) for d in line] for line in data.splitlines()]
 
 def doapass(mymap):
@@ -55,8 +55,8 @@ mybigmap2 = np.concatenate([
 
 mybigrisks2 = np.zeros(mybigmap2.shape) +alot
 mybigrisks2[0][0] = 0
-[print(line) for line in mybigrisks2]
-print(mybigrisks2.shape)
+# [print(line) for line in mybigrisks2]
+# print(mybigrisks2.shape)
 
 
 def doapass2(mymap, risks):
@@ -78,11 +78,13 @@ def doapass2(mymap, risks):
             risks[i][j] = val + min(up,left,down,right)
 
 prevrisks = mybigrisks2.copy()
+steps = 0
 while True:
+    steps += 1
     doapass2(mybigmap2,mybigrisks2)
     result = mybigrisks2[-1][-1]
     if (prevrisks - mybigrisks2).any():
-        print("intermediary result:", result)
+        print(f"intermediary result after {steps} steps: {result}")
         prevrisks = mybigrisks2.copy()
     else:
         print("done", result)
@@ -90,4 +92,3 @@ while True:
         # not sure what the right exit condition is
         # break
 
- 
