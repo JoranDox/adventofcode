@@ -3,10 +3,12 @@
 
 from collections import defaultdict
 
-
+# example imput
 start = (4,8)
-# realstart
+# my input
 start = (10,9)
+# thorvaldstart
+start = (4,6)
 
 def highmod(num,add,mod):
     return ((num + add - 1) % mod + 1)
@@ -19,18 +21,6 @@ class Die():
         s = self.state
         self.state = highmod(self.state,1,100)
         return s
-
-# dtest = Die()
-# print(dtest.roll())
-# print(dtest.roll())
-# print(dtest.roll())
-# for i in range(95):
-#     dtest.roll()
-# print(dtest.roll())
-# print(dtest.roll())
-# print(dtest.roll())
-# print(dtest.roll())
-# print(dtest.roll())
 
 d1 = Die()
 
@@ -64,8 +54,8 @@ wins = [0,0]
 
 turnplayer = 0
 nonwinning = True
-# while any(p < 21 for p in scores.values()):
 rounds = 0
+steps = 0
 while nonwinning:
     rounds += 1
     print(rounds)
@@ -74,6 +64,7 @@ while nonwinning:
 
     # for (loc,score),universes in scores.items():
     for (p1pos,p1score,p2pos,p2score),universes in scores.items():
+        steps += 1
         # print("u before", p1pos,p1score,p2pos,p2score,universes)
         if not turnplayer:
             # print("p1")
@@ -123,4 +114,4 @@ while nonwinning:
     # if rounds > 3:
     #     break
     
-print(wins,max(*wins))
+print(steps,wins,max(*wins))
