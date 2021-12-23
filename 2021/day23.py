@@ -78,7 +78,7 @@ def getneighbours(loc):
         (x-1,y),
     }
 
-def getvalidmoves(world, startloc,others):
+def getvalidmoves(world, startloc, others):
     tocheck = {(startloc,())}
     validmoves = set()
     while tocheck:
@@ -106,7 +106,7 @@ def getvalidmoves(world, startloc,others):
                     validmoves.add((neighbour))
                 tocheck.add((neighbour, (*path, l)))
             else:
-                print("oh no!")
+                print("oh no!", startloc, neighbour)
     return validmoves
 
 if part1:
@@ -152,7 +152,15 @@ progression = {
 }
 
 firstmovevalid = {(x,1) for x in range(12)}
-secondmovevalid = {(x,2) for x in range(12)} | {(x,3) for x in range(12)}
+if part1:
+    secondmovevalid = {(x,2) for x in range(12)} | {(x,3) for x in range(12)}
+else:
+    secondmovevalid = (
+          {(x,2) for x in range(12)}
+        | {(x,3) for x in range(12)}
+        | {(x,4) for x in range(12)}
+        | {(x,5) for x in range(12)}
+    )
 
 def distance(l1,l2):
     x1,y1 = l1
@@ -217,11 +225,28 @@ if part1:
 else:
     costbounds = 60000
 
+print(fishes)
+# {('C', (9, 4)), ('A', (9, 5)), ('A', (3, 5)), ('A', (9, 3)), ('D', (3, 4)), ('C', (7, 5)), ('D', (9, 2)), ('D', (5, 5)), ('B', (7, 3)), ('A', (7, 4)), ('C', (5, 2)), ('B', (7, 2)), ('B', (5, 4)), ('D', (3, 3)), ('B', (3, 2)), ('C', (5, 3))}
+print(getvalidmoves(
+    genworld(myinput),
+    (9,3),
+    {loc for letter,loc in fishes} - {(9, 3)}
+))
+print(getvalidmoves(
+    genworld(myinput),
+    (9,2),
+    {loc for letter,loc in fishes} - {(9, 2)}
+))
+
+statecache = {
+    tuple(sorted(fishes)):(0,())
+}
 
 steps = 0
 # while tocheck:
 @lru_cache(maxsize=None)
-def check(cost, fishes):
+def check(cost,fishes):
+    # cost = statecache[fishes]
     global steps
     global prevcost
     global prevclose
@@ -260,13 +285,13 @@ def check(cost, fishes):
                 comp = secondmovevalid & endlocs[letter]
 
                 okay = True
-                for fish, floc in (fishes - {(letter,loc)}):
+                for fishletter, floc in (fishes - {(letter,loc)}):
                     if (
                         # the fish we're comparing to is in the endlocs of the letter we're looking at
                         floc in endlocs[letter]
                         and
                         # the fish we're comparing to is the wrong letter
-                        progression[letter] != fish
+                        progression[letter] != fishletter
                     ):
                         # wrong fish inside
                         okay = False
@@ -280,10 +305,14 @@ def check(cost, fishes):
 
                 d = distance(loc,move) * costs[letter.upper()]
                 newfishes = fishes - {(letter,loc)} | {(progression[letter],move)}
-
+                newfishes = tuple(sorted(newfishes))
                 assert len(newfishes) == len(startlocs)
-
-                r = check(cost + d, tuple(newfishes))
+                # if newfishes not in statecache:
+                #     statecache[newfishes] = cost + d
+                # else:
+                #     if statecache[newfishes] <= cost + d:
+                #         continue # worse way to end up in this state
+                r = check(cost+d,newfishes)
                 if r:
                     rcost, rpath = r
                     attempts.append((rcost,((letter,loc,move), *rpath)))
@@ -298,5 +327,5 @@ def check(cost, fishes):
 
         return mc,mf
 
-print(check(0,tuple(fishes)))
-print(steps)
+print(check(0,tuple(sorted(fishes))))
+# print(steps)
