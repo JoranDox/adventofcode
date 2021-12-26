@@ -1,0 +1,353 @@
+                w = 0
+                x = 0
+                y = 0
+                z = 0
+
+inp w           w = inp[0]
+    mul x 0
+    add x z
+    mod x 26
+    div z 1
+add x 10        x = 10
+eql x w         never -> x = 0
+eql x 0         always -> x = 1
+mul y 0         y = 0
+add y 25        y = 25
+mul y x         y = 25
+add y 1         y = 25
+mul z y         z = 0 * something
+mul y 0         y = 0
+add y w         y = inp[0]
+add y 12        y = w + 12
+mul y x         y = (w + 12) * 1
+add z y         z = (inp[0] + 12)
+
+inp w           w = inp[1]
+mul x 0         x = 0
+add x z         x = z = (inp[0] + 12)
+mod x 26        x = (inp[0] + 12) % 26
+    div z 1
+add x 10        x = (inp[0] + 22)
+eql x w         x == (inp[0] + 22) == inp[1] = impossible -> x = 0
+eql x 0         x = 1
+mul y 0         y = 0
+add y 25        y = 25
+mul y x         y = 25
+add y 1         y = 26
+mul z y         z = (inp[0] + 12) * 26
+mul y 0         y = 0
+add y w         y = inp[1]
+add y 10        y = inp[1] + 10
+mul y x         y = inp[1] + 10
+add z y         z = ((inp[0] + 12) * 26) + inp[1] + 10
+
+inp w           w = inp[2]
+mul x 0         x = 0
+add x z         x = z = ((inp[0] + 12) * 26) + inp[1] + 10
+mod x 26        x = inp[1] + 10
+    div z 1         
+add x 12        x = inp[1] + 22
+eql x w         x == w = impossible -> x = 0
+eql x 0         x = 1
+mul y 0         y = 0
+add y 25        y = 25
+mul y x         y = 25
+add y 1         y = 26
+mul z y         z = (((inp[0] + 12) * 26) + inp[1] + 10) * 26
+mul y 0         y = 0
+add y w         y = inp[2]
+add y 8         y = inp[2] + 8
+mul y x         y = inp[2] + 8
+add z y         z = (((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8
+
+inp w           w = inp[3]
+mul x 0         x = 0
+add x z         x = (((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8
+mod x 26        x = inp[2] + 8
+    div z 1
+add x 11        x = big
+eql x w         x = 0
+eql x 0         x = 1
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y         z * 26
+mul y 0
+add y w
+add y 4         y = inp[3] + 4
+mul y x
+add z y         z = ((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4
+
+inp w           w = inp[4]
+mul x 0
+add x z
+mod x 26        x = inp[3] + 4
+div z 26
+add x 0
+eql x w         assert inp[3] + 4 == inp[4]
+assert inp[3] + 4 == inp[4]
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 3
+mul y x
+add z y         z = (((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8
+
+inp w           w = inp[5]
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 15
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 10
+mul y x
+add z y         z = ((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + 3) * 26 + 10
+
+inp w           w = inp[6]
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 13
+eql x w
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 6
+mul y x
+add z y         z = (((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10) * 26 + inp[6] + 6
+
+inp w           w = inp[7]
+mul x 0         x = 0
+add x z         x = z * 26
+mod x 26        x = inp[6] + 6
+div z 26        z = (((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10)
+add x -12       x = inp[6] - 6
+eql x w         x = 1 if inp[6] - 6 == inp[7] else 0
+eql x 0         x = 0 if inp[6] - 6 == inp[7] else 1
+mul y 0         y = 0
+add y 25        y = 25
+mul y x         y = 0 if inp[6] - 6 == inp[7] else 25
+add y 1         y = 1 if inp[6] - 6 == inp[7] else 26
+mul z y         z = (
+                    (((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10)
+                    if inp[6] - 6 == inp[7] else 
+                    (((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10) * 26
+                )
+mul y 0         y = 0
+add y w         y = inp[7]
+add y 13        y = inp[7] + 13
+mul y x         y = 0 if inp[6] - 6 == inp[7] else inp[7] + 13
+add z y         z = (
+                    (((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10)
+                    if inp[6] - 6 == inp[7] else 
+                    (((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10) * 26 + inp[7] + 13
+                )
+                # to get to 0 we need to go lower -> 
+            z = (((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10)
+            assert inp[6] - 6 == inp[7]
+
+inp w           w = inp[8]
+mul x 0         x = 0
+add x z         x = (
+                    (((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10)
+                    if inp[6] - 6 == inp[7] else 
+                    (((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10) * 26 + inp[7] + 13
+                )
+mod x 26        x = (
+                    inp[5] + 10
+                    if inp[6] - 6 == inp[7] else 
+                    inp[7] + 13
+                )
+div z 26        z = (
+                    (((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3
+                    if inp[6] - 6 == inp[7] else 
+                    ((((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3) * 26 + inp[5] + 10
+                )
+add x -15       x = (
+                    inp[5] -5
+                    if inp[6] - 6 == inp[7] else 
+                    inp[7] -15
+                )
+eql x w         
+eql x 0         x = (
+                    (
+                        0
+                        if inp[5] - 5 == inp[8] else
+                        1
+                    )
+                    if inp[6] - 6 == inp[7] else 
+                    (
+                        0
+                        if inp[7] - 15 == inp[8] else
+                        1
+                    )
+                )
+mul y 0         y = 0
+add y 25        y = 25
+mul y x
+add y 1         y = (
+                    (
+                        1
+                        if inp[5] - 5 == inp[8] else
+                        26
+                    )
+                    if inp[6] - 6 == inp[7] else 
+                    (
+                        1
+                        if inp[7] - 15 == inp[8] else
+                        26
+                    )
+                )
+            invoke assertions
+            assert inp[6] - 6 == inp[7]
+            y = 1
+            assert inp[5] - 5 == inp[8]
+            z = (((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3
+
+
+mul z y         z = (((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3
+mul y 0         
+add y w
+add y 8         y = inp[8] + 8
+mul y x         y = 0
+add z y         z = (((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[4] + 3
+
+        assertions
+            assert inp[6] - 6 == inp[7]
+            assert inp[5] - 5 == inp[8]
+
+inp w           w = inp[9]
+mul x 0         x = 0
+add x z         x = z
+mod x 26        x = inp[4] + 3
+div z 26        z = (((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4)
+add x -15       x = inp[4] - 12
+eql x w         x = impossible? = 0
+eql x 0         x = 1
+        assertions
+            assert inp[6] - 6 == inp[7]
+            assert inp[5] - 5 == inp[8]
+            not assert inp[4] - 12 == inp[9] ???
+mul y 0         y = 0
+add y 25        y = 25
+mul y x         y = 25
+add y 1         y = 26
+mul z y         z = (((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26
+mul y 0         y = 0
+add y w         y = inp[9]
+add y 1         y = inp[9] + 1
+mul y x         y = inp[9] + 1
+add z y         z = (((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[9] + 1
+
+inp w           w = inp[10]
+mul x 0         x = 0
+add x z         
+mod x 26        x = inp[9] + 1
+div z 26        z = ((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4
+add x -4        x = inp[9] - 3
+eql x w         x = inp[9] - 3 == inp[10] = 1
+        assertions
+            assert inp[6] - 6 == inp[7]
+            assert inp[5] - 5 == inp[8]
+            assert inp[9] - 3 == inp[10]
+
+eql x 0         x = 0
+mul y 0         
+add y 25        y = 25
+mul y x         y = 0
+add y 1         y = 1
+mul z y         z = z
+mul y 0         y = 0
+add y w         
+add y 7         
+mul y x         y = 0
+add z y         z = z = ((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4
+
+inp w           w = inp[11]
+mul x 0
+add x z
+mod x 26
+div z 1
+add x 10
+eql x w         x = 0
+eql x 0         x = 1
+mul y 0         y = 0
+add y 25        y = 25
+mul y x         y = 25
+add y 1         y = 26
+mul z y         z = (((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26
+mul y 0         
+add y w
+add y 6         y = inp[11] + 6
+mul y x         y = inp[11] + 6
+add z y         z = (((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4) * 26 + inp[11] + 6
+
+inp w           w = inp[12]
+mul x 0
+add x z
+mod x 26        x = inp[11] + 6
+div z 26        z = ((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4
+add x -5        x = inp[11] + 1
+eql x w         x = 1
+        assertions
+            assert inp[6] - 6 == inp[7]
+            assert inp[5] - 5 == inp[8]
+            assert inp[9] - 3 == inp[10]
+            assert inp[11] + 1 == inp[12]
+eql x 0         x = 0
+mul y 0
+add y 25
+mul y x
+add y 1         
+mul z y         z = z
+mul y 0
+add y w
+add y 9
+mul y x
+add z y         z = ((((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8) * 26 + inp[3] + 4
+
+inp w           w = inp[13]
+mul x 0
+add x z
+mod x 26        x = inp[3] + 4
+div z 26        z = (((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8
+add x -12       x = inp[3] - 8
+eql x w         x = 0
+assertions
+            assert inp[6] - 6 == inp[7]
+            assert inp[5] - 5 == inp[8]
+            assert inp[9] - 3 == inp[10]
+            assert inp[11] + 1 == inp[12]
+            assert inp[3] - 8 == inp[13]
+eql x 0
+mul y 0
+add y 25
+mul y x
+add y 1
+mul z y
+mul y 0
+add y w
+add y 9
+mul y x
+add z y         z = (((inp[0] + 12) * 26) + inp[1] + 10) * 26 + inp[2] + 8
