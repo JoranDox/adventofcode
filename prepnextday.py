@@ -1,6 +1,29 @@
 import os
 
-prefix = "adventofcode"
+try:
+    import inspect
+    import pathlib
+
+    def realpath(inpath):
+        return pathlib.Path(inpath).resolve().absolute()
+
+    def get_script_dir():
+        """
+        uses inspect to get the calling script (assumes the calling script is the last one in the stack trace)
+        then uses pathlib to get the parent directory of the calling script
+        then returns the absolute path of that directory
+        """
+
+        return realpath(inspect.stack()[-1].filename).parent
+
+    prefix = get_script_dir()
+    print("script dir:", prefix)
+
+except:
+    # if something goes wrong there, just ignore and fallback
+    print("failure in getting script dir")
+    prefix = "adventofcode"
+
 currentyear = 2022
 prefixpath = os.path.join(prefix, str(currentyear))
 existing = (os.listdir(prefixpath))
@@ -16,7 +39,7 @@ with open("{basename}inputtest.txt") as f:
     data = f.read().strip()
 
 for line in data.splitlines():
-#for line in data.split("\n\n"):
+#for line in data.split("\\n\\n"):
 
 
 """)
