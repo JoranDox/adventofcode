@@ -26,8 +26,7 @@ CS3 -- XR1 --> W6
 score = 0
 for line in data.splitlines():
     elf,me = line.split()
-    # s1,s2 = rps[me], (((rps[me]-rps[elf])+1%3))*3
-    s1,s2 = rps[me], ((((rps[me]-rps[elf])+1)%3))*3
+    s1,s2 = rps[me], (((rps[me]-rps[elf])+1)%3)*3
 
 
     score += s1 + s2
