@@ -56,7 +56,7 @@ for line in data.splitlines():
     # => me = outcome + elf
     # 1-indexed -> +1 outside of the %
     s1 = (rps2[outcome] + rps2[elf]) %3 + 1
-    print(s1,s2,elf,outcome)
+    # print(s1,s2,elf,outcome)
     score2 += s1 + s2
-    print(score2)
+print("p2:",score2)
 
