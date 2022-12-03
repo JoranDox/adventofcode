@@ -1,10 +1,13 @@
 import string
-# with open("day03inputtest.txt") as f:
-with open("day03input.txt") as f:
+import os
+
+path = os.path.abspath(__file__)
+
+# with open(path.replace(".py", "inputtest.txt")) as f:
+with open(path.replace(".py", "input.txt")) as f:
     data = f.read().strip()
 
-print(string.ascii_letters)
-
+# print(string.ascii_letters)
 
 def prio(item):
     return string.ascii_letters.index(item) +1
@@ -37,6 +40,6 @@ while splitted:
         & set(curr3[1])
         & set(curr3[2])
     )
-    print(intersect)
+    # print(intersect)
     accum2 += prio(list(intersect)[0])
-    print(accum2)
+print("p2:", accum2)
