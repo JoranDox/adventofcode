@@ -28,12 +28,12 @@ for c, val in enumerate(queue):
         crt.append(" ")
 
     x += val
+    cyclenum = c+2
+    if not((cyclenum - 20)% 40):
+        # print(cyclenum, "    ", x)
+        accum += ((cyclenum) * x)
 
-    if not((c - 18 )% 40):
-        # print(c, "    ", x)
-        accum += ((c+2) * x)
-
-    # print(c+2, val, x, )
+    # print(cyclenum, val, x, )
 
 print("p1:", accum)
 
