@@ -102,7 +102,6 @@ for line in data.splitlines():
             difdir = tmoves[diff]
             # print(difdir)
             newtpos = vsum(tpos[-1], difdir)
-            assert (max(diff) < 2) or (vsum(tpos[-1], difdir) == pos[-2]), (tpos[-1], diff, difdir, pos[-2:], newtpos)
 
             if tpos[-1] != newtpos:
                 tpos.append(newtpos)
