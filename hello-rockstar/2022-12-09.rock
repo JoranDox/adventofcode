@@ -1,0 +1,194 @@
+(Space, advent of code 2022 day 9)
+
+(init space as " " ascii 32)
+Space is all encompassing
+Whisper it
+Cast it into space
+Whisper it
+
+(R 82 L 76 D 68 U 85)
+(init right as "R" ascii 82)
+Goright is smashing aa
+Whisper it
+Cast it into Goright
+Whisper it
+
+(init mars = left as "L" ascii 76)
+Goleft is (a) crimson sphere (todo Planet Mars)
+Whisper it
+Cast it into Goleft
+Whisper it
+
+(init down as "D" ascii 68)
+Godown is aaaaaa bbbbbbbb
+Whisper it
+Cast it into Godown
+Whisper it
+
+(init up as "U" ascii 85)
+Goup is breaking space
+Whisper it
+Cast it into Goup
+Whisper it
+
+Feeling is stretching (0)
+
+A wreath is entangled (9)
+Build it up! (10)
+While a wreath isn't nothing
+    Rock the rope with feeling (0)
+    Rock the rope with feeling (0)
+    Knock a wreath down
+    (endwhile)
+
+(ignore the rope for part one)
+
+Let hx be 0
+Let hy be 0
+Let tx be 0
+Let ty be 0
+
+Whisper the rope
+Scream "Let's go!"
+
+Rock the path
+
+(loop over input)
+Listen to your mind (todo rename)
+While your mind isn't mysterious (while input)
+    Shout it
+    Shatter your mind with space
+    Say "line len after split: '" + your mind + "'"
+    Roll your mind into your heart (your heart = direction)
+    Say "direction: '" + your heart + "'"
+    Roll your mind into your mind (your mind = amount)
+    Say "amount: '" + your mind + "'"
+    Say hx
+    Say hy
+    Say tx
+    Say ty
+    While your mind ain't nothing (for _ in range your mind)
+        say your mind
+        Knock your mind down
+        If your heart is Goup
+            Whisper "up"
+            Knock hy down (inverted for my python equivalent)
+            (endif)
+        If your heart is Godown
+            Whisper "down"
+            Build hy up (inverted for my python equivalent)
+            (endif)
+        If your heart is Goright
+            Whisper "right"
+            Build hx up
+            (endif)
+        If your heart is Goleft
+            Whisper "left"
+            Knock hx down
+            (endif)
+        Let dx be hx - tx
+        Let dy be hy - ty
+        Say "head " + hx + " " + hy
+        Say "t    " + tx + " " + ty
+        Say "d    " + dx + " " + dy
+        Let mx be "test"
+        Let movey be "test"
+        If dx is greater than 1
+            Say "dx = 2"
+            Let mx be 1
+            (endif)
+        If dx is less than -1
+            Say ":dx = -2"
+            Let mx be 0 - 1
+            (endif)
+        If dx is 0
+            Say ":dx = 0"
+            Let mx be 0
+            (endif)
+        If dx is -1 or dx is 1
+            Say ":|dx| = 1"
+            if dy is -2 or dy is 2
+                Say "  |dy| = 2"
+                Let mx be dx
+                (endif)
+            if dy is 1 or dy is 0 or dy is -1
+                Say "  |dy| < 2"
+                Let mx be 0
+                (endif)
+            (endif)
+        If dy is greater than 1
+            Say ":dy = 2"
+            Let movey be 1
+            (endif)
+        If dy is less than -1
+            Say ":dy = -2"
+            Let movey be 0 - 1
+            (endif)
+        If dy is 0
+            Say ":dy = 0"
+            Let movey be 0
+            (endif)
+        If dy is -1 or dy is 1
+            Say ":|dy| = 1"
+            If dx is -2 or dx is 2
+                Say "  |dx| = 2"
+                Let movey be dy
+                (endif)
+            If dx is 1 or dx is 0 or dx is -1
+                Say "  |dx| < 2"
+                Let movey be 0
+                (endif)
+            (endif)
+        Say "m    " + mx + " " + movey
+        Let tx be with mx
+        Let ty be with movey
+        Say "newt " + tx + " " + ty
+        Rock the path with tx + " " + ty
+        Whisper "the path " + the path
+        (endwhile)
+    Listen to your mind (input another line or mysterious on EOF)
+    (endwhile)
+(try to find out how many uniques are in the path)
+Shout "uniqueness"
+(we're going to pop the path )
+Let i be 0
+While i is less than the path
+    Let k be 0
+    While k is less than the path
+        Let printable be the path at k
+        Shout printable
+        Build k up
+        ( end while )
+    Let comp be the path at 0
+    Shout "comp: '" + comp + "'"
+    Let j be 0
+    Let jend be the path with 0
+    While j is less than jend
+        Shout "j: " + j + " jend: " + jend
+        Roll the path into comptoo
+        If comptoo isn't comp
+            Rock the path with comptoo
+            Say "keeping:  " + comptoo
+            ( end if )
+        If comptoo is comp
+            Say "rejected: " + comptoo
+            ( end else )
+        Build j up
+        ( end while )
+    Say "end while"
+    Rock the path with comp
+    Build i up
+    ( end while )
+
+Let k be 0
+While k is less than the path
+    Let printable be the path at k
+    Shout printable
+    Build k up
+    ( end while )
+
+Shout "p1: " + the path
+
+    (Put the rope into the box) (swap the rope and Some New Rope)
+    (Put Some New Rope into the rope)
+    (Let Some New Rope be the box) (end swap)
