@@ -114,6 +114,7 @@ for line in data.splitlines():
         # print()
 
 
-print(len(set(posses[-1])))
+print("p1:",len(set(posses[1])))
+print("p2:",len(set(posses[-1])))
 
 # for line in data.split("\n\n"):
