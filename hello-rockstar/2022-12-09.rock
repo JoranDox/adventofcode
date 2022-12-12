@@ -71,7 +71,7 @@ While your mind isn't mysterious (while input)
     Let memes be tx
     Let memes be ty
     While your mind ain't nothing (for _ in range your mind)
-        say your mind
+        Say your mind
         Knock your mind down
         If your heart is Goup
             Let memes be "up"
@@ -157,6 +157,5 @@ While your mind isn't mysterious (while input)
         (endwhile)
     Listen to your mind (input another line or mysterious on EOF)
     (endwhile)
-(try to find out how many uniques are in the path)
-Shout "p1: " + the uniquenesslist
 
+Shout "p1: " + the uniquenesslist
