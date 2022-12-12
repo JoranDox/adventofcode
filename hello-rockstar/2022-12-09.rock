@@ -1,5 +1,6 @@
 (Space, advent of code 2022 day 9)
 
+Dreams is nothing
 (init space as " " ascii 32)
 Space is all encompassing
 Whisper it
@@ -52,131 +53,135 @@ Whisper the rope
 Scream "Let's go!"
 
 Rock the path
+Rock the uniqueness
+Rock the uniquenesslist
 
 (loop over input)
 Listen to your mind (todo rename)
 While your mind isn't mysterious (while input)
     Shout it
     Shatter your mind with space
-    Say "line len after split: '" + your mind + "'"
+    Let memes be "line len after split: '" + your mind + "'"
     Roll your mind into your heart (your heart = direction)
-    Say "direction: '" + your heart + "'"
+    Let memes be "direction: '" + your heart + "'"
     Roll your mind into your mind (your mind = amount)
-    Say "amount: '" + your mind + "'"
-    Say hx
-    Say hy
-    Say tx
-    Say ty
+    Let memes be "amount: '" + your mind + "'"
+    Let memes be hx
+    Let memes be hy
+    Let memes be tx
+    Let memes be ty
     While your mind ain't nothing (for _ in range your mind)
         say your mind
         Knock your mind down
         If your heart is Goup
-            Whisper "up"
+            Let memes be "up"
             Knock hy down (inverted for my python equivalent)
             (endif)
         If your heart is Godown
-            Whisper "down"
+            Let memes be "down"
             Build hy up (inverted for my python equivalent)
             (endif)
         If your heart is Goright
-            Whisper "right"
+            Let memes be "right"
             Build hx up
             (endif)
         If your heart is Goleft
-            Whisper "left"
+            Let memes be "left"
             Knock hx down
             (endif)
         Let dx be hx - tx
         Let dy be hy - ty
-        Say "head " + hx + " " + hy
-        Say "t    " + tx + " " + ty
-        Say "d    " + dx + " " + dy
+        Let memes be "head " + hx + " " + hy
+        Let memes be "t    " + tx + " " + ty
+        Let memes be "d    " + dx + " " + dy
         Let mx be "test"
         Let movey be "test"
         If dx is greater than 1
-            Say "dx = 2"
+            Let memes be "dx = 2"
             Let mx be 1
             (endif)
         If dx is less than -1
-            Say ":dx = -2"
+            Let memes be ":dx = -2"
             Let mx be 0 - 1
             (endif)
         If dx is 0
-            Say ":dx = 0"
+            Let memes be ":dx = 0"
             Let mx be 0
             (endif)
         If dx is -1 or dx is 1
-            Say ":|dx| = 1"
+            Let memes be ":|dx| = 1"
             if dy is -2 or dy is 2
-                Say "  |dy| = 2"
+                Let memes be "  |dy| = 2"
                 Let mx be dx
                 (endif)
             if dy is 1 or dy is 0 or dy is -1
-                Say "  |dy| < 2"
+                Let memes be "  |dy| < 2"
                 Let mx be 0
                 (endif)
             (endif)
         If dy is greater than 1
-            Say ":dy = 2"
+            Let memes be ":dy = 2"
             Let movey be 1
             (endif)
         If dy is less than -1
-            Say ":dy = -2"
+            Let memes be ":dy = -2"
             Let movey be 0 - 1
             (endif)
         If dy is 0
-            Say ":dy = 0"
+            Let memes be ":dy = 0"
             Let movey be 0
             (endif)
         If dy is -1 or dy is 1
-            Say ":|dy| = 1"
+            Let memes be ":|dy| = 1"
             If dx is -2 or dx is 2
-                Say "  |dx| = 2"
+                Let memes be "  |dx| = 2"
                 Let movey be dy
                 (endif)
             If dx is 1 or dx is 0 or dx is -1
-                Say "  |dx| < 2"
+                Let memes be "  |dx| < 2"
                 Let movey be 0
                 (endif)
             (endif)
-        Say "m    " + mx + " " + movey
+        Let memes be "m    " + mx + " " + movey
         Let tx be with mx
         Let ty be with movey
-        Say "newt " + tx + " " + ty
-        Rock the path with tx + " " + ty
-        Whisper "the path " + the path
+        Let newtstr be "'x: " + tx + " ,y: " + ty + "'"
+        Let memes be "newt " + newtstr
+        Rock the path with newtstr (append newtstr to path)
+        If mysterious is the uniqueness at newtstr
+            Rock the uniquenesslist with newtstr (push to back of uniqueness array)
+            Let the uniqueness at newtstr be newtstr (push to uniqueness dict as itself)
+            Say "unique locs: " + the uniquenesslist
+            (endif)
+        Let memes be "the path " + the path
         (endwhile)
     Listen to your mind (input another line or mysterious on EOF)
     (endwhile)
 (try to find out how many uniques are in the path)
-Shout "uniqueness"
+Shout "num uniqueness: " + the uniquenesslist
+
+Let k be 0
+While k is less than the uniqueness
+    Shout the uniquenesslist at k
+    Build k up
+    ( end while )
+
+
 (we're going to pop the path )
 Let i be 0
 While i is less than the path
-    Let k be 0
-    While k is less than the path
-        Let printable be the path at k
-        Shout printable
-        Build k up
-        ( end while )
     Let comp be the path at 0
-    Shout "comp: '" + comp + "'"
     Let j be 0
     Let jend be the path with 0
     While j is less than jend
-        Shout "j: " + j + " jend: " + jend
         Roll the path into comptoo
         If comptoo isn't comp
             Rock the path with comptoo
-            Say "keeping:  " + comptoo
             ( end if )
-        If comptoo is comp
-            Say "rejected: " + comptoo
-            ( end else )
         Build j up
         ( end while )
-    Say "end while"
     Rock the path with comp
+    Say i + "/" + the path
     Build i up
     ( end while )
 
