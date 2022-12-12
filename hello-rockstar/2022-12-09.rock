@@ -110,11 +110,11 @@ While your mind isn't mysterious (while input)
             (endif)
         If dx is -1 or dx is 1
             Let memes be ":|dx| = 1"
-            if dy is -2 or dy is 2
+            If dy is -2 or dy is 2
                 Let memes be "  |dy| = 2"
                 Let mx be dx
                 (endif)
-            if dy is 1 or dy is 0 or dy is -1
+            If dy is 1 or dy is 0 or dy is -1
                 Let memes be "  |dy| < 2"
                 Let mx be 0
                 (endif)
@@ -158,42 +158,5 @@ While your mind isn't mysterious (while input)
     Listen to your mind (input another line or mysterious on EOF)
     (endwhile)
 (try to find out how many uniques are in the path)
-Shout "num uniqueness: " + the uniquenesslist
+Shout "p1: " + the uniquenesslist
 
-Let k be 0
-While k is less than the uniqueness
-    Shout the uniquenesslist at k
-    Build k up
-    ( end while )
-
-
-(we're going to pop the path )
-Let i be 0
-While i is less than the path
-    Let comp be the path at 0
-    Let j be 0
-    Let jend be the path with 0
-    While j is less than jend
-        Roll the path into comptoo
-        If comptoo isn't comp
-            Rock the path with comptoo
-            ( end if )
-        Build j up
-        ( end while )
-    Rock the path with comp
-    Say i + "/" + the path
-    Build i up
-    ( end while )
-
-Let k be 0
-While k is less than the path
-    Let printable be the path at k
-    Shout printable
-    Build k up
-    ( end while )
-
-Shout "p1: " + the path
-
-    (Put the rope into the box) (swap the rope and Some New Rope)
-    (Put Some New Rope into the rope)
-    (Let Some New Rope be the box) (end swap)
