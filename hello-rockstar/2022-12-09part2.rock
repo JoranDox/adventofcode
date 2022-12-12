@@ -1,0 +1,178 @@
+(Space, advent of code 2022 day 9)
+
+Dreams is nothing
+Tangled is entangled
+(init space as " " ascii 32)
+Space is all encompassing
+Whisper it
+Cast it into space
+Whisper it
+
+(R 82 L 76 D 68 U 85)
+(init right as "R" ascii 82)
+Goright is smashing aa
+Whisper it
+Cast it into Goright
+Whisper it
+
+(init mars = left as "L" ascii 76)
+Goleft is (a) crimson sphere (todo Planet Mars)
+Whisper it
+Cast it into Goleft
+Whisper it
+
+(init down as "D" ascii 68)
+Godown is aaaaaa bbbbbbbb
+Whisper it
+Cast it into Godown
+Whisper it
+
+(init up as "U" ascii 85)
+Goup is breaking space
+Whisper it
+Cast it into Goup
+Whisper it
+
+Feeling is stretching (0)
+
+A wreath is entangled (9)
+Build it up! (10)
+While a wreath isn't nothing
+    Rock the rope with feeling (0)
+    Rock the rope with feeling (0)
+    Knock a wreath down
+    (endwhile)
+
+(ignore the rope for part one)
+
+Whisper the rope
+Scream "Let's go!"
+
+(some empty arrays)
+Rock the path
+Rock a rope
+Rock the uniqueness
+Rock the uniquenessten
+Rock the uniquenesslist
+Rock the uniquenesslistten
+
+(loop over input)
+Listen to your mind (todo rename)
+While your mind isn't mysterious (while input)
+    Shout it
+    Shatter your mind with space
+    Let memes be "line len after split: '" + your mind + "'"
+    Roll your mind into your heart (your heart = direction)
+    Let memes be "direction: '" + your heart + "'"
+    Roll your mind into your mind (your mind = amount)
+    Let memes be "amount: '" + your mind + "'"
+    Let memes be hx
+    Let memes be hy
+    Let memes be tx
+    Let memes be ty
+    While your mind ain't nothing (for _ in range your mind)
+        Say your mind
+        Knock your mind down
+        Roll the rope into hx
+        Roll the rope into hy
+        While the rope ain't nothing (for _ in the rope)
+            Roll the rope into tx
+            Roll the rope into ty
+            If the rope is tangled (9, we're at head) (TODO or 8?)
+                If your heart is Goup
+                    Whisper "up"
+                    Knock hy down (inverted for my python equivalent)
+                    (endif)
+                If your heart is Godown
+                    Whisper "down"
+                    Build hy up (inverted for my python equivalent)
+                    (endif)
+                If your heart is Goright
+                    Whisper "right"
+                    Build hx up
+                    (endif)
+                If your heart is Goleft
+                    Whisper "left"
+                    Knock hx down
+                    (endif)
+                (endif)
+            Let dx be hx - tx
+            Let dy be hy - ty
+            Say "head " + hx + " " + hy
+            Say "t    " + tx + " " + ty
+            Say "d    " + dx + " " + dy
+            Let mx be "test"
+            Let movey be "test"
+            If dx is greater than 1
+                Say "dx = 2"
+                Let mx be 1
+                (endif)
+            If dx is less than -1
+                Say ":dx = -2"
+                Let mx be 0 - 1
+                (endif)
+            If dx is 0
+                Say ":dx = 0"
+                Let mx be 0
+                (endif)
+            If dx is -1 or dx is 1
+                Say ":|dx| = 1"
+                if dy is -2 or dy is 2
+                    Say "  |dy| = 2"
+                    Let mx be dx
+                    (endif)
+                if dy is 1 or dy is 0 or dy is -1
+                    Say "  |dy| < 2"
+                    Let mx be 0
+                    (endif)
+                (endif)
+            If dy is greater than 1
+                Say ":dy = 2"
+                Let movey be 1
+                (endif)
+            If dy is less than -1
+                Say ":dy = -2"
+                Let movey be 0 - 1
+                (endif)
+            If dy is 0
+                Say ":dy = 0"
+                Let movey be 0
+                (endif)
+            If dy is -1 or dy is 1
+                Say ":|dy| = 1"
+                If dx is -2 or dx is 2
+                    Say "  |dx| = 2"
+                    Let movey be dy
+                    (endif)
+                If dx is 1 or dx is 0 or dx is -1
+                    Say "  |dx| < 2"
+                    Let movey be 0
+                    (endif)
+                (endif)
+            Say "m    " + mx + " " + movey
+            Let tx be with mx
+            Let ty be with movey
+            Let newtstr be tx + " " + ty
+            Say "newt " + newtstr
+            Rock the path with newtstr (append newtstr to path)
+            If mysterious is the uniqueness at newtstr
+                Rock the uniquenesslist with newtstr (push to back of uniqueness array)
+                Let the uniqueness at newtstr be newtstr (push to uniqueness dict as itself)
+                Say "unique locs: " + the uniquenesslist
+                (endif)
+            Rock a rope with hx
+            Rock a rope with hy (TODO: swap h and t)
+            Let hx be tx
+            Let hy be ty
+            (endwhile the rope ain't nothing)
+        Rock a rope with tx
+        Rock a rope with ty
+        Put the rope into the box (swap the rope and a Rope) (temp = the)
+        Put a rope into the rope (the = a)
+        Let a rope be the box (end swap) (a = temp)
+        (endwhile your mind ain't nothing)
+    Listen to your mind (input another line or mysterious on EOF)
+    (endwhile)
+
+Shout "p1: " + the uniquenesslist
+Shout "p2: " + the uniquenesslistten
