@@ -87,7 +87,7 @@ for k, v in tmoves.items():
     assert tmove(*k) == v, (k, v, tmove(*k))
 
 for line in data.splitlines():
-    # print(line)
+    print(line)
     direction, amount = line.split()
     for i in range(int(amount)):
         for hindex in range(len(posses) - 1):
@@ -103,8 +103,10 @@ for line in data.splitlines():
             # print(difdir)
             newtpos = vsum(tpos[-1], difdir)
 
-            if tpos[-1] != newtpos:
-                tpos.append(newtpos)
+            # if tpos[-1] != newtpos:
+            tpos.append(newtpos)
+            if hindex == 1:
+                print(pos[-1], tpos[-2], "diff", diff, "move", difdir, "newt", newtpos)
             # print(tpos)
             # print()
         # [
@@ -115,6 +117,8 @@ for line in data.splitlines():
 
 
 print("p1:",len(set(posses[1])))
+# print(posses[0])
+# print(posses[1])
 print("p2:",len(set(posses[-1])))
+print("rockstar:",len(posses[1]))
 
-# for line in data.split("\n\n"):
