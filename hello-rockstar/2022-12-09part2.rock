@@ -1,7 +1,9 @@
 (Space, advent of code 2022 day 9)
 
 Dreams is nothing
-Tangled is entangled
+Tangled is a knotti (todo 16)
+Frayed is annoying (8 todo, useful somewhere?)
+
 (init space as " " ascii 32)
 Space is all encompassing
 Whisper it
@@ -66,102 +68,110 @@ While your mind isn't mysterious (while input)
     Let memes be "direction: '" + your heart + "'"
     Roll your mind into your mind (your mind = amount)
     Let memes be "amount: '" + your mind + "'"
-    Let memes be hx
-    Let memes be hy
-    Let memes be tx
-    Let memes be ty
     While your mind ain't nothing (for _ in range your mind)
-        Say your mind
+        Let memes be your mind
         Knock your mind down
         Roll the rope into hx
         Roll the rope into hy
         While the rope ain't nothing (for _ in the rope)
+            Let memes be "head at " + the path + " is " + hx + " " + hy
             Roll the rope into tx
             Roll the rope into ty
-            If the rope is tangled (9, we're at head) (TODO or 8?)
+            Let memes be "the rope len is " + the rope
+            If the rope with 0 is tangled (16, we're at head)
+                Let memes be "changing the head"
                 If your heart is Goup
-                    Whisper "up"
+                    Let memes be "up"
                     Knock hy down (inverted for my python equivalent)
                     (endif)
                 If your heart is Godown
-                    Whisper "down"
+                    Let memes be "down"
                     Build hy up (inverted for my python equivalent)
                     (endif)
                 If your heart is Goright
-                    Whisper "right"
+                    Let memes be "right"
                     Build hx up
                     (endif)
                 If your heart is Goleft
-                    Whisper "left"
+                    Let memes be "left"
                     Knock hx down
                     (endif)
                 (endif)
             Let dx be hx - tx
             Let dy be hy - ty
-            Say "head " + hx + " " + hy
-            Say "t    " + tx + " " + ty
-            Say "d    " + dx + " " + dy
+            Let memes be "head at " + the path + " is " + hx + " " + hy
+            Let memes be "t    " + tx + " " + ty
+            Let memes be "d    " + dx + " " + dy
             Let mx be "test"
             Let movey be "test"
             If dx is greater than 1
-                Say "dx = 2"
+                Let memes be "dx = 2"
                 Let mx be 1
                 (endif)
             If dx is less than -1
-                Say ":dx = -2"
+                Let memes be ":dx = -2"
                 Let mx be 0 - 1
                 (endif)
             If dx is 0
-                Say ":dx = 0"
+                Let memes be ":dx = 0"
                 Let mx be 0
                 (endif)
             If dx is -1 or dx is 1
-                Say ":|dx| = 1"
+                Let memes be ":|dx| = 1"
                 if dy is -2 or dy is 2
-                    Say "  |dy| = 2"
+                    Let memes be "  |dy| = 2"
                     Let mx be dx
                     (endif)
                 if dy is 1 or dy is 0 or dy is -1
-                    Say "  |dy| < 2"
+                    Let memes be "  |dy| < 2"
                     Let mx be 0
                     (endif)
                 (endif)
             If dy is greater than 1
-                Say ":dy = 2"
+                Let memes be ":dy = 2"
                 Let movey be 1
                 (endif)
             If dy is less than -1
-                Say ":dy = -2"
+                Let memes be ":dy = -2"
                 Let movey be 0 - 1
                 (endif)
             If dy is 0
-                Say ":dy = 0"
+                Let memes be ":dy = 0"
                 Let movey be 0
                 (endif)
             If dy is -1 or dy is 1
-                Say ":|dy| = 1"
+                Let memes be ":|dy| = 1"
                 If dx is -2 or dx is 2
-                    Say "  |dx| = 2"
+                    Let memes be "  |dx| = 2"
                     Let movey be dy
                     (endif)
                 If dx is 1 or dx is 0 or dx is -1
-                    Say "  |dx| < 2"
+                    Let memes be "  |dx| < 2"
                     Let movey be 0
                     (endif)
                 (endif)
-            Say "m    " + mx + " " + movey
+            Let memes be "m    " + mx + " " + movey
             Let tx be with mx
             Let ty be with movey
             Let newtstr be tx + " " + ty
-            Say "newt " + newtstr
+            Let memes be "newt at " + the path + " is " + newtstr
             Rock the path with newtstr (append newtstr to path)
-            If mysterious is the uniqueness at newtstr
-                Rock the uniquenesslist with newtstr (push to back of uniqueness array)
-                Let the uniqueness at newtstr be newtstr (push to uniqueness dict as itself)
-                Say "unique locs: " + the uniquenesslist
-                (endif)
+            If the rope with 0 is tangled
+                If mysterious is the uniqueness at newtstr
+                    Rock the uniquenesslist with newtstr (push to back of uniqueness array)
+                    Let the uniqueness at newtstr be newtstr (push to uniqueness dict as itself)
+                    Let memes be "unique locs: " + the uniquenesslist
+                    (endif)
+                (endif 9)
+            If the rope is nothing
+                If mysterious is the uniquenessten at newtstr
+                    Rock the uniquenesslistten with newtstr (push to back of uniqueness array)
+                    Let the uniquenessten at newtstr be newtstr (push to uniqueness dict as itself)
+                    Let memes be "unique locs 10: " + the uniquenesslistten
+                    (endif)
+                (endif 0)
             Rock a rope with hx
-            Rock a rope with hy (TODO: swap h and t)
+            Rock a rope with hy
             Let hx be tx
             Let hy be ty
             (endwhile the rope ain't nothing)
