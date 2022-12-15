@@ -91,7 +91,6 @@ def retoverlap(cmin,cmax,c1,c2):
         print("missing case:", cmin,cmax,c1,c2)
 
 
-
 def rowranges(rownum):
     m = []
     for (sx,sy),d in closest.items():
@@ -119,16 +118,6 @@ def rowranges(rownum):
     # print(m2)
     return m2
 
-
-
-
-    # return min(
-    #     [
-    #         sx - abs(sy - rownum) + d
-    #         for (sx,sy),d in closest.items()
-    #         if abs(sy - rownum) <= d
-    #     ]
-    # )
 
 def printmap():
     print("   ", end="")
@@ -172,15 +161,62 @@ def find(searchrange):
             assert i2 - i1 == 2
             return i1 + 1, y
 
+def sensoredge(sx,sy,d):
+    left = sx - d - 1, sy
+    right = sx + d + 1, sy
+    top = sx, sy - d - 1
+    bottom = sx, sy + d + 1
+    # print(left,right,top,bottom)
+    edges = set()
+    for i in range(d+2):
+        edges |= {
+            (left[0] + i, left[1] - i),
+            (left[0] + i, left[1] + i),
+            (right[0] - i, right[1] - i),
+            (right[0] - i, right[1] + i),
+        }
+    return edges
 
+print(sensoredge(0,0,2))
 
+def find2(searchrange):
+    edges = set()
+    for (sx,sy),d in closest.items():
+        edges |= sensoredge(sx,sy,d)
+    # print(len(edges))
+    for x,y in edges:
+        if 0 < x < searchrange and 0 < y < searchrange:
+            rr = rowranges(y)
+            if len(rr) > 1:
+                assert len(rr) == 2
+                (_, i1), (i2, _) = sorted(rr)
+                assert i2 - i1 == 2
+                return i1 + 1, y
+
+def find3(searchrange):
+    edges = set()
+    for (sx,sy),d in closest.items():
+        edges |= sensoredge(sx,sy,d)
+    # print(len(edges))
+    for x,y in edges:
+        if 0 < x < searchrange and 0 < y < searchrange and not inrange(x,y):
+            return x,y
+
+import time
+
+t0 = time.time()
 # p1 (naive & slow but fast enough for part 1)
 if maxd < 100:
-    counter = count(y=10)
+    row = 10
     printmap()
 else:
-    counter = count(y=2000000)
-print(counter)
+    row = 2000000
+rr = rowranges(row)[0]
+# print(rr)
+t1 = time.time()
+print(rr[1] - rr[0], t1 - t0)
+# counter = count(y=row)
+# print(counter)
 # 6078701
 
 # p2
@@ -190,8 +226,20 @@ if maxd < 100:
 else:
     searchrange = 4000000
 
+t0 = time.time()
 x,y = find(searchrange)
-print(x * 4000000 + y)
+t1 = time.time()
+print(x * 4000000 + y, t1 - t0)
 
-# p1 but better
+t0 = time.time()
+x,y = find2(searchrange)
+t1 = time.time()
+print(x * 4000000 + y, t1 - t0)
 
+t0 = time.time()
+x,y = find3(searchrange)
+t1 = time.time()
+print(x * 4000000 + y, t1 - t0)
+
+# 68843501
+#  4000000
