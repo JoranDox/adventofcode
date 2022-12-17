@@ -1,38 +1,43 @@
 (Space, advent of code 2022 day 9)
-
-Dreams is nothing
-Tangled is a knotti (todo 16)
-Frayed is annoying (8 todo, useful somewhere?)
+Tangled is a string (todo 16)
+Fancy is a fun word (whatever, placeholder)
+Minusone is everything
+Knock it down (-1)
+Let minustwo be minusone
+Knock it down (-2)
+shout minusone
+shout minustwo
+Plusone is experiments (11 = 1)
 
 (init space as " " ascii 32)
-Space is all encompassing
+Space is all encompassing (orbit?)
 Whisper it
 Cast it into space
 Whisper it
 
 (R 82 L 76 D 68 U 85)
 (init right as "R" ascii 82)
-Goright is smashing aa
+Goright is nebulous observations
 Whisper it
-Cast it into Goright
+Burn it
 Whisper it
 
-(init mars = left as "L" ascii 76)
-Goleft is (a) crimson sphere (todo Planet Mars)
+(init goleft = left as "L" ascii 76)
+Goleft is explosions between clouds
 Whisper it
-Cast it into Goleft
+Burn it
 Whisper it
 
 (init down as "D" ascii 68)
-Godown is aaaaaa bbbbbbbb
+Godown is (a) binary asteroid
 Whisper it
 Cast it into Godown
 Whisper it
 
 (init up as "U" ascii 85)
-Goup is breaking space
+Goup is expanded atoms
 Whisper it
-Cast it into Goup
+Burn it
 Whisper it
 
 Feeling is stretching (0)
@@ -48,20 +53,18 @@ While a wreath isn't nothing
 (ignore the rope for part one)
 
 Whisper the rope
-Scream "Let's go!"
+Whisper "Let's go!"
 
 (some empty arrays)
-Rock the path
 Rock a rope
-Rock the uniqueness
-Rock the uniquenessten
-Rock the uniquenesslist
-Rock the uniquenesslistten
+Rock a jacket
+Rock a hat
+uniquecounttwo is stretching
+uniquecountten is stretching
 
 (loop over input)
 Listen to your mind (todo rename)
-While your mind isn't mysterious (while input)
-    Shout it
+While your mind isn't mysterious (while input) (Shout it)
     Shatter your mind with space
     Let memes be "line len after split: '" + your mind + "'"
     Roll your mind into your heart (your heart = direction)
@@ -74,7 +77,6 @@ While your mind isn't mysterious (while input)
         Roll the rope into hx
         Roll the rope into hy
         While the rope ain't nothing (for _ in the rope)
-            Let memes be "head at " + the path + " is " + hx + " " + hy
             Roll the rope into tx
             Roll the rope into ty
             Let memes be "the rope len is " + the rope
@@ -99,18 +101,15 @@ While your mind isn't mysterious (while input)
                 (endif)
             Let dx be hx - tx
             Let dy be hy - ty
-            Let memes be "head at " + the path + " is " + hx + " " + hy
             Let memes be "t    " + tx + " " + ty
             Let memes be "d    " + dx + " " + dy
-            Let mx be "test"
-            Let movey be "test"
             If dx is greater than 1
                 Let memes be "dx = 2"
-                Let mx be 1
+                Let mx be Plusone
                 (endif)
             If dx is less than -1
                 Let memes be ":dx = -2"
-                Let mx be 0 - 1
+                Let mx be Minusone
                 (endif)
             If dx is 0
                 Let memes be ":dx = 0"
@@ -129,11 +128,11 @@ While your mind isn't mysterious (while input)
                 (endif)
             If dy is greater than 1
                 Let memes be ":dy = 2"
-                Let movey be 1
+                Let movey be Plusone
                 (endif)
             If dy is less than -1
                 Let memes be ":dy = -2"
-                Let movey be 0 - 1
+                Let movey be Minusone
                 (endif)
             If dy is 0
                 Let memes be ":dy = 0"
@@ -153,21 +152,23 @@ While your mind isn't mysterious (while input)
             Let memes be "m    " + mx + " " + movey
             Let tx be with mx
             Let ty be with movey
-            Let newtstr be tx + " " + ty
-            Let memes be "newt at " + the path + " is " + newtstr
-            Rock the path with newtstr (append newtstr to path)
-            If the rope with 0 is tangled
-                If mysterious is the uniqueness at newtstr
-                    Rock the uniquenesslist with newtstr (push to back of uniqueness array)
-                    Let the uniqueness at newtstr be newtstr (push to uniqueness dict as itself)
-                    Let memes be "unique locs: " + the uniquenesslist
+            Let the store be tx + space + ty (let the store be tx + " " + ty)
+            Put tx with space in the store
+            Let the store be with ty
+            If the rope with 0 is tangled (16, ergo 8 left in the rope, ergo the tail is the first tail after the head)
+                Put a jacket at the store in the bag
+                If the bag is empty (or if the bag is not fancy?)
+                    build uniquecounttwo up
+                    Let a jacket at the store be fancy (push to uniqueness dict as itself)
+                    Let memes be "unique locs: " + uniquecounttwo
                     (endif)
                 (endif 9)
-            If the rope is nothing
-                If mysterious is the uniquenessten at newtstr
-                    Rock the uniquenesslistten with newtstr (push to back of uniqueness array)
-                    Let the uniquenessten at newtstr be newtstr (push to uniqueness dict as itself)
-                    Let memes be "unique locs 10: " + the uniquenesslistten
+            If the rope is nothing (nothing left in the rope, ergo the tail is )
+                Put a hat at the store in the bag
+                If the bag is empty (or if the bag is not fancy?)
+                    build uniquecountten up (push to back of uniqueness array)
+                    Let a hat at the store be fancy (push to uniqueness dict as itself)
+                    Let memes be "unique locs 10: " + uniquecountten
                     (endif)
                 (endif 0)
             Rock a rope with hx
@@ -184,5 +185,5 @@ While your mind isn't mysterious (while input)
     Listen to your mind (input another line or mysterious on EOF)
     (endwhile)
 
-Shout "p1: " + the uniquenesslist
-Shout "p2: " + the uniquenesslistten
+Shout "p1: " + uniquecounttwo
+Shout "p2: " + uniquecountten

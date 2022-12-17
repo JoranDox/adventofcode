@@ -1,0 +1,135 @@
+
+Tangled is a string
+Fancy is a fun word
+Minusone is everything
+Knock it down
+Plusone is
+
+Space is all encompassing
+Cast it into space
+
+
+Goright is nebulous observations
+Burn it
+
+Goleft is explosions between clouds
+Burn it
+
+Godown is  binary asteroid
+Cast it into godown
+
+Goup is expanded atoms
+Burn it
+Feeling is stretching
+A wreath is entangled
+Build it up!
+While a wreath isn't nothing
+Rock the rope with feeling
+Rock the rope with feeling
+Knock a wreath down
+
+
+
+Rock a rope
+Rock a jacket
+Rock a hat
+Uniquecounttwo is stretching
+Uniquecountten is stretching
+
+Listen to your mind
+While your mind isn't mysterious
+Shatter your mind with space
+Roll your mind into your heart
+Roll your mind into your mind
+While your mind ain't nothing
+Knock your mind down
+Roll the rope into hx
+Roll the rope into hy
+While the rope ain't nothing
+Roll the rope into tx
+Roll the rope into ty
+If the rope with 0 is tangled
+If your heart is goup
+Knock hy down
+
+If your heart is godown
+Build hy up
+
+If your heart is goright
+Build hx up
+
+If your heart is goleft
+Knock hx down
+
+
+Let dx be hx - tx
+Let dy be hy - ty
+If dx is greater than 1
+Let mx be 1
+
+If dx is less than -1
+Let mx be 0 - 1
+
+If dx is 0
+Let mx be 0
+
+If dx is -1 or dx is 1
+If dy is -2 or dy is 2
+Let mx be dx
+
+If dy is 1 or dy is 0 or dy is -1
+Let mx be 0
+
+
+If dy is greater than 1
+Let movey be 1
+
+If dy is less than -1
+Let movey be 0 - 1
+
+If dy is 0
+Let movey be 0
+
+If dy is -1 or dy is 1
+If dx is -2 or dx is 2
+Let movey be dy
+
+If dx is 1 or dx is 0 or dx is -1
+Let movey be 0
+
+
+Let tx be with mx
+Let ty be with movey
+Let the store be tx + space + ty
+Put tx with space in the store
+Let the store be with ty
+If the rope with 0 is tangled
+Put a jacket at the store in the bag
+If the bag is empty
+Build uniquecounttwo up
+Let a jacket at the store be fancy
+
+
+If the rope is nothing
+Put a hat at the store in the bag
+If the bag is empty
+Build uniquecountten up
+Let a hat at the store be fancy
+
+
+Rock a rope with hx
+Rock a rope with hy
+Let hx be tx
+Let hy be ty
+
+Rock a rope with tx
+Rock a rope with ty
+Put the rope into the box
+Put a rope into the rope
+Let a rope be the box
+
+Listen to your mind
+
+Shout "p1: " + uniquecounttwo
+Shout "p2: " + uniquecountten
+(6023, 2533)

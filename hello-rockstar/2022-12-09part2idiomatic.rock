@@ -1,0 +1,119 @@
+(Space, advent of code 2022 day 9)
+Tangled is a string
+Space is all encompassing
+Cast it into space
+Goright is nebulous observations
+Burn it
+Goleft is explosions between clouds
+Burn it
+Godown is (a) binary asteroid
+Cast it into Godown
+Goup is expanded atoms
+Burn it
+A wreath is entangled
+Build it up!
+While a wreath isn't nothing
+Rock the rope with 0
+Rock the rope with 0
+Knock a wreath down
+
+Rock the path
+Rock a rope
+Rock the uniqueness
+Rock the uniquenessten
+Rock the uniquenesslist
+Rock the uniquenesslistten
+
+Listen to your mind
+While your mind isn't mysterious
+Shatter your mind with space
+Roll your mind into your heart
+Roll your mind into your mind
+While your mind ain't nothing
+Knock your mind down
+Roll the rope into hx
+Roll the rope into hy
+While the rope ain't nothing
+Roll the rope into tx
+Roll the rope into ty
+If the rope with 0 is tangled
+If your heart is Goup
+Knock hy down
+
+If your heart is Godown
+Build hy up
+
+If your heart is Goright
+Build hx up
+
+If your heart is Goleft
+Knock hx down
+
+
+Let dx be hx - tx
+Let dy be hy - ty
+If dx is greater than 1
+Let mx be 1
+
+If dx is less than -1
+Let mx be 0 - 1
+
+If dx is 0
+Let mx be 0
+
+If dx is -1 or dx is 1
+if dy is -2 or dy is 2
+Let mx be dx
+
+if dy is 1 or dy is 0 or dy is -1
+Let mx be 0
+
+
+If dy is greater than 1
+Let movey be 1
+
+If dy is less than -1
+Let movey be 0 - 1
+
+If dy is 0
+Let movey be 0
+
+If dy is -1 or dy is 1
+If dx is -2 or dx is 2
+Let movey be dy
+
+If dx is 1 or dx is 0 or dx is -1
+Let movey be 0
+
+
+Let tx be with mx
+Let ty be with movey
+Let newtstr be tx + " " + ty
+Rock the path with newtstr
+If the rope with 0 is tangled
+If mysterious is the uniqueness at newtstr
+Rock the uniquenesslist with newtstr
+Let the uniqueness at newtstr be newtstr
+
+
+If the rope is nothing
+If mysterious is the uniquenessten at newtstr
+Rock the uniquenesslistten with newtstr
+Let the uniquenessten at newtstr be newtstr
+
+
+Rock a rope with hx
+Rock a rope with hy
+Let hx be tx
+Let hy be ty
+
+Rock a rope with tx
+Rock a rope with ty
+Put the rope into the box
+Put a rope into the rope
+Let a rope be the box
+
+Listen to your mind
+
+Shout the uniquenesslist
+Shout the uniquenesslistten
