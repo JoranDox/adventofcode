@@ -3,7 +3,11 @@ Tangled is a string
 Fancy is a fun word
 Minusone is everything
 Knock it down
-Plusone is
+Let minustwo be minusone
+Knock it down
+Plusone is experiments
+Plustwo is observations
+Neutralzero is everything
 
 Space is all encompassing
 Cast it into space
@@ -33,6 +37,7 @@ Knock a wreath down
 Rock a rope
 Rock a jacket
 Rock a hat
+
 Uniquecounttwo is stretching
 Uniquecountten is stretching
 
@@ -48,12 +53,12 @@ Roll the rope into hy
 While the rope ain't nothing
 Roll the rope into tx
 Roll the rope into ty
-If the rope with 0 is tangled
+If the rope with neutralzero is tangled
 If your heart is goup
-Knock hy down
+Build hy up
 
 If your heart is godown
-Build hy up
+Knock hy down
 
 If your heart is goright
 Build hx up
@@ -62,48 +67,100 @@ If your heart is goleft
 Knock hx down
 
 
-Let dx be hx - tx
-Let dy be hy - ty
-If dx is greater than 1
-Let mx be 1
+Let dx be hx without tx
+Let dy be hy without ty
+If dx is greater than plusone
+Let mx be plusone
 
-If dx is less than -1
-Let mx be 0 - 1
+If dx is less than minusone
+Let mx be minusone
 
-If dx is 0
-Let mx be 0
+If dx is neutralzero
+Let mx be neutralzero
 
-If dx is -1 or dx is 1
-If dy is -2 or dy is 2
+If dx is minusone
+If dy is minustwo
 Let mx be dx
 
-If dy is 1 or dy is 0 or dy is -1
-Let mx be 0
+If dy is plustwo
+Let mx be dx
+
+If dy is plusone
+Let mx be neutralzero
+
+If dy is neutralzero
+Let mx be neutralzero
+
+If dy is minusone
+Let mx be neutralzero
 
 
-If dy is greater than 1
-Let movey be 1
+If dx is plusone
+If dy is minustwo
+Let mx be dx
 
-If dy is less than -1
-Let movey be 0 - 1
+If dy is plustwo
+Let mx be dx
 
-If dy is 0
-Let movey be 0
+If dy is plusone
+Let mx be neutralzero
 
-If dy is -1 or dy is 1
-If dx is -2 or dx is 2
+If dy is neutralzero
+Let mx be neutralzero
+
+If dy is minusone
+Let mx be neutralzero
+
+
+If dy is greater than plusone
+Let movey be plusone
+
+If dy is less than minusone
+Let movey be minusone
+
+If dy is neutralzero
+Let movey be neutralzero
+
+If dy is minusone
+If dx is minustwo
 Let movey be dy
 
-If dx is 1 or dx is 0 or dx is -1
-Let movey be 0
+If dx is plustwo
+Let movey be dy
+
+If dx is plusone
+Let movey be neutralzero
+
+If  dx is neutralzero
+Let movey be neutralzero
+
+If dx is minusone
+Let movey be neutralzero
+
+
+If dy is plusone
+If dx is minustwo
+Let movey be dy
+
+If  dx is plustwo
+Let movey be dy
+
+If dx is plusone
+Let movey be neutralzero
+
+If dx is neutralzero
+Let movey be neutralzero
+
+If dx is minusone
+Let movey be neutralzero
 
 
 Let tx be with mx
 Let ty be with movey
-Let the store be tx + space + ty
+Let the store be tx with space with ty
 Put tx with space in the store
 Let the store be with ty
-If the rope with 0 is tangled
+If the rope with neutralzero is tangled
 Put a jacket at the store in the bag
 If the bag is empty
 Build uniquecounttwo up

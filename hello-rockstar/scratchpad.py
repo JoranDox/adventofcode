@@ -66,12 +66,19 @@ print(space_parsed)
 import pathlib
 parent_directory = pathlib.Path(__file__).resolve().absolute().parent
 
+# manually done
 donetokens = {
     "the uniqueness": "a jacket",
     "the uniquenessten": "a hat",
     "newtstr": "the store",
 }
+
 tokens = {
+    "plustwo": "plustwo", # not changed yet
+    "plusone": "plusone", # not changed yet
+    "neutralzero": "neutralzero", # not changed yet
+    "minusone": "minusone", # not changed yet
+    "minustwo": "minustwo", # not changed yet
     "the path": "the path", # not changed yet
     "your mind": "your mind", # not changed yet
     "a wreath": "a wreath", # not changed yet
@@ -86,11 +93,6 @@ tokens = {
     "the rope": "the rope", # not changed yet
     "a rope": "a rope", # not changed yet
     "your heart": "your heart", # not changed yet
-    "2": "2", # not changed yet
-    "1": "1", # not changed yet
-    "0": "0", # not changed yet
-    "-1": "-1", # not changed yet
-    "-2": "-2", # not changed yet
     "hx": "hx", # not changed yet
     "hy": "hy", # not changed yet
     "dx": "dx", # not changed yet
@@ -107,6 +109,7 @@ tokens = {
 
 remove = [
     "whisper",
+    "say", # only leave shout & scream
     "let memes be",
 ]
 

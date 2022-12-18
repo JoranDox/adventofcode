@@ -5,9 +5,11 @@ Minusone is everything
 Knock it down (-1)
 Let minustwo be minusone
 Knock it down (-2)
-shout minusone
-shout minustwo
+Whisper minusone
+Whisper minustwo
 Plusone is experiments (11 = 1)
+Plustwo is observations (12 = 2)
+Neutralzero is everything (10 = 0)
 
 (init space as " " ascii 32)
 Space is all encompassing (orbit?)
@@ -56,111 +58,142 @@ Whisper the rope
 Whisper "Let's go!"
 
 (some empty arrays)
-Rock a rope
-Rock a jacket
-Rock a hat
-uniquecounttwo is stretching
-uniquecountten is stretching
+Rock a rope (do we use this?)
+Rock a jacket (dictionary to check if we've visited this spot yet with the first tail)
+Rock a hat (dictionary to check if we've visited this spot yet with the final tail)
+
+(counters init to zero)
+Uniquecounttwo is stretching
+Uniquecountten is stretching
 
 (loop over input)
 Listen to your mind (todo rename)
 While your mind isn't mysterious (while input) (Shout it)
     Shatter your mind with space
-    Let memes be "line len after split: '" + your mind + "'"
     Roll your mind into your heart (your heart = direction)
-    Let memes be "direction: '" + your heart + "'"
+    Say "direction: '" + your heart + "'"
     Roll your mind into your mind (your mind = amount)
-    Let memes be "amount: '" + your mind + "'"
+    Say "amount: '" + your mind + "'"
     While your mind ain't nothing (for _ in range your mind)
-        Let memes be your mind
+        Say  your mind
         Knock your mind down
         Roll the rope into hx
         Roll the rope into hy
         While the rope ain't nothing (for _ in the rope)
             Roll the rope into tx
             Roll the rope into ty
-            Let memes be "the rope len is " + the rope
-            If the rope with 0 is tangled (16, we're at head)
-                Let memes be "changing the head"
+            If the rope with neutralzero is tangled (16, we're at head)
                 If your heart is Goup
-                    Let memes be "up"
-                    Knock hy down (inverted for my python equivalent)
+                    Build hy up
                     (endif)
                 If your heart is Godown
-                    Let memes be "down"
-                    Build hy up (inverted for my python equivalent)
+                    Knock hy down
                     (endif)
                 If your heart is Goright
-                    Let memes be "right"
                     Build hx up
                     (endif)
                 If your heart is Goleft
-                    Let memes be "left"
                     Knock hx down
                     (endif)
                 (endif)
-            Let dx be hx - tx
-            Let dy be hy - ty
-            Let memes be "t    " + tx + " " + ty
-            Let memes be "d    " + dx + " " + dy
-            If dx is greater than 1
-                Let memes be "dx = 2"
+            Put hx without tx into dx (Let dx be hx without tx)
+            Let dy be hy without ty
+            If dx is greater than plusone
                 Let mx be Plusone
                 (endif)
-            If dx is less than -1
-                Let memes be ":dx = -2"
+            If dx is less than minusone
                 Let mx be Minusone
                 (endif)
-            If dx is 0
-                Let memes be ":dx = 0"
-                Let mx be 0
+            If dx is neutralzero
+                Let mx be neutralzero
                 (endif)
-            If dx is -1 or dx is 1
-                Let memes be ":|dx| = 1"
-                if dy is -2 or dy is 2
-                    Let memes be "  |dy| = 2"
+            If dx is minusone
+                If dy is minustwo
                     Let mx be dx
                     (endif)
-                if dy is 1 or dy is 0 or dy is -1
-                    Let memes be "  |dy| < 2"
-                    Let mx be 0
+                If dy is plustwo
+                    Let mx be dx
+                    (endif)
+                If dy is plusone
+                    Let mx be neutralzero
+                    (endif)
+                If dy is neutralzero
+                    Let mx be neutralzero
+                    (endif)
+                If dy is minusone
+                    Let mx be neutralzero
                     (endif)
                 (endif)
-            If dy is greater than 1
-                Let memes be ":dy = 2"
+            If dx is plusone
+                If dy is minustwo
+                    Let mx be dx
+                    (endif)
+                If dy is plustwo
+                    Let mx be dx
+                    (endif)
+                If dy is plusone
+                    Let mx be neutralzero
+                    (endif)
+                If dy is neutralzero
+                    Let mx be neutralzero
+                    (endif)
+                If dy is minusone
+                    Let mx be neutralzero
+                    (endif)
+                (endif)
+            If dy is greater than plusone
                 Let movey be Plusone
                 (endif)
-            If dy is less than -1
-                Let memes be ":dy = -2"
+            If dy is less than minusone
                 Let movey be Minusone
                 (endif)
-            If dy is 0
-                Let memes be ":dy = 0"
-                Let movey be 0
+            If dy is neutralzero
+                Let movey be neutralzero
                 (endif)
-            If dy is -1 or dy is 1
-                Let memes be ":|dy| = 1"
-                If dx is -2 or dx is 2
-                    Let memes be "  |dx| = 2"
+            If dy is minusone
+                If dx is minustwo
                     Let movey be dy
                     (endif)
-                If dx is 1 or dx is 0 or dx is -1
-                    Let memes be "  |dx| < 2"
-                    Let movey be 0
+                if dx is plustwo
+                    Let movey be dy
+                    (endif)
+                If dx is plusone
+                    Let movey be neutralzero
+                    (endif)
+                If  dx is neutralzero
+                    Let movey be neutralzero
+                    (endif)
+                If dx is minusone
+                    Let movey be neutralzero
                     (endif)
                 (endif)
-            Let memes be "m    " + mx + " " + movey
+            If dy is plusone
+                If dx is minustwo
+                    Let movey be dy
+                    (endif)
+                If  dx is plustwo
+                    Let movey be dy
+                    (endif)
+                If dx is plusone
+                    Let movey be neutralzero
+                    (endif)
+                If dx is neutralzero
+                    Let movey be neutralzero
+                    (endif)
+                If dx is minusone
+                    Let movey be neutralzero
+                    (endif)
+                (endif)
             Let tx be with mx
             Let ty be with movey
-            Let the store be tx + space + ty (let the store be tx + " " + ty)
+            Let the store be tx with space with ty (let the store be tx + " " + ty)
             Put tx with space in the store
             Let the store be with ty
-            If the rope with 0 is tangled (16, ergo 8 left in the rope, ergo the tail is the first tail after the head)
+            If the rope with neutralzero is tangled (16, ergo 8 left in the rope, ergo the tail is the first tail after the head)
                 Put a jacket at the store in the bag
                 If the bag is empty (or if the bag is not fancy?)
                     build uniquecounttwo up
                     Let a jacket at the store be fancy (push to uniqueness dict as itself)
-                    Let memes be "unique locs: " + uniquecounttwo
                     (endif)
                 (endif 9)
             If the rope is nothing (nothing left in the rope, ergo the tail is )
@@ -168,7 +201,6 @@ While your mind isn't mysterious (while input) (Shout it)
                 If the bag is empty (or if the bag is not fancy?)
                     build uniquecountten up (push to back of uniqueness array)
                     Let a hat at the store be fancy (push to uniqueness dict as itself)
-                    Let memes be "unique locs 10: " + uniquecountten
                     (endif)
                 (endif 0)
             Rock a rope with hx
