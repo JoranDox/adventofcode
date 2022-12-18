@@ -1,0 +1,14 @@
+
+
+    ;   atoms with letters go here
+| ? &   |  get printed here
+    @   v  v  and die
+\   ^......!..;
+
+start moving right (1,0)
+| read char (ascii_value, 1) or (EOF, 0)
+| | jump if energy higher than 0 and lose energy (_,0)
+| | |end up here if no energy = EOF, so just die
+| | ||end up here otherwise = (ascii_value, 0)
+v v vv
+R ? J;

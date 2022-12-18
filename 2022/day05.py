@@ -1,10 +1,9 @@
 
 import pathlib
-parent_directory = pathlib.Path(__file__).resolve().absolute().parent
-# with open(parent_directory.joinpath("day05inputtest.txt")) as f:
-with open(parent_directory.joinpath("day05input.txt")) as f:
+aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
+#with open(aoc_dir.joinpath("input/2022/day05inputtest.txt")) as f:
+with open(aoc_dir.joinpath("input/2022/day05input.txt")) as f:
     data = f.read()
-
 
 config, moves = data.split("\n\n")
 

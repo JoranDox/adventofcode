@@ -1,6 +1,7 @@
-
-# with open("day02inputtest.txt") as f:
-with open("day02input.txt") as f:
+import pathlib
+aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
+#with open(aoc_dir.joinpath("input/2022/day02inputtest.txt")) as f:
+with open(aoc_dir.joinpath("input/2022/day02input.txt")) as f:
     data = f.read().strip()
 
 # rock       A   X

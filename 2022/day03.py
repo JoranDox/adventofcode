@@ -1,10 +1,9 @@
 import string
-import os
 
-path = os.path.abspath(__file__)
-
-# with open(path.replace(".py", "inputtest.txt")) as f:
-with open(path.replace(".py", "input.txt")) as f:
+import pathlib
+aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
+#with open(aoc_dir.joinpath("input/2022/day03inputtest.txt")) as f:
+with open(aoc_dir.joinpath("input/2022/day03input.txt")) as f:
     data = f.read().strip()
 
 # print(string.ascii_letters)

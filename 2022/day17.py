@@ -1,10 +1,10 @@
 
-import pathlib
 import collections
 import copy
-parent_directory = pathlib.Path(__file__).resolve().absolute().parent
-# with open(parent_directory.joinpath("day17inputtest.txt")) as f:
-with open(parent_directory.joinpath("day17input.txt")) as f:
+import pathlib
+aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
+#with open(aoc_dir.joinpath("input/2022/day17inputtest.txt")) as f:
+with open(aoc_dir.joinpath("input/2022/day17input.txt")) as f:
     jet = f.read().strip()
 
 rocks = [

@@ -1,8 +1,8 @@
 
 import pathlib
-parent_directory = pathlib.Path(__file__).resolve().absolute().parent
-# with open(parent_directory.joinpath("day04inputtest.txt")) as f:
-with open(parent_directory.joinpath("day04input.txt")) as f:
+aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
+#with open(aoc_dir.joinpath("input/2022/day04inputtest.txt")) as f:
+with open(aoc_dir.joinpath("input/2022/day04input.txt")) as f:
     data = f.read().strip()
 
 counter = 0

@@ -1,8 +1,8 @@
 
 import pathlib
-parent_directory = pathlib.Path(__file__).resolve().absolute().parent
-# with open(parent_directory.joinpath("day18inputtest.txt")) as f:
-with open(parent_directory.joinpath("day18input.txt")) as f:
+aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
+# with open(aoc_dir.joinpath("input/2022/day18inputtest.txt")) as f:
+with open(aoc_dir.joinpath("input/2022/day18input.txt")) as f:
     data = f.read().strip()
 
 lavablocks = [
@@ -93,8 +93,6 @@ for ax, ay, az in air:
             if (x,y,z) not in lavablocks and (x,y,z) not in air:
                 air.append((x,y,z))
 
-print(len(air), len(lavablocks), (maxval+1)**3)
-print("trappedblocks:", (maxval+1)**3 - len(air) - len(lavablocks))
+print(len(air), len(lavablocks), (maxval-minval+1)**3)
+print("trappedblocks:", (maxval-minval+1)**3 - len(air) - len(lavablocks))
 print(setborders_two_sets(lavablocks, air))
-
-# 2044 too low

@@ -1,10 +1,8 @@
 import math
 import pathlib
-
-parent_directory = pathlib.Path(__file__).resolve().absolute().parent
-# with open(parent_directory.joinpath("day09inputtest.txt")) as f:
-# with open(parent_directory.joinpath("day09inputtest2.txt")) as f:
-with open(parent_directory.joinpath("day09input.txt")) as f:
+aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
+#with open(aoc_dir.joinpath("input/2022/day09inputtest.txt")) as f:
+with open(aoc_dir.joinpath("input/2022/day09input.txt")) as f:
     data = f.read().strip()
 
 
