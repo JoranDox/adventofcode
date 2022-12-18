@@ -1,4 +1,5 @@
-(Space, advent of code 2022 day 9)
+(The emperor's new clothes?)
+(Advent of Code 2022: day 9)
 Tangled is a string (todo 16)
 Fancy is a fun word (whatever, placeholder)
 Minusone is everything
@@ -43,28 +44,30 @@ Burn it
 Whisper it
 
 Feeling is stretching (0)
-
-A wreath is entangled (9)
-Build it up! (10)
-While a wreath isn't nothing
-    Rock the rope with feeling (0)
-    Rock the rope with feeling (0)
-    Knock a wreath down
+Jackets are everything
+Hats are everything
+Opening is important (9)
+Build it up
+The shop is everything (0)
+While the shop isn't opening (??)
+    Rock the rack with jackets
+    Rock the rack with hats (0) (todo: new clothes?)
+    Build the shop up
+    Whisper the shop
     (endwhile)
 
-(ignore the rope for part one)
-
-Whisper the rope
+(ignore the rack for part one)
+Whisper the rack
 Whisper "Let's go!"
 
 (some empty arrays)
-Rock a rope (do we use this?)
+Rock a rack (array to push the parts of the rope for the next iteration)
 Rock a jacket (dictionary to check if we've visited this spot yet with the first tail)
 Rock a hat (dictionary to check if we've visited this spot yet with the final tail)
 
 (counters init to zero)
-Uniquecounttwo is stretching
-Uniquecountten is stretching
+Uniquecounttwo is stretching (?)
+Uniquecountten is stretching (?)
 
 (loop over input)
 Listen to your mind (todo rename)
@@ -77,12 +80,12 @@ While your mind isn't mysterious (while input) (Shout it)
     While your mind ain't nothing (for _ in range your mind)
         Say  your mind
         Knock your mind down
-        Roll the rope into hx
-        Roll the rope into hy
-        While the rope ain't nothing (for _ in the rope)
-            Roll the rope into tx
-            Roll the rope into ty
-            If the rope with neutralzero is tangled (16, we're at head)
+        Roll the rack into hx
+        Roll the rack into hy
+        While the rack ain't nothing (for _ in the rack)
+            Roll the rack into tx (do something with "it" as if it's the rack)
+            Roll the rack into ty
+            If the rack with neutralzero is tangled (16, we're at head)
                 If your heart is Goup
                     Build hy up
                     (endif)
@@ -189,30 +192,30 @@ While your mind isn't mysterious (while input) (Shout it)
             Let the store be tx with space with ty (let the store be tx + " " + ty)
             Put tx with space in the store
             Let the store be with ty
-            If the rope with neutralzero is tangled (16, ergo 8 left in the rope, ergo the tail is the first tail after the head)
+            If the rack with neutralzero is tangled (16, ergo 8 left in the rack, ergo the tail is the first tail after the head)
                 Put a jacket at the store in the bag
                 If the bag is empty (or if the bag is not fancy?)
                     build uniquecounttwo up
                     Let a jacket at the store be fancy (push to uniqueness dict as itself)
                     (endif)
                 (endif 9)
-            If the rope is nothing (nothing left in the rope, ergo the tail is )
+            If the rack is nothing (nothing left in the rack, ergo the tail is )
                 Put a hat at the store in the bag
                 If the bag is empty (or if the bag is not fancy?)
                     build uniquecountten up (push to back of uniqueness array)
                     Let a hat at the store be fancy (push to uniqueness dict as itself)
                     (endif)
                 (endif 0)
-            Rock a rope with hx
-            Rock a rope with hy
+            Rock a rack with hx
+            Rock a rack with hy
             Let hx be tx
             Let hy be ty
-            (endwhile the rope ain't nothing)
-        Rock a rope with tx
-        Rock a rope with ty
-        Put the rope into the box (swap the rope and a Rope) (temp = the)
-        Put a rope into the rope (the = a)
-        Let a rope be the box (end swap) (a = temp)
+            (endwhile the rack ain't nothing)
+        Rock a rack with tx
+        Rock a rack with ty
+        Put the rack into the box (swap the rack and a rack) (temp = the)
+        Put a rack into the rack (the = a)
+        Let a rack be the box (end swap) (a = temp)
         (endwhile your mind ain't nothing)
     Listen to your mind (input another line or mysterious on EOF)
     (endwhile)

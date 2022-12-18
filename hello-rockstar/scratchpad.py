@@ -71,6 +71,8 @@ donetokens = {
     "the uniqueness": "a jacket",
     "the uniquenessten": "a hat",
     "newtstr": "the store",
+    "the rope": "the rack",
+    "a rope": "a rack",
 }
 
 tokens = {
@@ -90,15 +92,13 @@ tokens = {
     "goleft": "goleft", # not changed yet
     "goright": "goright", # not changed yet
     "godown": "godown", # not changed yet
-    "the rope": "the rope", # not changed yet
-    "a rope": "a rope", # not changed yet
     "your heart": "your heart", # not changed yet
-    "hx": "hx", # not changed yet
-    "hy": "hy", # not changed yet
+    "hx": "the back", # not changed yet
+    "hy": "a customer", # not changed yet
     "dx": "dx", # not changed yet
     "dy": "dy", # not changed yet
-    "tx": "tx", # not changed yet
-    "ty": "ty", # not changed yet
+    "tx": "the middle", # not changed yet
+    "ty": "a corner", # not changed yet
     "mx": "mx", # not changed yet
     "movey": "movey", # not changed yet
     "tangled": "tangled", # not changed yet
@@ -123,7 +123,8 @@ with open(parent_directory.joinpath("2022-12-09part2.rock")) as f_in:
             line = line.rstrip()
             if not line:
                 continue
-            line = re.sub(rf"\(.*\)","", line.strip()).strip().lower()
+            # remove brackets
+            line = re.sub(rf"\(.*\)","", line.strip()).strip()
             # print("2:",line)
 
             for inp,outp in tokens.items():

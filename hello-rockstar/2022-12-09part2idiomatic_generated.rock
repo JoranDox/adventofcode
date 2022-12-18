@@ -1,4 +1,5 @@
 
+
 Tangled is a string
 Fancy is a fun word
 Minusone is everything
@@ -25,16 +26,19 @@ Cast it into godown
 Goup is expanded atoms
 Burn it
 Feeling is stretching
-A wreath is entangled
-Build it up!
-While a wreath isn't nothing
-Rock the rope with feeling
-Rock the rope with feeling
-Knock a wreath down
+Jackets are everything
+Hats are everything
+Opening is important
+Build it up
+The shop is everything
+While the shop isn't opening
+Rock the rack with jackets
+Rock the rack with hats
+Build the shop up
 
 
 
-Rock a rope
+Rock a rack
 Rock a jacket
 Rock a hat
 
@@ -48,27 +52,27 @@ Roll your mind into your heart
 Roll your mind into your mind
 While your mind ain't nothing
 Knock your mind down
-Roll the rope into hx
-Roll the rope into hy
-While the rope ain't nothing
-Roll the rope into tx
-Roll the rope into ty
-If the rope with neutralzero is tangled
+Roll the rack into the back
+Roll the rack into a customer
+While the rack ain't nothing
+Roll the rack into the middle
+Roll the rack into a corner
+If the rack with neutralzero is tangled
 If your heart is goup
-Build hy up
+Build a customer up
 
 If your heart is godown
-Knock hy down
+Knock a customer down
 
 If your heart is goright
-Build hx up
+Build the back up
 
 If your heart is goleft
-Knock hx down
+Knock the back down
 
 
-Let dx be hx without tx
-Let dy be hy without ty
+Put the back without the middle into dx
+Let dy be a customer without a corner
 If dx is greater than plusone
 Let mx be plusone
 
@@ -155,35 +159,35 @@ If dx is minusone
 Let movey be neutralzero
 
 
-Let tx be with mx
-Let ty be with movey
-Let the store be tx with space with ty
-Put tx with space in the store
-Let the store be with ty
-If the rope with neutralzero is tangled
+Let the middle be with mx
+Let a corner be with movey
+Let the store be the middle with space with a corner
+Put the middle with space in the store
+Let the store be with a corner
+If the rack with neutralzero is tangled
 Put a jacket at the store in the bag
 If the bag is empty
 Build uniquecounttwo up
 Let a jacket at the store be fancy
 
 
-If the rope is nothing
+If the rack is nothing
 Put a hat at the store in the bag
 If the bag is empty
 Build uniquecountten up
 Let a hat at the store be fancy
 
 
-Rock a rope with hx
-Rock a rope with hy
-Let hx be tx
-Let hy be ty
+Rock a rack with the back
+Rock a rack with a customer
+Let the back be the middle
+Let a customer be a corner
 
-Rock a rope with tx
-Rock a rope with ty
-Put the rope into the box
-Put a rope into the rope
-Let a rope be the box
+Rock a rack with the middle
+Rock a rack with a corner
+Put the rack into the box
+Put a rack into the rack
+Let a rack be the box
 
 Listen to your mind
 
