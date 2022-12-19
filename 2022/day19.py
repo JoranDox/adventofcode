@@ -86,6 +86,8 @@ def uniqueintparts(num):
 # 1 geode bot = 7 obsidian + 2 ore
 #
 
+inf = float("inf")
+
 def earliestgeode(blueprint):
     # bp looks like:
     # {0: (4, 0, 0, 0), 1: (2, 0, 0, 0), 2: (3, 14, 0, 0), 3: (2, 0, 7, 0)}
@@ -96,40 +98,33 @@ def earliestgeode(blueprint):
     pass
 
 
-def nsum(xs):
-    if None in xs:
-        return None
-    return sum(xs)
-
 def neg(v):
-    return tuple((-x if x is not None else None) for x in v)
+    return tuple(-x for x in v)
 
 def vsum(*v):
-    return tuple(nsum(x) for x in zip(*v))
+    return tuple(sum(x) for x in zip(*v))
 
 def vmul(v, num):
     return tuple(vx * num for vx in v)
 
 # print(vsum(robots,inventory,(1,2,3,4)))
 
-def enough(vresources, vcost):
+def enough_new(vresources, vcost):
     # print("e1",vresources, vcost)
     for v1,v2 in zip(vresources,vcost):
         # print("e2",v1, v2)
-        if v1 is None or v2 is None:
-            continue
         if v1 < v2:
             return False
     return True
 
-def enough_old(vresources, vcost):
+def enough(vresources, vcost):
     return all(v1>=v2 for v1,v2 in zip(vresources,vcost))
 
 for b in blueprints.values():
     for t in b.values():
         for t2 in b.values():
-            assert enough(t,t2) == enough_old(t,t2)
-            assert enough(t2,t) == enough_old(t2,t)
+            assert enough(t,t2) == enough_new(t,t2)
+            assert enough(t2,t) == enough_new(t2,t)
 
 
 def maxgeodestogo(minutes_to_go,bots=0,geodes=0):
@@ -174,8 +169,8 @@ def nexttime(robots, inventory, cost):
     realcost = vsum(cost, neg(inventory))
     # print(realcost)
     # if there's any we can't pay
-    if any([ r==0 and c is not None and c > 0 for r,c in zip(robots,realcost) ]):
-        return None
+    if any([ r==0 and c > 0 for r,c in zip(robots,realcost) ]):
+        return None # never gonna be able to pay for it, we're not producing it
     else:
         i = 0
         while True:
@@ -187,12 +182,12 @@ def trycap(bot, inventory, costs, minutes):
     # single value
     if costs == 0:
         return inventory
-    if inventory is None:
-        # already capped
-        return None
+    # if inventory is None:
+    #     # already capped
+    #     return None
     if inventory + (bot * minutes) - (costs * (minutes+1)) >= 0:
         # we can't run out
-        return None
+        return float(inf)
     return inventory
 
 def cap(bots, inventory, maxcosts, minutes):
@@ -228,9 +223,9 @@ for bname, blueprint in blueprints.items():
     maxgeodes = 0
     statesperminute = [deque() for _ in range(maxmins+1)]
     statesperminute[0].append((robots, inventory))
-    clay = False
-    obsi = False
-    geo = False
+    # clay = False
+    # obsi = False
+    # geo = False
     highestminute = 0
     for minute,states in enumerate(statesperminute):
         minstogo = maxmins-minute
