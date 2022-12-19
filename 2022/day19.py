@@ -149,7 +149,8 @@ def nexttime(robots, inventory, cost):
             i+=1
 
 # nexttime(robots, inventory, cost)
-accum = 0
+accump1 = 0
+accump2 = []
 # print({} | {(0, (1, 0, 0, 0), (0, 0, 0, 0))})
 for bname, blueprint in blueprints.items():
     print("checking bp:", bname, blueprint)
@@ -250,5 +251,10 @@ for bname, blueprint in blueprints.items():
     #             print("state found:", (minute,r,i))
     #             prevrobots = r
 
-    accum += bname * maxgeodes
-    print(f"accum @ {bname}: {accum}")
+    accump1 += bname * maxgeodes
+    print(f"accump1 @ {bname}: {accump1}")
+    accump2.append(maxgeodes)
+    accump2calc = 1
+    for x in accump2:
+        accump2calc *= x
+    print(f"accump2 @ {bname}: {accump2} = {accump2calc}")
