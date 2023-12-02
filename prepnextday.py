@@ -37,7 +37,7 @@ for day in range(1,26):
 import pathlib
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
 with open(aoc_dir.joinpath("input/{str(currentyear)}/{basename}inputtest.txt")) as f:
-#with open(aoc_dir.joinpath("input/{str(currentyear)}/{basename}input.txt")) as f:
+# with open(aoc_dir.joinpath("input/{str(currentyear)}/{basename}input.txt")) as f:
     data = f.read().strip()
 
 for line in data.splitlines():
