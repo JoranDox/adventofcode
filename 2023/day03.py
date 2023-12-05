@@ -103,4 +103,3 @@ for loc, sym in symlocs.items():
         else:
             print("nok", loc, adjacents)
 print(accump2)
-# 41054866
