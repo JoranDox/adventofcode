@@ -60,22 +60,22 @@ def range_overlaps(r1, r2):
 
 # exit()
 def range_mapping(outputs, inputs, ranges, number_range):
-    print(f"range_mapping: {outputs=}, {inputs=}, {ranges=}, {number_range=}")
+    # print(f"range_mapping: {outputs=}, {inputs=}, {ranges=}, {number_range=}")
     returns = []
     todo = [number_range]
     for i,o,r in zip(inputs,outputs,ranges):
-        print(f"checking {i=},{o=},{r=}")
+        # print(f"checking {i=},{o=},{r=}")
         for _range in todo:
             overlap, non_overlaps = range_overlaps((i, i+r-1), _range)
             if overlap:
-                print(f"{overlap=}, {non_overlaps=}")
+                # print(f"{overlap=}, {non_overlaps=}")
                 returns.append((overlap[0] - i + o, overlap[1] - i + o))
                 todo.remove(_range)
                 for to_check in non_overlaps:
                     right_overlap, right_non_overlaps = range_overlaps(to_check, _range)
                     if right_overlap:
                         todo.append(right_overlap)
-                print(f"range_mapping iteration: {todo=}, {returns=}")
+                # print(f"range_mapping iteration: {todo=}, {returns=}")
 
     # print("returns", returns)
     # print("todo", todo)
@@ -107,31 +107,31 @@ print("p1:", min(on_hand))
 for page in data.split("\n\n"):
     if page.startswith("seeds:"):
         on_hand = [int(i) for i in page.split()[1:]]
-        print(f"starting with: {on_hand}")
+        # print(f"starting with: {on_hand}")
         on_hand_ranges = []
         for i in range(0, len(on_hand), 2):
             on_hand_ranges.append((int(on_hand[i]), int(on_hand[i]) + int(on_hand[i+1]-1)))
-        print(f"starting with: {on_hand_ranges}")
+        # print(f"starting with: {on_hand_ranges}")
 
     else:
         pagesplit = page.splitlines()
-        print(pagesplit[0])
+        # print(pagesplit[0])
         outputs, inputs, ranges = zip(*[p.split() for p in pagesplit[1:]])
         outputs = [int(i) for i in outputs]
         inputs = [int(i) for i in inputs]
         ranges = [int(i) for i in ranges]
-        print("outputs",outputs[:10])
-        print("inputs",inputs[:10])
-        print("ranges",ranges[:10])
+        # print("outputs",outputs[:10])
+        # print("inputs",inputs[:10])
+        # print("ranges",ranges[:10])
         on_hand_ranges_new = []
         for _range in on_hand_ranges:
             on_hand_ranges_new.extend(range_mapping(outputs, inputs, ranges, _range))
         on_hand_ranges = on_hand_ranges_new
-        print("on_hand_ranges:", on_hand_ranges[:10])
+        # print("on_hand_ranges:", on_hand_ranges[:10])
         # for line in
         #     if line.endswith(":"):
         #     else:
         #         mapping =
         # exit()
 
-print(min([i[0] for i in on_hand_ranges]))
+print("p2:", min([i[0] for i in on_hand_ranges]))
