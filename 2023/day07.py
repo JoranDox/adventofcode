@@ -59,7 +59,7 @@ def handsortvalue(hand, use_wildcard_jokers):
 
 for part in False, True:
     hands = [
-        (handsortvalue(hand, part), bid, i, hand)
+        (handsortvalue(hand, part), bid, hand)
         for i, (hand,bid) in enumerate([
             line.split() for line in data.splitlines()
         ])
@@ -67,7 +67,7 @@ for part in False, True:
     print(hands)
     accum = 0
 
-    for i, (handvalue, bid, _, hand) in enumerate(sorted(hands)):
+    for i, (handvalue, bid, hand) in enumerate(sorted(hands)):
         # print(hand, int(bid), int(bid) * (i+1))
         accum += int(bid) * (i+1)
         # print(accum)
