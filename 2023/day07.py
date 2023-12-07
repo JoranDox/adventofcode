@@ -1,8 +1,8 @@
 import collections
 import pathlib
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
-# with open(aoc_dir.joinpath("input/2023/day06inputtest.txt")) as f:
-with open(aoc_dir.joinpath("input/2023/day06input.txt")) as f:
+# with open(aoc_dir.joinpath("input/2023/day07inputtest.txt")) as f:
+with open(aoc_dir.joinpath("input/2023/day07input.txt")) as f:
     data = f.read().strip()
 
 cardvaluesp1 = {v:k for k,v in enumerate(["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"][::-1])}
