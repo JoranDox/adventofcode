@@ -1,26 +1,24 @@
 filename = "day14input.txt"
 # filename = "day14inputex.txt"
 # filename = "day14inputex2.txt"
-with open(filename)as infile:
-    inputs = [
-        line.strip().split(" = ")
-        for line in infile
-    ]
+with open(filename) as infile:
+    inputs = [line.strip().split(" = ") for line in infile]
 
 # part one
 
-def applymaskval(memval,maskval):
+
+def applymaskval(memval, maskval):
     if maskval == "X":
         return memval
     else:
         return maskval
 
+
 def applymaskrow(memrow, mask):
-    return "".join([
-        applymaskval(memval,maskval)
-        for memval,maskval
-        in zip(memrow, mask)
-    ])
+    return "".join(
+        [applymaskval(memval, maskval) for memval, maskval in zip(memrow, mask)]
+    )
+
 
 # memory = {}
 # mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
@@ -46,32 +44,24 @@ def applymaskdict(loc, mask, val):
             pass
         elif maskval == "1":
             # overwrite 1
-            locs = [
-                "".join([*(loc[:i]), "1", *(loc[i+1:])])
-                for loc in locs
-            ]
+            locs = ["".join([*(loc[:i]), "1", *(loc[i + 1 :])]) for loc in locs]
         elif maskval == "X":
             # floating
             templocs = []
             for loc in locs:
-                templocs.append(
-                    "".join([*(loc[:i]), "0", *(loc[i+1:])])
-                )
-                templocs.append(
-                    "".join([*(loc[:i]), "1", *(loc[i+1:])])
-                )
+                templocs.append("".join([*(loc[:i]), "0", *(loc[i + 1 :])]))
+                templocs.append("".join([*(loc[:i]), "1", *(loc[i + 1 :])]))
             locs = templocs
         else:
             assert False
 
-    return {
-        k: val
-        for k in locs
-    }
+    return {k: val for k in locs}
+
 
 memory = {}
 mask = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 import json
+
 for op, arg in inputs:
     json.dumps(memory, indent=4)
     if op == "mask":

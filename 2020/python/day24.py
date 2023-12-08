@@ -17,12 +17,12 @@ directions = {
     # 'nw' : np.array((0,1)),
     # 'ne' : np.array((1,1)),
     # 'sw' : np.array((-1,-1)),
-    'e'  : np.array((2,0)),
-    'w'  : np.array((-2,0)),
-    'se' : np.array((1,-2)),
-    'nw' : np.array((-1,2)),
-    'ne' : np.array((1,2)),
-    'sw' : np.array((-1,-2)),
+    "e": np.array((2, 0)),
+    "w": np.array((-2, 0)),
+    "se": np.array((1, -2)),
+    "nw": np.array((-1, 2)),
+    "ne": np.array((1, 2)),
+    "sw": np.array((-1, -2)),
 }
 
 parsedtilepaths = []
@@ -35,7 +35,7 @@ for path in tilepaths:
             dirn = path[i]
             i += 1
         else:
-            dirn = path[i:i+2]
+            dirn = path[i : i + 2]
             i += 2
         parsedpath.append(directions[dirn])
     parsedtilepaths.append(parsedpath)
@@ -58,13 +58,14 @@ for p in parsedtilepaths:
     # print(p)
     # print(sum(p))
     can = tuple(sum(p))
-    
+
     if can in countset:
         countset -= set((can,))
     else:
         countset |= set((can,))
 # print(countset)
 print(len(countset))
+
 
 def nextset(inset):
     nextset = copy.copy(inset)
@@ -85,6 +86,7 @@ def nextset(inset):
             # print(f'{tile} added')
             nextset |= set((tile,))
     return nextset
+
 
 for i in range(100):
     # print(countset)

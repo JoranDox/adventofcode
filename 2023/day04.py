@@ -3,11 +3,11 @@ import pathlib
 
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
 with open(aoc_dir.joinpath("input/2023/day04inputtest.txt")) as f:
-# with open(aoc_dir.joinpath("input/2023/day04input.txt")) as f:
+    # with open(aoc_dir.joinpath("input/2023/day04input.txt")) as f:
     data = f.read().strip()
 
 accump1 = 0
-scratchcards_got: dict[int,int] = defaultdict(int)
+scratchcards_got: dict[int, int] = defaultdict(int)
 for line in data.splitlines():
     game, info = line.split(":")
     winning, owned = info.split("|")

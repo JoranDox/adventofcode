@@ -19,11 +19,13 @@ filename = "day16input.txt"
 
 minnum = 1000
 maxnum = 0
+
+
 def maprules(inrules):
     global minnum
     global maxnum
     lst = inrules.split("\n")
-    
+
     ret = {}
     for rule in lst:
         temp = []
@@ -38,16 +40,14 @@ def maprules(inrules):
         ret[name] = temp
     return ret
 
+
 def maptickets(intickets):
     lst = intickets.split("\n")
     print(lst[0])
-    return [
-        tuple(map(int, ticket.split(",")))
-        for ticket in lst[1:]
-    ]
+    return [tuple(map(int, ticket.split(","))) for ticket in lst[1:]]
 
 
-with open(filename)as infile:
+with open(filename) as infile:
     rules, yourticket, neartickets = infile.read().strip().split("\n\n")
     rules = maprules(rules)
     yourticket = maptickets(yourticket)[0]
@@ -61,9 +61,8 @@ validnums = set()
 
 for rule in rules.values():
     for low, high in rule:
-        validnums |= set(range(low,high+1))
+        validnums |= set(range(low, high + 1))
         # print(validnums)
-
 
 
 accum = 0
@@ -81,6 +80,7 @@ for ticket in neartickets:
 print(accum)
 
 import pandas as pd
+
 df = pd.DataFrame(validtickets)
 print(df)
 
@@ -89,7 +89,7 @@ rules2 = {}
 for name, rule in rules.items():
     ruleset = set()
     for low, high in rule:
-        ruleset |= set(range(low,high+1))
+        ruleset |= set(range(low, high + 1))
     rules2[name] = ruleset
 print(rules2)
 
@@ -107,7 +107,7 @@ while unusednames:
                 validnames.append(rulename)
         assert len(validnames) != 0, "shit"
         if len(validnames) == 1:
-            break # avoid RuntimeError: Set changed size during iteration
+            break  # avoid RuntimeError: Set changed size during iteration
     if len(validnames) == 1:
         rightrule = validnames[0]
         rightcol = col
@@ -117,7 +117,7 @@ while unusednames:
         unusedcolumns -= set((rightcol,))
         del rules2[rightrule]
         continue
-    
+
     for rulename, ruleset in rules2.items():
         print(rulename)
         validnames = []

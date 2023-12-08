@@ -1,5 +1,5 @@
-
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
 # with open(aoc_dir.joinpath("input/2022/day20inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2022/day20input.txt")) as f:
@@ -23,14 +23,14 @@ unique_message = list(enumerate(message))
 # print(unique_message)
 assert len(set(unique_message)) == len(unique_message)
 
+
 def makeneighbours(message):
     n = {
         num: {
             "l": l,
             "r": r,
         }
-        for l,num,r
-        in zip(
+        for l, num, r in zip(
             [message[-1]] + message[:-1],
             message,
             message[1:] + [message[0]],
@@ -39,14 +39,16 @@ def makeneighbours(message):
     # n["front"] = message[0]
     return n
 
+
 def llpop(num, ll):
     left, right = ll[num]["l"], ll[num]["r"]
     # if ll["front"] == num:
-        # ll["front"] = right
+    # ll["front"] = right
     del ll[num]
     ll[right]["l"] = left
     ll[left]["r"] = right
     return left, right
+
 
 def llpush(num, ll, left, right):
     newleft = ll[right]["l"]
@@ -60,27 +62,32 @@ def llpush(num, ll, left, right):
     ll[right]["l"] = num
     ll[left]["r"] = num
 
+
 def llright(num, ll):
     return ll[num]["r"]
+
 
 def llrightmany(num, ll, intogo):
     intogo = intogo % len(ll)
     if intogo == 0:
         intogo = len(ll)
     for i in range(intogo):
-        num = llright(num,ll)
+        num = llright(num, ll)
     return num
+
 
 def llleft(num, ll):
     return ll[num]["l"]
+
 
 def llleftmany(num, ll, intogo):
     intogo = intogo % len(ll)
     if intogo == 0:
         intogo = len(ll)
     for i in range(intogo):
-        num = llleft(num,ll)
+        num = llleft(num, ll)
     return num
+
 
 def neightomess(ll, front=None):
     if front is None:
@@ -92,9 +99,11 @@ def neightomess(ll, front=None):
         r = llright(r, ll)
     return accum
 
+
 # print(unique_message)
 # print(makeneighbours(unique_message))
 # print(neightomess(makeneighbours(unique_message)))
+
 
 def mix(message, numtimes=1):
     todo = [x for x in message] * numtimes
@@ -117,12 +126,16 @@ def mix(message, numtimes=1):
 
     return neightomess(neighbours)
 
+
 mixed = mix(unique_message, nmixes)
 n = makeneighbours(mixed)
 front = (message.index(0), 0)
 # print(front)
 # answer = message[(1000+i0) % len(message)], message[(2000+i0) % len(message)], message[(3000+i0) % len(message)]
-answer = llrightmany(front,n,1000)[1], llrightmany(front,n,2000)[1], llrightmany(front,n,3000)[1]
+answer = (
+    llrightmany(front, n, 1000)[1],
+    llrightmany(front, n, 2000)[1],
+    llrightmany(front, n, 3000)[1],
+)
 # print(answer)
 print(sum(answer))
-

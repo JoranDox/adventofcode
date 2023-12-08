@@ -1,4 +1,3 @@
-
 # with open("day10inputtest.txt") as f:
 with open("day10input.txt") as f:
     data = f.readlines()
@@ -11,10 +10,10 @@ mapbrackets = {
 }
 
 points = {
-    ")": 3, # points.
-    "]": 57, # points.
-    '}': 1197, # points.
-    ">": 25137, # points.
+    ")": 3,  # points.
+    "]": 57,  # points.
+    "}": 1197,  # points.
+    ">": 25137,  # points.
 }
 # part 1
 
@@ -33,10 +32,10 @@ for line in data:
 print(total)
 
 points2 = {
-    ")": 1, # point.
-    "]": 2, # points.
-    "}": 3, # points.
-    ">": 4, # points.
+    ")": 1,  # point.
+    "]": 2,  # points.
+    "}": 3,  # points.
+    ">": 4,  # points.
 }
 
 # part 2

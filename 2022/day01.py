@@ -1,6 +1,7 @@
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
-#with open(aoc_dir.joinpath("input/2022/day01inputtest.txt")) as f:
+# with open(aoc_dir.joinpath("input/2022/day01inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2022/day01input.txt")) as f:
     data = f.read().strip()
 
@@ -12,7 +13,7 @@ for elfdata in data.split("\n\n"):
 print(elves)
 
 
-#part 1
+# part 1
 print(max([sum(x) for x in elves]))
 
 

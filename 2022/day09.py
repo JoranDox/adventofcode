@@ -1,7 +1,8 @@
 import math
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
-#with open(aoc_dir.joinpath("input/2022/day09inputtest.txt")) as f:
+# with open(aoc_dir.joinpath("input/2022/day09inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2022/day09input.txt")) as f:
     data = f.read().strip()
 
@@ -66,6 +67,7 @@ tmoves = {
     (2, 2): (1, 1),
 }
 
+
 # same code as above dict but harder to write at 6 am
 def tmove(x, y):
     if 2 in (abs(x), abs(y)):
@@ -114,9 +116,8 @@ for line in data.splitlines():
         # print()
 
 
-print("p1:",len(set(posses[1])))
+print("p1:", len(set(posses[1])))
 # print(posses[0])
 # print(posses[1])
-print("p2:",len(set(posses[-1])))
-print("rockstar:",len(posses[1]))
-
+print("p2:", len(set(posses[-1])))
+print("rockstar:", len(posses[1]))

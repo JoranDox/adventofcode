@@ -1,10 +1,12 @@
 filename = "day13input.txt"
 filename = "day13inputex.txt"
-with open(filename)as infile:
+with open(filename) as infile:
     inputs = infile.read().split("\n")
     startstamp = int(inputs[0])
     busses = [int(bus) for bus in inputs[1].split(",") if bus != "x"]
-    bussespart2 = [(lambda x : int(x) if x != "x" else 0)(bus) for bus in inputs[1].split(",")]
+    bussespart2 = [
+        (lambda x: int(x) if x != "x" else 0)(bus) for bus in inputs[1].split(",")
+    ]
     print(busses)
     print(bussespart2)
     for bus in bussespart2:
@@ -12,12 +14,14 @@ with open(filename)as infile:
             bus = None
 print(bussespart2)
 
+
 def checkbusses(timestamp):
     for bus in busses:
         if not timestamp % bus:
-            print(startstamp, timestamp, bus, (timestamp-startstamp) * bus)
+            print(startstamp, timestamp, bus, (timestamp - startstamp) * bus)
             return True
     return False
+
 
 timestamp = startstamp
 while not checkbusses(timestamp):
@@ -50,26 +54,32 @@ timestamp = -bussespart2.index(incr)
 # from https://rosettacode.org/wiki/Chinese_remainder_theorem#Python
 # Python 3.6
 from functools import reduce
+
+
 def chinese_remainder(n, a):
     # n = list of numbers
     # a = list of accompanying remainders
     sum = 0
-    prod = reduce(lambda a, b: a*b, n)
+    prod = reduce(lambda a, b: a * b, n)
     for n_i, a_i in zip(n, a):
         p = prod // n_i
         sum += a_i * mul_inv(p, n_i) * p
     return sum % prod
 
+
 def mul_inv(a, b):
     b0 = b
     x0, x1 = 0, 1
-    if b == 1: return 1
+    if b == 1:
+        return 1
     while a > 1:
         q = a // b
-        a, b = b, a%b
+        a, b = b, a % b
         x0, x1 = x1 - q * x0, x0
-    if x1 < 0: x1 += b0
+    if x1 < 0:
+        x1 += b0
     return x1
+
 
 n = busses
 a = [-bussespart2.index(x) for x in n]

@@ -1,40 +1,36 @@
-
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
 # with open(aoc_dir.joinpath("input/2023/day05inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2023/day05input.txt")) as f:
     data = f.read().strip()
+
 
 def mapping(outputs, inputs, ranges, number):
     inputs = [int(i) for i in inputs]
     outputs = [int(i) for i in outputs]
     ranges = [int(i) for i in ranges]
     number = int(number)
-    for i,o,r in zip(inputs,outputs,ranges):
-        if i <= number < i+r:
+    for i, o, r in zip(inputs, outputs, ranges):
+        if i <= number < i + r:
             # print(f"in range: {i=}, {i+r=}, {r=}, {o=}, {number=}, returning: {number - i + o}")
             return number - i + o
         # else:
-            # print(f"not in range: {i=}, {i+r=}, {r=}, {number=}")
+        # print(f"not in range: {i=}, {i+r=}, {r=}, {number=}")
     # print(f"not in any range, just returning {number}")
     return number
+
 
 def range_overlaps(r1, r2):
     # print(f"range_overlaps: {r1=}, {r2=}")
     # ranges are (start, end), not (start, length)
 
-    overlapping_part = (
-        max(r1[0],r2[0]),
-        min(r1[1],r2[1])
-    )
+    overlapping_part = (max(r1[0], r2[0]), min(r1[1], r2[1]))
     # print(f"overlapping_part for {r1}, {r2}: {overlapping_part=}")
 
     if overlapping_part[0] > overlapping_part[1]:
         # no overlap
-        return (
-            None,
-            None
-        )
+        return (None, None)
     else:
         endpoints = sorted([*r1, *r2])
         # print(endpoints)
@@ -48,7 +44,7 @@ def range_overlaps(r1, r2):
             # overlapping
             overlapping_part,
             # not overlapping
-            not_overlapping_parts
+            not_overlapping_parts,
         )
 
 
@@ -58,15 +54,16 @@ def range_overlaps(r1, r2):
 # print(range_overlaps((0,0),(14,14)))
 # print(range_overlaps((0,13),(13,13)))
 
+
 # exit()
 def range_mapping(outputs, inputs, ranges, number_range):
     # print(f"range_mapping: {outputs=}, {inputs=}, {ranges=}, {number_range=}")
     returns = []
     todo = [number_range]
-    for i,o,r in zip(inputs,outputs,ranges):
+    for i, o, r in zip(inputs, outputs, ranges):
         # print(f"checking {i=},{o=},{r=}")
         for _range in todo:
-            overlap, non_overlaps = range_overlaps((i, i+r-1), _range)
+            overlap, non_overlaps = range_overlaps((i, i + r - 1), _range)
             if overlap:
                 # print(f"{overlap=}, {non_overlaps=}")
                 returns.append((overlap[0] - i + o, overlap[1] - i + o))
@@ -93,9 +90,7 @@ for page in data.split("\n\n"):
         # print("outputs",outputs)
         # print("inputs",inputs)
         # print("ranges",ranges)
-        on_hand = [
-            mapping(outputs, inputs,ranges,n) for n in on_hand
-        ]
+        on_hand = [mapping(outputs, inputs, ranges, n) for n in on_hand]
         # print("on_hand:", on_hand)
         # for line in
         #     if line.endswith(":"):
@@ -110,7 +105,9 @@ for page in data.split("\n\n"):
         # print(f"starting with: {on_hand}")
         on_hand_ranges = []
         for i in range(0, len(on_hand), 2):
-            on_hand_ranges.append((int(on_hand[i]), int(on_hand[i]) + int(on_hand[i+1]-1)))
+            on_hand_ranges.append(
+                (int(on_hand[i]), int(on_hand[i]) + int(on_hand[i + 1] - 1))
+            )
         # print(f"starting with: {on_hand_ranges}")
 
     else:

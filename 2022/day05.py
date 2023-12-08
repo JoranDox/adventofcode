@@ -1,21 +1,22 @@
-
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
-#with open(aoc_dir.joinpath("input/2022/day05inputtest.txt")) as f:
+# with open(aoc_dir.joinpath("input/2022/day05inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2022/day05input.txt")) as f:
     data = f.read()
 
 config, moves = data.split("\n\n")
 
+
 def pad(twodstr):
     m = max([len(c) for c in twodstr])
 
-    return [
-        l + (m - len(l)) * ' '
-        for l in twodstr
-    ]
+    return [l + (m - len(l)) * " " for l in twodstr]
+
+
 # print(config)
 # print(pad(config.splitlines()))
+
 
 def doday5(config, moves, p2=False):
     stacks = {}
@@ -37,8 +38,9 @@ def doday5(config, moves, p2=False):
 
     print("p2: ", end="")
     for i in range(len(stacks)):
-        print(stacks[str(i+1)][-1],end="")
+        print(stacks[str(i + 1)][-1], end="")
     print()
+
 
 doday5(config, moves)
 doday5(config, moves, p2=True)

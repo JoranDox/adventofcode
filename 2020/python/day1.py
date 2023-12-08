@@ -4,6 +4,7 @@ with open("day1input.txt") as inputfile:
         inputs.append(int(line))
 
 import time
+
 t0 = time.time()
 
 for i in range(len(inputs)):
@@ -17,7 +18,9 @@ for i in range(len(inputs)):
     for j in range(i, len(inputs)):
         for k in range(j, len(inputs)):
             if (inputs[i] + inputs[j] + inputs[k]) == 2020:
-                print(inputs[i], inputs[j], inputs[k], inputs[i] * inputs[j] * inputs[k])
+                print(
+                    inputs[i], inputs[j], inputs[k], inputs[i] * inputs[j] * inputs[k]
+                )
 
 t3 = time.time()
 

@@ -1,5 +1,6 @@
 import functools
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
 # with open(aoc_dir.joinpath("input/2023/day02inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2023/day02input.txt")) as f:
@@ -41,9 +42,8 @@ for game in data.splitlines():
         accum += gameid_num
         # print(accum)
     # part 2:
-    power = functools.reduce(lambda x,y: x*y, mincubes.values())
+    power = functools.reduce(lambda x, y: x * y, mincubes.values())
     accumpower += power
 
 print(accum)
 print(accumpower)
-

@@ -36,7 +36,6 @@ with open(infilename) as infile:
                 allergenpotentials[allergen] &= foods
 
 
-
 print(lines)
 
 print(allergenpotentials)

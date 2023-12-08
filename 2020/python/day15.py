@@ -1,6 +1,6 @@
 filename = "day15input.txt"
 # filename = "day15inputex.txt"
-with open(filename)as infile:
+with open(filename) as infile:
     startingnumbers = list(map(int, infile.read().strip().split(",")))
 print(startingnumbers)
 
@@ -25,7 +25,7 @@ print(startingnumbers)
 
 # writing it with a dict instead
 
-lastsaid = {n:i for i,n in enumerate(startingnumbers[:-1])}
+lastsaid = {n: i for i, n in enumerate(startingnumbers[:-1])}
 
 prev = startingnumbers[-1]
 for i in range(len(startingnumbers), 30000000):
@@ -36,7 +36,7 @@ for i in range(len(startingnumbers), 30000000):
         age = i - last - 1
     else:
         age = 0
-    lastsaid[prev] = i-1
+    lastsaid[prev] = i - 1
     prev = age
 
 print(prev)

@@ -1,4 +1,3 @@
-
 bags = dict()
 bagspart2 = dict()
 filename = "joeriinput.txt"
@@ -7,10 +6,10 @@ filename = "day7input.txt"
 with open(filename) as infile:
     for line in infile:
         outerbagtype, innerbags = line.strip()[:-1].split(" contain ", 1)
-        outerbagtype = " ".join(outerbagtype.split()[:-1]) # remove "bag(s)"
+        outerbagtype = " ".join(outerbagtype.split()[:-1])  # remove "bag(s)"
         for bag in innerbags.split(", "):
-            num, innerbagtype = bag.split(' ', 1)
-            innerbagtype = " ".join(innerbagtype.split()[:-1]) # remove "bag(s)"
+            num, innerbagtype = bag.split(" ", 1)
+            innerbagtype = " ".join(innerbagtype.split()[:-1])  # remove "bag(s)"
             if innerbagtype not in bags:
                 bags[innerbagtype] = []
             if outerbagtype not in bagspart2:
@@ -48,4 +47,3 @@ while to_search:
 
 # print(seen)
 print(counter - 1)
-

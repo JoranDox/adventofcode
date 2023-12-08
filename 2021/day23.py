@@ -47,20 +47,22 @@ print(testinput)
 part1 = False
 # part1 = True
 if part1:
-    testinput = '\n'.join(testinput.splitlines()[:4] + testinput.splitlines()[6:])
-    myinput = '\n'.join(myinput.splitlines()[:4] + myinput.splitlines()[6:])
-    emptyinput = '\n'.join(emptyinput.splitlines()[:4] + emptyinput.splitlines()[6:])
-    endinput = '\n'.join(endinput.splitlines()[:4] + endinput.splitlines()[6:])
+    testinput = "\n".join(testinput.splitlines()[:4] + testinput.splitlines()[6:])
+    myinput = "\n".join(myinput.splitlines()[:4] + myinput.splitlines()[6:])
+    emptyinput = "\n".join(emptyinput.splitlines()[:4] + emptyinput.splitlines()[6:])
+    endinput = "\n".join(endinput.splitlines()[:4] + endinput.splitlines()[6:])
+
 
 def genworld(worldstr):
-    return np.array([
-        tuple(line.strip("\n"))
-        for line in worldstr.strip('\n').splitlines()
-    ])
+    return np.array(
+        [tuple(line.strip("\n")) for line in worldstr.strip("\n").splitlines()]
+    )
+
 
 def printworld(world):
     for line in world:
-        print(''.join(line))
+        print("".join(line))
+
 
 printworld(genworld(emptyinput))
 print(genworld(emptyinput))
@@ -69,17 +71,19 @@ nostopping = {(3, 1), (5, 1), (7, 1), (9, 1)}
 
 print(nostopping)
 
+
 def getneighbours(loc):
-    x,y = loc
+    x, y = loc
     return {
-        (x,y-1),
-        (x+1,y),
-        (x,y+1),
-        (x-1,y),
+        (x, y - 1),
+        (x + 1, y),
+        (x, y + 1),
+        (x - 1, y),
     }
 
+
 def getvalidmoves(world, startloc, others):
-    tocheck = {(startloc,())}
+    tocheck = {(startloc, ())}
     validmoves = set()
     while tocheck:
         l, path = tocheck.pop()
@@ -98,9 +102,11 @@ def getvalidmoves(world, startloc, others):
             elif nval == "#":
                 # print("wall")
                 pass
-            elif nval in ".wxyz": # just move past finished people in the rooms, doesn't matter for final calc
+            elif (
+                nval in ".wxyz"
+            ):  # just move past finished people in the rooms, doesn't matter for final calc
                 # print("yes")
-                
+
                 # valid location to pass
                 if neighbour not in nostopping:
                     validmoves.add((neighbour))
@@ -109,28 +115,47 @@ def getvalidmoves(world, startloc, others):
                 print("oh no!", startloc, neighbour)
     return validmoves
 
+
 if part1:
     startlocs = {
-        (3, 2), (5, 2), (7, 2), (9, 2),
-        (3, 3), (5, 3), (7, 3), (9, 3),
+        (3, 2),
+        (5, 2),
+        (7, 2),
+        (9, 2),
+        (3, 3),
+        (5, 3),
+        (7, 3),
+        (9, 3),
     }
 else:
     startlocs = {
-        (3, 2), (5, 2), (7, 2), (9, 2),
-        (3, 3), (5, 3), (7, 3), (9, 3),
-        (3, 4), (5, 4), (7, 4), (9, 4),
-        (3, 5), (5, 5), (7, 5), (9, 5),
+        (3, 2),
+        (5, 2),
+        (7, 2),
+        (9, 2),
+        (3, 3),
+        (5, 3),
+        (7, 3),
+        (9, 3),
+        (3, 4),
+        (5, 4),
+        (7, 4),
+        (9, 4),
+        (3, 5),
+        (5, 5),
+        (7, 5),
+        (9, 5),
     }
 
 endlocs = {
-    "A": {(3,2), (3,3), (3,4), (3,5)} & startlocs,
-    "B": {(5,2), (5,3), (5,4), (5,5)} & startlocs,
-    "C": {(7,2), (7,3), (7,4), (7,5)} & startlocs,
-    "D": {(9,2), (9,3), (9,4), (9,5)} & startlocs,
-    "a": {(3,2), (3,3), (3,4), (3,5)} & startlocs,
-    "b": {(5,2), (5,3), (5,4), (5,5)} & startlocs,
-    "c": {(7,2), (7,3), (7,4), (7,5)} & startlocs,
-    "d": {(9,2), (9,3), (9,4), (9,5)} & startlocs,
+    "A": {(3, 2), (3, 3), (3, 4), (3, 5)} & startlocs,
+    "B": {(5, 2), (5, 3), (5, 4), (5, 5)} & startlocs,
+    "C": {(7, 2), (7, 3), (7, 4), (7, 5)} & startlocs,
+    "D": {(9, 2), (9, 3), (9, 4), (9, 5)} & startlocs,
+    "a": {(3, 2), (3, 3), (3, 4), (3, 5)} & startlocs,
+    "b": {(5, 2), (5, 3), (5, 4), (5, 5)} & startlocs,
+    "c": {(7, 2), (7, 3), (7, 4), (7, 5)} & startlocs,
+    "d": {(9, 2), (9, 3), (9, 4), (9, 5)} & startlocs,
 }
 
 costs = {
@@ -151,21 +176,23 @@ progression = {
     "d": "z",
 }
 
-firstmovevalid = {(x,1) for x in range(12)}
+firstmovevalid = {(x, 1) for x in range(12)}
 if part1:
-    secondmovevalid = {(x,2) for x in range(12)} | {(x,3) for x in range(12)}
+    secondmovevalid = {(x, 2) for x in range(12)} | {(x, 3) for x in range(12)}
 else:
     secondmovevalid = (
-          {(x,2) for x in range(12)}
-        | {(x,3) for x in range(12)}
-        | {(x,4) for x in range(12)}
-        | {(x,5) for x in range(12)}
+        {(x, 2) for x in range(12)}
+        | {(x, 3) for x in range(12)}
+        | {(x, 4) for x in range(12)}
+        | {(x, 5) for x in range(12)}
     )
 
-def distance(l1,l2):
-    x1,y1 = l1
-    x2,y2 = l2
-    return abs(x2-x1) + abs(y2-y1)
+
+def distance(l1, l2):
+    x1, y1 = l1
+    x2, y2 = l2
+    return abs(x2 - x1) + abs(y2 - y1)
+
 
 # w = genworld(emptyinput)
 # for move in getvalidmoves(genworld(emptyinput), (1,1), ()):
@@ -202,7 +229,7 @@ print(fishlocs)
 fishes = set()
 for letter in fishlocs:
     for loc in fishlocs[letter]:
-        fishes.add((letter,loc))
+        fishes.add((letter, loc))
 
 
 # tocheck = [(0,fishes)]
@@ -214,11 +241,13 @@ prevcost = 0
 prevclose = 50
 lowestcost = 1000000
 
+
 def printstate(fishes):
     world = genworld(emptyinput)
-    for letter,loc in fishes:
+    for letter, loc in fishes:
         world.T[loc] = letter
     printworld(world)
+
 
 if part1:
     costbounds = 20000
@@ -227,25 +256,21 @@ else:
 
 print(fishes)
 # {('C', (9, 4)), ('A', (9, 5)), ('A', (3, 5)), ('A', (9, 3)), ('D', (3, 4)), ('C', (7, 5)), ('D', (9, 2)), ('D', (5, 5)), ('B', (7, 3)), ('A', (7, 4)), ('C', (5, 2)), ('B', (7, 2)), ('B', (5, 4)), ('D', (3, 3)), ('B', (3, 2)), ('C', (5, 3))}
-print(getvalidmoves(
-    genworld(myinput),
-    (9,3),
-    {loc for letter,loc in fishes} - {(9, 3)}
-))
-print(getvalidmoves(
-    genworld(myinput),
-    (9,2),
-    {loc for letter,loc in fishes} - {(9, 2)}
-))
+print(
+    getvalidmoves(genworld(myinput), (9, 3), {loc for letter, loc in fishes} - {(9, 3)})
+)
+print(
+    getvalidmoves(genworld(myinput), (9, 2), {loc for letter, loc in fishes} - {(9, 2)})
+)
 
-statecache = {
-    tuple(sorted(fishes)):(0,())
-}
+statecache = {tuple(sorted(fishes)): (0, ())}
 
 steps = 0
+
+
 # while tocheck:
 @lru_cache(maxsize=None)
-def check(cost,fishes):
+def check(cost, fishes):
     # cost = statecache[fishes]
     global steps
     global prevcost
@@ -257,22 +282,21 @@ def check(cost,fishes):
     # s = sorted(tocheck)
     # cost,fishes = heapq.heappop(tocheck)
     if cost > costbounds:
-        return # nothing to be gained here
+        return  # nothing to be gained here
     if cost >= prevcost:
         prevcost = cost
         # print(cost, fishes)
-    alllocs = {
-        loc
-        for letter,loc in fishes
-    }
+    alllocs = {loc for letter, loc in fishes}
 
-    close = sum(letter in progression for letter,loc in fishes) + sum(letter == letter.upper() for letter,loc in fishes)
+    close = sum(letter in progression for letter, loc in fishes) + sum(
+        letter == letter.upper() for letter, loc in fishes
+    )
     if close < prevclose:
         print("getting closer", close, fishes, steps)
         printstate(fishes)
         prevclose = close
     if close == 0:
-        costbounds = min(cost,costbounds)
+        costbounds = min(cost, costbounds)
         return cost, ()
 
     attempts = []
@@ -285,7 +309,7 @@ def check(cost,fishes):
                 comp = secondmovevalid & endlocs[letter]
 
                 okay = True
-                for fishletter, floc in (fishes - {(letter,loc)}):
+                for fishletter, floc in fishes - {(letter, loc)}:
                     if (
                         # the fish we're comparing to is in the endlocs of the letter we're looking at
                         floc in endlocs[letter]
@@ -297,14 +321,13 @@ def check(cost,fishes):
                         okay = False
                         break
                 if not okay:
-                    continue # don't move into a room if wrong fish still in there
-                
+                    continue  # don't move into a room if wrong fish still in there
 
-            for move in getvalidmoves(emptyworld,loc,alllocs) & comp:
+            for move in getvalidmoves(emptyworld, loc, alllocs) & comp:
                 # print(letter, loc, move)
 
-                d = distance(loc,move) * costs[letter.upper()]
-                newfishes = fishes - {(letter,loc)} | {(progression[letter],move)}
+                d = distance(loc, move) * costs[letter.upper()]
+                newfishes = fishes - {(letter, loc)} | {(progression[letter], move)}
                 newfishes = tuple(sorted(newfishes))
                 assert len(newfishes) == len(startlocs)
                 # if newfishes not in statecache:
@@ -312,20 +335,21 @@ def check(cost,fishes):
                 # else:
                 #     if statecache[newfishes] <= cost + d:
                 #         continue # worse way to end up in this state
-                r = check(cost+d,newfishes)
+                r = check(cost + d, newfishes)
                 if r:
                     rcost, rpath = r
-                    attempts.append((rcost,((letter,loc,move), *rpath)))
+                    attempts.append((rcost, ((letter, loc, move), *rpath)))
                 # heapq.heappush(tocheck,(cost + d, newfishes))
     if attempts:
         mc, mf = min(attempts)
-        if cost < lowestcost: # and len(mf) == len(startlocs) * 2:
-            print(mc,len(mf),mf)
+        if cost < lowestcost:  # and len(mf) == len(startlocs) * 2:
+            print(mc, len(mf), mf)
             # printstate(fishes)
             lowestcost = cost
             # print("done!", cost, lowestcost, steps)
 
-        return mc,mf
+        return mc, mf
 
-print(check(0,tuple(sorted(fishes))))
+
+print(check(0, tuple(sorted(fishes))))
 # print(steps)

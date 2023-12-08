@@ -1,10 +1,9 @@
-
 infilename = "day18input.txt"
 # infilename = "day18inputex.txt"
 
 operators = {
-    "+": lambda x, y: x+y,
-    "*": lambda x, y: x*y,
+    "+": lambda x, y: x + y,
+    "*": lambda x, y: x * y,
 }
 
 
@@ -34,7 +33,8 @@ def myeval(line):
             return LHS, line
         else:
             assert False, "oops"
-    return(LHS)
+    return LHS
+
 
 def myeval(line):
     LHS = None
@@ -62,15 +62,15 @@ def myeval(line):
             return LHS, line
         else:
             assert False, "oops"
-    return(LHS)
+    return LHS
 
 
 examples = [
-    "1 + (2 * 3) + (4 * (5 + 6))", # becomes 51
-    "2 * 3 + (4 * 5)", # becomes 26.
-    "5 + (8 * 3 + 9 + 3 * 4 * 3)", # becomes 437.
-    "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))", # becomes 12240.
-    "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2", # becomes 13632.
+    "1 + (2 * 3) + (4 * (5 + 6))",  # becomes 51
+    "2 * 3 + (4 * 5)",  # becomes 26.
+    "5 + (8 * 3 + 9 + 3 * 4 * 3)",  # becomes 437.
+    "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))",  # becomes 12240.
+    "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2",  # becomes 13632.
 ]
 
 for line in examples:
@@ -85,22 +85,25 @@ with open(infilename) as infile:
 print(accum)
 # part 2
 print("part2")
+
+
 class stupidint:
     def __init__(self, num):
         self.num = num
-    
+
     def __add__(self, other):
-        return stupidint(self.num * other.num) # lmao
+        return stupidint(self.num * other.num)  # lmao
 
     def __mul__(self, other):
-        return stupidint(self.num + other.num) # lmao
+        return stupidint(self.num + other.num)  # lmao
 
     def __str__(self):
         return str(self.num)
 
     def __repr__(self):
         return str(self.num)
-        
+
+
 def numtosto(char):
     if char in "1234567890":
         return f"stupidint({char})"
@@ -111,19 +114,18 @@ def numtosto(char):
     else:
         return char
 
+
 def runassto(line):
-    line = "".join([
-        numtosto(char)
-        for char in line
-    ])
+    line = "".join([numtosto(char) for char in line])
     return line
 
+
 examples2 = [
-    "1 + (2 * 3) + (4 * (5 + 6))", # becomes 51
-    "2 * 3 + (4 * 5)", # becomes 46.
-    "5 + (8 * 3 + 9 + 3 * 4 * 3)", # becomes 1445.
-    "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))", # becomes 669060.
-    "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2", # becomes 23340.
+    "1 + (2 * 3) + (4 * (5 + 6))",  # becomes 51
+    "2 * 3 + (4 * 5)",  # becomes 46.
+    "5 + (8 * 3 + 9 + 3 * 4 * 3)",  # becomes 1445.
+    "5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))",  # becomes 669060.
+    "((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2",  # becomes 23340.
 ]
 
 for line in examples2:

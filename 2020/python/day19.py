@@ -1,4 +1,3 @@
-
 infilename = "day19inputex.txt"
 infilename = "day19inputex2.txt"
 infilename = "day19input.txt"
@@ -28,7 +27,6 @@ for rule in rules.split("\n"):
             pass
         parsedrule.append(r)
 
-    
     parsedrules[index] = parsedrule
 
 print(parsedrules)
@@ -38,9 +36,8 @@ messages = messages.split("\n")
 
 dprint = lambda *x, **y: None
 import sys
+
 sys.setrecursionlimit(10000)
-
-
 
 
 def rule0(message):
@@ -52,14 +49,15 @@ def rule0(message):
             count42 += 1
             m2 = message
             for i in range(count42):
-                r2, m2 = validate(m2, parsedrules[11]) # this is a typo but gives the right answer ???
+                r2, m2 = validate(
+                    m2, parsedrules[11]
+                )  # this is a typo but gives the right answer ???
                 if not r2:
                     break
                 if r2 and not m2:
                     return True
         else:
             return False
-
 
 
 def validate(message, rule):
@@ -80,9 +78,9 @@ def validate(message, rule):
         i = rule.index("|")
         r, m = validate(message, rule[:i])
         if r:
-            return r,m
+            return r, m
         else:
-            return validate(message, rule[i+1:])
+            return validate(message, rule[i + 1 :])
     elif len(rule) > 1 and type(rule[0]) == int:
         dprint("'and' rule")
         r, m = validate(message, parsedrules[rule[0]])
@@ -120,9 +118,9 @@ def validate2(message, rule):
         i = rule.index("|")
         r, m = validate(message, rule[:i])
         if r:
-            return r,m
+            return r, m
         else:
-            return validate(message, rule[i+1:])
+            return validate(message, rule[i + 1 :])
     elif len(rule) > 1 and type(rule[0]) == int:
         dprint("'and' rule")
         for char in rule:
@@ -141,6 +139,7 @@ def validate2(message, rule):
         else:
             return False, message[1:]
     assert False, "shouldn't have come here"
+
 
 accum = 0
 for message in messages:

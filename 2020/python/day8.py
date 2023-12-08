@@ -5,7 +5,6 @@ instructions = computer.readinstructions("day8input.txt")
 print(instructions)
 
 
-
 def nodoubles(instructions):
     world = computer.world.copy()
     seen = [0]
@@ -14,11 +13,12 @@ def nodoubles(instructions):
         # print("current accum & funcpointer:", lastaccum, print(world["funcpointer"]))
         world = computer.runone(world, instructions)
         if world == None:
-            return True, lastaccum # terminated
+            return True, lastaccum  # terminated
         if (fp := world["funcpointer"]) in seen:
             # print("already been here!")
             return False, lastaccum
         seen.append(fp)
+
 
 # part1
 print(nodoubles(instructions))
@@ -38,6 +38,4 @@ for i in range(len(instructions)):
         print("yes, it's", i, "lastaccum =", lastaccum)
         break
     # else:
-        # print("alas, not", i)
-
-    
+    # print("alas, not", i)

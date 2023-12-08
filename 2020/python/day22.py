@@ -8,12 +8,13 @@ infilename = "day22input.txt"
 with open(infilename) as infile:
     deck1, deck2 = infile.read().strip().split("\n\n")
 
-deck1 = deque([int(n) for n in deck1.split("\n")[1:] ])
-deck2 = deque([int(n) for n in deck2.split("\n")[1:] ])
+deck1 = deque([int(n) for n in deck1.split("\n")[1:]])
+deck2 = deque([int(n) for n in deck2.split("\n")[1:]])
 
 print(deck1, deck2)
 
 print(tuple(deck1), tuple(deck2))
+
 
 def oneround(deck1, deck2):
     if (c1 := deck1.popleft()) > (c2 := deck2.popleft()):
@@ -29,21 +30,23 @@ def score(d):
     accum = 0
     counter = 1
     while d:
-        accum += (d.pop() * counter)
+        accum += d.pop() * counter
         counter += 1
     return accum
+
 
 # part 1
 # while oneround(deck1, deck2):
 #     # print(deck1, deck2)
-#     pass 
+#     pass
 # print("part 1")
 # print(deck1, deck2)
 # print(score(deck1), score(deck2))
 
+
 def game(deck1, deck2, depth=0):
     knownconfigs = set()
-    
+
     while deck1 and deck2:
         checktuple = (tuple(deck1), tuple(deck2))
         # print(checktuple)
@@ -57,7 +60,7 @@ def game(deck1, deck2, depth=0):
 
         c1 = deck1.popleft()
         c2 = deck2.popleft()
-        
+
         if c1 <= len(deck1) and c2 <= len(deck2):
             # True = player1, False = player2
             subdeck1 = deque(tuple(deck1)[:c1])
@@ -65,10 +68,10 @@ def game(deck1, deck2, depth=0):
             print("recursing")
             roundwinner = None
             while roundwinner is None:
-                roundwinner = game(subdeck1, subdeck2, depth+1)
+                roundwinner = game(subdeck1, subdeck2, depth + 1)
         else:
             # True = player1, False = player2
-            roundwinner = (c1 > c2)
+            roundwinner = c1 > c2
 
         assert type(roundwinner) == bool
 
@@ -85,6 +88,7 @@ def game(deck1, deck2, depth=0):
         return True
     else:
         return False
+
 
 print("part2")
 game(deck1, deck2)

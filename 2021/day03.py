@@ -2,7 +2,7 @@
 with open("day03input.txt") as f:
     data = f.readlines()
 
-basecount = [0,0]
+basecount = [0, 0]
 
 counts = []
 
@@ -17,7 +17,7 @@ print(counts)
 
 gamma = ""
 epsilon = ""
-for i,j in counts:
+for i, j in counts:
     if i > j:
         gamma += "0"
         epsilon += "1"
@@ -27,10 +27,10 @@ for i,j in counts:
 print(gamma)
 print(epsilon)
 
-print(int(gamma,2))
-print(int(epsilon,2))
+print(int(gamma, 2))
+print(int(epsilon, 2))
 
-print(int(gamma,2) * int(epsilon,2))
+print(int(gamma, 2) * int(epsilon, 2))
 
 print("part2")
 
@@ -68,5 +68,7 @@ while True:
     if len(co2list) == 1:
         print("found", co2, co2list)
         break
-print(oxy + oxygen[0], co2 + co2list[0], int(oxy + oxygen[0],2), int(co2 + co2list[0],2))
-print(int(oxy + oxygen[0],2) * int(co2 + co2list[0],2))
+print(
+    oxy + oxygen[0], co2 + co2list[0], int(oxy + oxygen[0], 2), int(co2 + co2list[0], 2)
+)
+print(int(oxy + oxygen[0], 2) * int(co2 + co2list[0], 2))

@@ -15,7 +15,6 @@ for line in data:
 print(inc)
 
 
-
 # part 2
 sums = [sum(x) for x in zip(data[2:], data[1:-1], data[:-2])]
 # print(sums[2:-2])

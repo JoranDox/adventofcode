@@ -59,11 +59,20 @@ Waning - When the moon becomes gradually less visible.
 Waxing - When the moon becomes gradually more visible.
 White dwarf - When a star has burnt up its fuel and begins to collapse inwards.
 """
-spacedic = set(spacewords.replace(".","").replace("(","").replace(")","").replace("-","").replace(",","").lower().split())
+spacedic = set(
+    spacewords.replace(".", "")
+    .replace("(", "")
+    .replace(")", "")
+    .replace("-", "")
+    .replace(",", "")
+    .lower()
+    .split()
+)
 space_parsed = [(word, len(word)) for word in spacedic]
 print(space_parsed)
 
 import pathlib
+
 parent_directory = pathlib.Path(__file__).resolve().absolute().parent
 
 # manually done
@@ -76,46 +85,49 @@ donetokens = {
 }
 
 tokens = {
-    "plustwo": "plustwo", # not changed yet
-    "plusone": "plusone", # not changed yet
-    "neutralzero": "neutralzero", # not changed yet
-    "minusone": "minusone", # not changed yet
-    "minustwo": "minustwo", # not changed yet
-    "the path": "the path", # not changed yet
-    "your mind": "your mind", # not changed yet
-    "a wreath": "a wreath", # not changed yet
-    "uniquecounttwo": "uniquecounttwo", # not changed yet
-    "uniquecountten": "uniquecountten", # not changed yet
-    "space": "space", # not changed yet
-    "your mind": "your mind", # not changed yet
-    "goup": "goup", # not changed yet
-    "goleft": "goleft", # not changed yet
-    "goright": "goright", # not changed yet
-    "godown": "godown", # not changed yet
-    "your heart": "your heart", # not changed yet
-    "hx": "the back", # not changed yet
-    "hy": "a customer", # not changed yet
-    "dx": "dx", # not changed yet
-    "dy": "dy", # not changed yet
-    "tx": "the middle", # not changed yet
-    "ty": "a corner", # not changed yet
-    "mx": "mx", # not changed yet
-    "movey": "movey", # not changed yet
-    "tangled": "tangled", # not changed yet
-    "the box": "the box", # not changed yet
-    "rock": "rock", # don't change lol
-    "roll": "roll", # don't change lol
+    "plustwo": "plustwo",  # not changed yet
+    "plusone": "plusone",  # not changed yet
+    "neutralzero": "neutralzero",  # not changed yet
+    "minusone": "minusone",  # not changed yet
+    "minustwo": "minustwo",  # not changed yet
+    "the path": "the path",  # not changed yet
+    "your mind": "your mind",  # not changed yet
+    "a wreath": "a wreath",  # not changed yet
+    "uniquecounttwo": "uniquecounttwo",  # not changed yet
+    "uniquecountten": "uniquecountten",  # not changed yet
+    "space": "space",  # not changed yet
+    "your mind": "your mind",  # not changed yet
+    "goup": "goup",  # not changed yet
+    "goleft": "goleft",  # not changed yet
+    "goright": "goright",  # not changed yet
+    "godown": "godown",  # not changed yet
+    "your heart": "your heart",  # not changed yet
+    "hx": "the back",  # not changed yet
+    "hy": "a customer",  # not changed yet
+    "dx": "dx",  # not changed yet
+    "dy": "dy",  # not changed yet
+    "tx": "the middle",  # not changed yet
+    "ty": "a corner",  # not changed yet
+    "mx": "mx",  # not changed yet
+    "movey": "movey",  # not changed yet
+    "tangled": "tangled",  # not changed yet
+    "the box": "the box",  # not changed yet
+    "rock": "rock",  # don't change lol
+    "roll": "roll",  # don't change lol
 }
 
 remove = [
     "whisper",
-    "say", # only leave shout & scream
+    "say",  # only leave shout & scream
     "let memes be",
 ]
 
 import re
+
 with open(parent_directory.joinpath("2022-12-09part2.rock")) as f_in:
-    with open(parent_directory.joinpath("2022-12-09part2idiomatic_generated.rock"), "w") as f_out:
+    with open(
+        parent_directory.joinpath("2022-12-09part2idiomatic_generated.rock"), "w"
+    ) as f_out:
         for line in f_in:
             if any(token in line.lower() for token in remove):
                 continue
@@ -124,10 +136,10 @@ with open(parent_directory.joinpath("2022-12-09part2.rock")) as f_in:
             if not line:
                 continue
             # remove brackets
-            line = re.sub(rf"\(.*\)","", line.strip()).strip()
+            line = re.sub(rf"\(.*\)", "", line.strip()).strip()
             # print("2:",line)
 
-            for inp,outp in tokens.items():
+            for inp, outp in tokens.items():
                 line = re.sub(rf"\b{inp}\b", outp, line)
 
             line = line.capitalize()
@@ -145,5 +157,5 @@ for word in tokens.values():
     print('"' + word + '"')
     for line in data.splitlines():
         if word in line.lower():
-            print('    ' + line)
+            print("    " + line)
 print("done")

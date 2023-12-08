@@ -1,4 +1,5 @@
 import string
+
 # with open("day12inputtest.txt") as f:
 with open("day12input.txt") as f:
     data = f.read().strip()
@@ -11,7 +12,7 @@ print(data)
 
 paths = {}
 for line in data.splitlines():
-    i,j = line.split("-")
+    i, j = line.split("-")
     if i not in paths:
         paths[i] = [j]
     else:
@@ -20,15 +21,15 @@ for line in data.splitlines():
         paths[j] = [i]
     else:
         paths[j].append(i)
-    
+
 
 print(paths)
 
 final = set()
 checked = set()
-tocheck = {(("start",),False)}
+tocheck = {(("start",), False)}
 while tocheck:
-    p,visitedtwice = tocheck.pop()
+    p, visitedtwice = tocheck.pop()
     checked |= {p}
     # print(p, paths[p[-1]])
     for path in paths[p[-1]]:
@@ -41,15 +42,15 @@ while tocheck:
                 continue
             else:
                 visitedtwice2 = True
-        p2 = p +(path,)
+        p2 = p + (path,)
         if p2 in checked:
             continue
         if path == "end":
             final |= {p2}
             # print("finished path:",p2)
             continue
-        
-        tocheck |= {(p2,visitedtwice2)}
+
+        tocheck |= {(p2, visitedtwice2)}
 # [print(f) for f in final]
 print(len(final))
 

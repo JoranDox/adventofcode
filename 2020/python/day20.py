@@ -12,23 +12,27 @@ with open(infilename) as infile:
         num = int(num[5:-1])
         tiles[num] = [[t for t in tile] for tile in part_split[1:]]
 
+
 def printfloormap(floormap):
     # print(floormap)
     print("\n".join("".join(line) for line in floormap))
     print()
 
+
 def flipv(tile):
     return list(reversed(tile))
 
+
 def rotate(tile):
-    newtile = copy.deepcopy(tile) # please be square
+    newtile = copy.deepcopy(tile)  # please be square
     dims = len(tile)
     for i in range(dims):
         # vertical
         for j in range(dims):
             # horizontal
-            newtile[dims - j-1][i] = tile[i][j]
+            newtile[dims - j - 1][i] = tile[i][j]
     return newtile
+
 
 def getborders(tile):
     tile_r = tile
@@ -48,8 +52,10 @@ def getborders(tile):
 # printfloormap(rotate(rotate(rotate(rotate(tiles[2311])))))
 # print(["".join(b) for b in getborders(tiles[2311])])
 
+
 def bordertonum(border):
     return int("".join(border).replace("#", "1").replace(".", "0"), 2)
+
 
 # print([bordertonum(b) for b in getborders(tiles[2311])])
 
@@ -68,7 +74,7 @@ bordernums = set()
 cornernums = set()
 bordernums2 = set()
 print(counter)
-onlyonce = [k for k,v in counter.items() if v == 1]
+onlyonce = [k for k, v in counter.items() if v == 1]
 for k in onlyonce:
     for tilenum, borders in tileborders.items():
         if k in borders:
@@ -89,7 +95,7 @@ print("part 2")
 print()
 
 print(len(tiles))
-sqrttiles = int(pow(len(tiles),0.5))
+sqrttiles = int(pow(len(tiles), 0.5))
 bigpicturedims = 10 * sqrttiles
 bigpicture = []
 for i in range(bigpicturedims):
@@ -112,23 +118,22 @@ startingcornernum = list(cornernums)[0]
 startingcorner = tiles[startingcornernum]
 del tiles[startingcornernum]
 
+
 def fillbigpicture(tile, bigx, bigy):
-    for y in range(1, len(tile)-1):
-        for x in range(1, len(tile)-1):
-            cleanpicture[bigy*8 + y-1][bigx*8 + x-1] = tile[y][x]
+    for y in range(1, len(tile) - 1):
+        for x in range(1, len(tile) - 1):
+            cleanpicture[bigy * 8 + y - 1][bigx * 8 + x - 1] = tile[y][x]
     for y in range(len(tile)):
         for x in range(len(tile)):
-            bigpicture[bigy*10 + y][bigx*10 + x] = tile[y][x]
+            bigpicture[bigy * 10 + y][bigx * 10 + x] = tile[y][x]
 
 
 # printfloormap(tiles[2311])
 # printfloormap(rotate(tiles[2311]))
 
 for _ in range(4):
-    if (
-        (bordertonum(startingcorner[0]) in onlyonce)
-        and
-        (bordertonum(rotate(startingcorner)[0]) in onlyonce)
+    if (bordertonum(startingcorner[0]) in onlyonce) and (
+        bordertonum(rotate(startingcorner)[0]) in onlyonce
     ):
         # we found a correct top right corner
         fillbigpicture(startingcorner, sqrttiles - 1, 0)
@@ -143,6 +148,7 @@ latesttile = startingcorner
 
 indexx = sqrttiles - 2
 
+
 def getorientations(tile):
     ret = []
     for _ in range(4):
@@ -152,6 +158,7 @@ def getorientations(tile):
             ret.append(tile)
     return ret
 
+
 def findleft(tiles, leftside):
     for tilenum, tile in tiles.items():
         for tile in getorientations(tile):
@@ -160,6 +167,7 @@ def findleft(tiles, leftside):
                 print("found left")
                 return tilenum, tile
 
+
 def finddown(tiles, downside):
     for tilenum, tile in tiles.items():
         for tile in getorientations(tile):
@@ -167,8 +175,6 @@ def finddown(tiles, downside):
                 # we found a correct down side
                 print("found down")
                 return tilenum, tile
-
-
 
 
 indexy = 0
@@ -187,11 +193,10 @@ try:
             printfloormap(bigpicture)
             del tiles[tilenum]
             indexx -= 1
-            
+
         indexx = sqrttiles - 1
         indexy += 1
         if indexy < sqrttiles:
-
             print("looking down for", indexx, indexy, downsidestr)
             tilenum, tile = finddown(tiles, downside)
             latesttile = tile
@@ -204,9 +209,6 @@ except:
     pass
 
 
-
-
-
 printfloormap(bigpicture)
 printfloormap(cleanpicture)
 
@@ -216,22 +218,26 @@ seamonster = [
     " #  #  #  #  #  #   ",
 ]
 
+
 def compare(line, monsterline):
-    return all([j == " " or i == j for i,j in zip(line, monsterline)])
-        
+    return all([j == " " or i == j for i, j in zip(line, monsterline)])
+
 
 def findseamonsters(tile):
     counter = 0
     for i in range(len(tile) - 2):
         for j in range(len(tile[0]) - len(seamonster[0])):
-            if all((
-                compare(tile[i][j:], seamonster[0]),
-                compare(tile[i+1][j:], seamonster[1]),
-                compare(tile[i+2][j:], seamonster[2]),
-            )):
+            if all(
+                (
+                    compare(tile[i][j:], seamonster[0]),
+                    compare(tile[i + 1][j:], seamonster[1]),
+                    compare(tile[i + 2][j:], seamonster[2]),
+                )
+            ):
                 print("found one at", j, i)
                 counter += 1
     return counter
+
 
 print("searching for monsters")
 for orientation in getorientations(cleanpicture):

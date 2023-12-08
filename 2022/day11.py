@@ -1,7 +1,8 @@
 import functools
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
-#with open(aoc_dir.joinpath("input/2022/day11inputtest.txt")) as f:
+# with open(aoc_dir.joinpath("input/2022/day11inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2022/day11input.txt")) as f:
     data = f.read().strip()
 
@@ -15,18 +16,20 @@ for monkey in data.split("\n\n"):
     assert eq == "="
 
     assert test.startswith("  Test: divisible by")
-    monkeys.append({
-        "items": [int(x) for x in starting.split(": ")[1].split(", ")],
-        "operation": (op, n1, n2),
-        "test": int(test.split(" ")[-1]),
-        True: int(true.split(" ")[-1]),
-        False: int(false.split(" ")[-1]),
-        "counter": 0,
-    })
+    monkeys.append(
+        {
+            "items": [int(x) for x in starting.split(": ")[1].split(", ")],
+            "operation": (op, n1, n2),
+            "test": int(test.split(" ")[-1]),
+            True: int(true.split(" ")[-1]),
+            False: int(false.split(" ")[-1]),
+            "counter": 0,
+        }
+    )
 
 print([m["test"] for m in monkeys])
 
-divisor = functools.reduce(lambda x, y: x*y, [m["test"] for m in monkeys])
+divisor = functools.reduce(lambda x, y: x * y, [m["test"] for m in monkeys])
 print(divisor)
 print(monkeys)
 for mround in range(10000):
@@ -51,12 +54,11 @@ for mround in range(10000):
             # part 2
             boredworry = newworry % divisor
 
-
             # print(worryval, newworry, boredworry)
 
             # test
             # print(monkey["test"], newworry % monkey["test"], 2080, 13, 2080 % 13)
-            testresult = not(boredworry % (monkey["test"]))
+            testresult = not (boredworry % (monkey["test"]))
             # print(worryval, newworry, boredworry, testresult)
             newmonkey = monkey[testresult]
             # print(worryval, newworry, boredworry, testresult, newmonkey)
@@ -69,7 +71,7 @@ for mround in range(10000):
     if mround == 19:
         print([(i, m["counter"]) for i, m in enumerate(monkeys)])
         s1, s2 = sorted([m["counter"] for m in monkeys])[-2:]
-        print(s1*s2)
+        print(s1 * s2)
 
     if not (mround % 1000):
         print([(i, m["counter"]) for i, m in enumerate(monkeys)])
@@ -77,4 +79,4 @@ for mround in range(10000):
 
 print([(i, m["counter"]) for i, m in enumerate(monkeys)])
 s1, s2 = sorted([m["counter"] for m in monkeys])[-2:]
-print(s1*s2)
+print(s1 * s2)

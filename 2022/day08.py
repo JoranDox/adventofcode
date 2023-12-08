@@ -1,7 +1,7 @@
-
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
-#with open(aoc_dir.joinpath("input/2022/day08inputtest.txt")) as f:
+# with open(aoc_dir.joinpath("input/2022/day08inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2022/day08input.txt")) as f:
     data = f.read().strip()
 
@@ -13,18 +13,18 @@ for line in data.splitlines():
     vismap.append([set() for i in line])
     vm2.append([False for i in line])
 
+
 def mprint(treemap):
-    return "\n".join([
-        ("".join((str(i) for i in line)))
-        for line in treemap
-    ])
+    return "\n".join([("".join((str(i) for i in line))) for line in treemap])
+
+
 print(mprint(treemap))
 print(vismap)
 directions = {
-    "n" : (0, -1),
-    "e" : (1, 0),
-    "s" : (0, 1),
-    "w" : (-1, 0),
+    "n": (0, -1),
+    "e": (1, 0),
+    "s": (0, 1),
+    "w": (-1, 0),
 }
 inv_dirs = {
     "n": "s",
@@ -32,17 +32,20 @@ inv_dirs = {
     "s": "n",
     "w": "e",
 }
+
+
 def vsum(loc, dir):
-    return tuple([i+j for i,j in zip(loc,dir)])
+    return tuple([i + j for i, j in zip(loc, dir)])
 
-print(vsum((2,5), (3,9)))
 
-for y,line in enumerate(vm2):
+print(vsum((2, 5), (3, 9)))
+
+for y, line in enumerate(vm2):
     # print(y, line)
-    for x,visibilities in enumerate(line):
+    for x, visibilities in enumerate(line):
         # print(x,visibilities)
-        for direction in {"n","e","s","w"}:
-            cx,cy = vsum((x,y), directions[direction])
+        for direction in {"n", "e", "s", "w"}:
+            cx, cy = vsum((x, y), directions[direction])
             if (cy < 0) or (cx < 0) or (cx >= len(vismap[0])) or (cy >= len(vismap)):
                 vm2[y][x] = True
                 continue
@@ -55,13 +58,11 @@ for y,line in enumerate(vm2):
         myval = treemap[y][x]
         if (
             (max(colvals[:y]) < myval)
-            or (max(colvals[y+1:]) < myval)
+            or (max(colvals[y + 1 :]) < myval)
             or (max(rowvals[:x]) < myval)
-            or (max(rowvals[x+1:]) < myval)
+            or (max(rowvals[x + 1 :]) < myval)
         ):
             vm2[y][x] = True
-
-
 
 
 print(mprint(vm2))
@@ -74,13 +75,15 @@ print("p1:", counter)
 
 highscore = 0
 
+
 def getscore(array):
     try:
         return array.index(False) + 1
     except:
         return len(array)
 
-def getscenicscore(x,y):
+
+def getscenicscore(x, y):
     # x,y = 2,3
     # print(treemap[y][x])
     colvals = [i[x] for i in treemap]
@@ -99,11 +102,10 @@ def getscenicscore(x,y):
 
     return (
         (getscore([i < myval for i in (colvals[:y])][::-1]))
-        *(getscore([i < myval for i in (rowvals[:x])][::-1]))
-        *(getscore([i < myval for i in (colvals[y+1:])]))
-        *(getscore([i < myval for i in (rowvals[x+1:])]))
+        * (getscore([i < myval for i in (rowvals[:x])][::-1]))
+        * (getscore([i < myval for i in (colvals[y + 1 :])]))
+        * (getscore([i < myval for i in (rowvals[x + 1 :])]))
     )
-
 
     # return [
     #     (getscore([i < myval for i in (colvals[:y])][::-1])),
@@ -113,16 +115,15 @@ def getscenicscore(x,y):
     # ]
 
 
-
 # print(getscenicscore(2,3))
 
-for y,line in enumerate(vm2):
-    for x,visibilities in enumerate(line):
-        scores = getscenicscore(x,y)
+for y, line in enumerate(vm2):
+    for x, visibilities in enumerate(line):
+        scores = getscenicscore(x, y)
 
-                    #  (max(colvals[y+1:]) < myval)
-                    # or (max(rowvals[:x]) < myval)
-                    # or (max(rowvals[x+1:]) < myval)
+        #  (max(colvals[y+1:]) < myval)
+        # or (max(rowvals[:x]) < myval)
+        # or (max(rowvals[x+1:]) < myval)
         if scores > highscore:
             highscore = scores
             print(scores)

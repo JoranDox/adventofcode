@@ -1,5 +1,6 @@
 import collections
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
 # with open(aoc_dir.joinpath("input/2022/day21inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2022/day21input.txt")) as f:
@@ -8,10 +9,10 @@ with open(aoc_dir.joinpath("input/2022/day21input.txt")) as f:
 dones = {}
 todos = collections.deque()
 ops = {
-    "+": (lambda x,y: x+y),
-    "-": (lambda x,y: x-y),
-    "*": (lambda x,y: x*y),
-    "/": (lambda x,y: x//y),
+    "+": (lambda x, y: x + y),
+    "-": (lambda x, y: x - y),
+    "*": (lambda x, y: x * y),
+    "/": (lambda x, y: x // y),
 }
 for line in data.splitlines():
     name, rest = line.split(": ")
@@ -23,7 +24,7 @@ for line in data.splitlines():
 while todos:
     name, (lhs, op, rhs) = todos.popleft()
     if lhs in dones and rhs in dones:
-        dones[name] = ops[op](dones[lhs],dones[rhs])
+        dones[name] = ops[op](dones[lhs], dones[rhs])
         print(f"{name} = {lhs} {op} {rhs} = {dones[name]}")
     else:
         todos.append((name, (lhs, op, rhs)))
@@ -70,15 +71,13 @@ while changed:
 
     if (type(lhs) == int) and (type(rhs) == int):
         changed = len(unknown)
-        facts[name] = ops[op](lhs,rhs)
+        facts[name] = ops[op](lhs, rhs)
         print(f"{name} = {lhs} {op} {rhs} = {facts[name]}")
         continue
 
     unknown.append((name, (lhs, op, rhs)))
 
-unknowndict = {
-    name: (lhs, op, rhs) for name, (lhs, op, rhs) in unknown
-}
+unknowndict = {name: (lhs, op, rhs) for name, (lhs, op, rhs) in unknown}
 print(unknown)
 print(unknowndict)
 print(facts)
@@ -114,7 +113,7 @@ while rootlhs != "humn":
         # <=> x = b / a
         #     x / a = b
         # <=> x = b * a
-        rootrhs = ops[opinverse[op]](rootrhs,right)
+        rootrhs = ops[opinverse[op]](rootrhs, right)
         rootlhs = left
         continue
 
@@ -127,7 +126,7 @@ while rootlhs != "humn":
         # <=> x = b / a
         #     a + x = b
         # <=> x = b - a
-        rootrhs = ops[opinverse[op]](rootrhs,left)
+        rootrhs = ops[opinverse[op]](rootrhs, left)
     else:
         # inversion
         if op in ("/", "-"):

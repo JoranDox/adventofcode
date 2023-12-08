@@ -1,9 +1,9 @@
-
 import collections
 import copy
 import pathlib
+
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
-#with open(aoc_dir.joinpath("input/2022/day17inputtest.txt")) as f:
+# with open(aoc_dir.joinpath("input/2022/day17inputtest.txt")) as f:
 with open(aoc_dir.joinpath("input/2022/day17input.txt")) as f:
     jet = f.read().strip()
 
@@ -30,46 +30,50 @@ rocks = [
     [
         "##",
         "##",
-    ]
+    ],
 ]
 
-map = collections.defaultdict(lambda : [" " for i in range(7)])
+map = collections.defaultdict(lambda: [" " for i in range(7)])
 map[0] = "-------"
+
 
 def printmap(map, topx=None):
     if topx is None:
-        for y in range(max(map)+1, start-1, -1):
+        for y in range(max(map) + 1, start - 1, -1):
             print("|" + "".join(map[y]) + "|")
         print()
     else:
-        for y in range(max(map)+1, max(map)+1-topx, -1):
+        for y in range(max(map) + 1, max(map) + 1 - topx, -1):
             print("|" + "".join(map[y]) + "|")
         print()
 
+
 def putonmap(map, rock, pos):
-    x,y = pos
+    x, y = pos
     for ry, rrow in enumerate(rock[::-1]):
         for rx, r in enumerate(rrow):
-            assert r == " " or map[y+ry][x+rx] == " "
+            assert r == " " or map[y + ry][x + rx] == " "
             if r != " ":
-                map[y+ry][x+rx] = r
+                map[y + ry][x + rx] = r
+
 
 def printmapwithrock(map, rock, pos):
     m2 = copy.deepcopy(map)
-    putonmap(m2,rock,pos)
+    putonmap(m2, rock, pos)
     printmap(m2)
 
+
 def check_collision(map, rock, pos):
-    x,y = pos
+    x, y = pos
     # wall collision
     for rx in range(len(rock[0])):
-        if not (0 <= x+rx < 7):
-            return True # yes collision
+        if not (0 <= x + rx < 7):
+            return True  # yes collision
 
     for ry, rrow in enumerate(rock[::-1]):
         for rx, r in enumerate(rrow):
             # other block collision
-            if r != " " and map[y+ry][x+rx] != " ":
+            if r != " " and map[y + ry][x + rx] != " ":
                 return True
     return False
 
@@ -80,9 +84,10 @@ def get_start(map):
     y = max(map)
     while map[y] == map[-1]:
         y -= 1
-    return (x,y+4) # bottom left of the rock
+    return (x, y + 4)  # bottom left of the rock
 
-def tetris(map, n_blocks=2022, check_patterns = False):
+
+def tetris(map, n_blocks=2022, check_patterns=False):
     # print(".. starting:", n_blocks)
     jetindex = 0
     extra_by_skipping = 0
@@ -92,22 +97,22 @@ def tetris(map, n_blocks=2022, check_patterns = False):
         seenjets = []
     # for rocknum in range(n_blocks):
     rocknum = -1
-    while rocknum < n_blocks-1:
+    while rocknum < n_blocks - 1:
         rocknum += 1
         # if rocknum % 1000 == 0:
-            # print(".... rocks:", rocknum)
+        # print(".... rocks:", rocknum)
         rock = rocks[rocknum % len(rocks)]
         # print("\n".join(rock))
         falling = True
-        sx,sy = get_start(map)
+        sx, sy = get_start(map)
         # printmapwithrock(map, rock, (sx,sy))
         while falling:
             # jet (+check collision)
             jeteffect = jet[jetindex]
             if jeteffect == "<":
-                newsx = sx-1
+                newsx = sx - 1
             if jeteffect == ">":
-                newsx = sx+1
+                newsx = sx + 1
             if not check_collision(map, rock, (newsx, sy)):
                 sx = newsx
             jetindex = (jetindex + 1) % len(jet)
@@ -115,25 +120,24 @@ def tetris(map, n_blocks=2022, check_patterns = False):
             # printmapwithrock(map, rock, (sx,sy))
 
             # fall down (+check collision)
-            newsy = sy-1
+            newsy = sy - 1
             if not check_collision(map, rock, (sx, newsy)):
                 sy = newsy
             else:
                 falling = False
-                putonmap(map,rock,(sx,sy))
+                putonmap(map, rock, (sx, sy))
                 # print("done falling")
                 # printmap(map)
-
 
         if check_patterns:
             seenheights.append(sy - 4)
             seenjets.append(jetindex)
             seenrocks.append(rocknum % len(rocks))
             # print(seenheights)
-            pattern = [str(h2-h1) for h1,h2 in zip(seenheights, seenheights[1:])]
+            pattern = [str(h2 - h1) for h1, h2 in zip(seenheights, seenheights[1:])]
             # print(pattern)
             for start in range(len(pattern)):
-                if start > len(pattern)//3 or len(pattern) < 50:
+                if start > len(pattern) // 3 or len(pattern) < 50:
                     # no use for short patterns
                     # they'll be doubled as long patterns anyway in future iterations
                     break
@@ -156,11 +160,15 @@ def tetris(map, n_blocks=2022, check_patterns = False):
                     # print("patlen:", len(p1))
                     # print("n_blocks:", n_blocks)
                     # print("path times:", (n_blocks-rocknum) // len(p1), ((n_blocks-rocknum) % len(p1)) + rocknum)
-                    extra_by_skipping = ((n_blocks-rocknum) // len(p1)) * sum([int(i) for i in pattern[start:midpoint]])
+                    extra_by_skipping = ((n_blocks - rocknum) // len(p1)) * sum(
+                        [int(i) for i in pattern[start:midpoint]]
+                    )
                     # print("extra:", extra_by_skipping)
                     # #           blocks to do       blocks to do after path ran
                     #                  v                v
-                    new_n_blocks = ((n_blocks-rocknum) % len(p1)) + rocknum # < blocks already done
+                    new_n_blocks = (
+                        (n_blocks - rocknum) % len(p1)
+                    ) + rocknum  # < blocks already done
                     # if rocknum >= new_n_blocks-1:
                     #     new_n_blocks += len(p1)
                     # print(
@@ -175,12 +183,14 @@ def tetris(map, n_blocks=2022, check_patterns = False):
     # print()
     # print("simulated", rocknum+1, "rocks")
     return extra_by_skipping
+
+
 # printmap(map)
 # print(len(map))
 emptyline = [" " for i in range(7)]
 mapp1 = copy.deepcopy(map)
 tetris(mapp1)
-print("p1:", get_start(mapp1)[1]-4)
+print("p1:", get_start(mapp1)[1] - 4)
 # printmap(mapp1, 20)
 # print()
 
@@ -192,7 +202,7 @@ print("p1:", get_start(mapp1)[1]-4)
 
 mapp1pat02 = copy.deepcopy(map)
 extra = tetris(mapp1pat02, 2022, check_patterns=True)
-print("p1 with pattern:", get_start(mapp1pat02)[1]-4 + extra)
+print("p1 with pattern:", get_start(mapp1pat02)[1] - 4 + extra)
 # printmap(mapp1pat02, 20)
 # print()
 
@@ -209,8 +219,8 @@ print("p1 with pattern:", get_start(mapp1pat02)[1]-4 + extra)
 # print()
 
 mapp202 = copy.deepcopy(map)
-extra2 = tetris(mapp202, 1000000000000, check_patterns = True)
-print("p2 1B  :", get_start(mapp202)[1]-4 + extra2)
+extra2 = tetris(mapp202, 1000000000000, check_patterns=True)
+print("p2 1B  :", get_start(mapp202)[1] - 4 + extra2)
 # printmap(mapp202,20)
 # print()
 
