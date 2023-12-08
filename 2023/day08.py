@@ -58,7 +58,7 @@ def testloops(state):
                 else:
                     maybe_steps = steps
 
-finalstates = [state, testloops(state) for state in currentstates]
+finalstates = [(state, testloops(state)) for state in currentstates]
 
 
 # steps = 0
