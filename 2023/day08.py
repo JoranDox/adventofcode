@@ -36,6 +36,32 @@ while not found:
 # part 2
 
 currentstates = [state for state in network if state.endswith("A")]
+# print(sorted(currentstates))
+
+def testloops(state):
+    steps = 0
+    maybe_steps = None
+    while True:
+        for letter in instructions:
+            steps += 1
+            if letter == "L":
+                state = network[state][0]
+                # currentstates = [network[state][0] for state in currentstates]
+            elif letter == "R":
+                state = network[state][1]
+                # currentstates = [network[state][1] for state in currentstates]
+            if state.endswith("Z"):
+                if maybe_steps:
+                    # second time we get here
+                    print(steps, maybe_steps, steps / maybe_steps)
+                    return maybe_steps
+                else:
+                    maybe_steps = steps
+
+for state in currentstates:
+    testloops(state)
+
+
 steps = 0
 found = False
 finalstates = []
@@ -58,6 +84,7 @@ while not found:
         if not currentstates:
             found = True
             break
+# print(sorted([(state, network[state]) for state, steps in finalstates]))
 
 import math
 print("p2:", math.lcm(*[steps for state, steps in finalstates]))
