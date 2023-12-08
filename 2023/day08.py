@@ -58,32 +58,31 @@ def testloops(state):
                 else:
                     maybe_steps = steps
 
-for state in currentstates:
-    testloops(state)
+finalstates = [state, testloops(state) for state in currentstates]
 
 
-steps = 0
-found = False
-finalstates = []
-while not found:
-    for letter in instructions:
-        steps += 1
-        if letter == "L":
-            currentstates = [network[state][0] for state in currentstates]
-        elif letter == "R":
-            currentstates = [network[state][1] for state in currentstates]
-        else:
-            print("wtf")
+# steps = 0
+# found = False
+# finalstates = []
+# while not found:
+#     for letter in instructions:
+#         steps += 1
+#         if letter == "L":
+#             currentstates = [network[state][0] for state in currentstates]
+#         elif letter == "R":
+#             currentstates = [network[state][1] for state in currentstates]
+#         else:
+#             print("wtf")
 
-        for state in currentstates:
-            if state.endswith("Z"):
-                finalstates.append((state,steps))
-        currentstates = [state for state in currentstates if not state.endswith("Z")]
+#         for state in currentstates:
+#             if state.endswith("Z"):
+#                 finalstates.append((state,steps))
+#         currentstates = [state for state in currentstates if not state.endswith("Z")]
 
-        # print(currentstates)
-        if not currentstates:
-            found = True
-            break
+#         # print(currentstates)
+#         if not currentstates:
+#             found = True
+#             break
 # print(sorted([(state, network[state]) for state, steps in finalstates]))
 
 import math
