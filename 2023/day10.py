@@ -61,7 +61,7 @@ for nx, ny in neighbours(sx, sy):
         tocheck.append(((nx, ny), 1))
 # print("S", sx, sy)
 
-actualneighs = set(loc for loc,_ in tocheck)
+actualneighs = set(loc for loc, _ in tocheck)
 for shape in "|-LJ7F":
     locations[sy][sx] = shape
     # print(shape, actualneighs, set(neighbours(sx, sy)))
@@ -87,9 +87,10 @@ while tocheck:
 # print(path)
 print("p1:", dist)
 
+
 def flood(x, y):
     start = set()
-    consequent = {(x,y)}
+    consequent = {(x, y)}
     while start != consequent:
         start = consequent
 
@@ -106,24 +107,27 @@ def flood(x, y):
                 )
                 if (
                     (fx, fy) not in path
-                    and (fx,fy) not in consequent
-                    and fx >= 0 and fy >= 0 and fx <= maxx and fy <= maxy
+                    and (fx, fy) not in consequent
+                    and fx >= 0
+                    and fy >= 0
+                    and fx <= maxx
+                    and fy <= maxy
                 )
             }
             # print(consequent)
     return consequent
 
+
 def highlight(given):
     for y, line in enumerate(data.splitlines()):
         for x, char in enumerate(line):
-            if (x,y) in given:
-                print("*",end="")
-            elif (x,y) in path:
-                print(char,end="")
+            if (x, y) in given:
+                print("*", end="")
+            elif (x, y) in path:
+                print(char, end="")
             else:
-                print(".",end="")
+                print(".", end="")
         print()
-
 
 
 # exit()
@@ -134,14 +138,14 @@ accum = 0
 for y in range(maxy):
     state = "mid", False
     for x in range(maxx):
-        if (x,y) in path:
-            match(locations[y][x], state):
+        if (x, y) in path:
+            match (locations[y][x], state):
                 case "L", (s, b):
                     assert s == "mid"
                     state = "top", not b
-                case "J", ("top", b): 
+                case "J", ("top", b):
                     state = "mid", not b
-                case "J", ("bot", b): 
+                case "J", ("bot", b):
                     state = "mid", b
                 case "F", (s, b):
                     assert s == "mid"
@@ -155,22 +159,19 @@ for y in range(maxy):
                     state = "mid", not b
                 case "-", (s, b):
                     assert s != "mid"
-                    pass # nothing changes
+                    pass  # nothing changes
                 case _:
-                    assert False, f"something went wrong at {x,y}, {path.get((x,y))}, {state}"
-
+                    assert (
+                        False
+                    ), f"something went wrong at {x,y}, {path.get((x,y))}, {state}"
 
         if not (any((x, y) in area for area in areas)):
             areas.append(f := flood(x, y))
+            # print(f)
 
-            if not (any([x == 0 or y == 0 or x == maxx or y == maxy for x, y in f])):
-                maybe_interiorareas.append(f)
-                # print(f)
-                # print("maybe", len(f))
-                if state[1]:
-                    # print("yes")
-                    # highlight(f)
-                    accum += len(f)
+            if state[1]:
+                # highlight(f)
+                accum += len(f)
 # print()
 # highlight(path)
 print("p2:", accum)
