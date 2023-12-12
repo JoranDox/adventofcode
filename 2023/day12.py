@@ -43,7 +43,7 @@ def prefixmatch(partial, pattern):
     return True
 
 
-def dynamicprogramming(ly, lx):
+def dynamicprogramming(ly, lx, loud=False):
     # precondition: both include trailing & leading "."
     # lx does not contain "?"
     assert "?" not in lx
@@ -63,11 +63,15 @@ def dynamicprogramming(ly, lx):
     # print(maxx, maxy)
     dmap[0][0] = 1
 
-    def printmap():
-        print()
-        print(pd.DataFrame(np.array(dmap), columns=list(lx), index=list(ly)))
+    if loud:
+        def printmap():
+            print()
+            print(pd.DataFrame(np.array(dmap), columns=list(lx), index=list(ly)))
+    else:
+        def printmap():
+            pass
         
-    # printmap()
+    printmap()
 
     # mark top & bottom impossible locations
     for n in range(1, len(dmap[0])):
@@ -77,7 +81,7 @@ def dynamicprogramming(ly, lx):
     dmap[-1] = ["x" for _ in dmap[-1]]
     newxs += [(x, maxy) for x in range(maxx)]
     dmap[-1][-1] = " "
-    # printmap()
+    printmap()
 
     # mark impossible matches
     for y, chary in enumerate(ly):
@@ -92,7 +96,7 @@ def dynamicprogramming(ly, lx):
         # print(x,y)
         assert dmap[y][x] == "x", (x,y)
 
-    # printmap()
+    printmap()
 
     def donewxs():
         while newxs:
@@ -132,7 +136,7 @@ def dynamicprogramming(ly, lx):
                         newxs.append((x+1, y+1))
     donewxs()
     # do all others
-    # printmap()
+    printmap()
     
     for y, chary in list(enumerate(ly))[1:]: # skip top row
         for x, charx in enumerate(lx):
@@ -159,7 +163,7 @@ def dynamicprogramming(ly, lx):
                 dmap[y][x] = "x"
                 newxs.append((x,y))
                 donewxs()
-    # printmap()
+    printmap()
     return accum # last accum is the result I think?
 
 
@@ -167,6 +171,7 @@ def dynamicprogramming(ly, lx):
 # if p2: multiplier = 5
 multiplier = 5
 p1accum = 0
+maxincrease = 0
 for line in data.splitlines():
     # print(line)
     pattern1, pattern2 = line.split()
@@ -207,10 +212,17 @@ for line in data.splitlines():
     # print(total_accum)
     ######## end p1 naive code
     # print("".join(generate(pattern2)))
-    p1accum += dynamicprogramming(pattern1, generate(pattern2))
+    incr = dynamicprogramming(pattern1, generate(pattern2))
+    if incr > maxincrease:
+        maxincrease = incr
+        best = pattern1, pattern2
+    p1accum += incr
 
 
     # 16384 = 2**14
     # 2500 = 5*5*5*5 * 4
     # 506250 = 2 * 3**4 * 5**5
 print(p1accum)
+# print(best)
+# dynamicprogramming(best[0], generate(best[1]), loud=True)
+# dynamicprogramming("??.??.?##", generate((1,1,3)), loud=True)
