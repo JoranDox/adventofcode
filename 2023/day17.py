@@ -1,11 +1,13 @@
 # slow code, don't copy :c
-
 import pathlib
 aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
 # with open(aoc_dir.joinpath("input/2023/day17inputtest.txt")) as f:
+# with open(aoc_dir.joinpath("input/2023/day17inputtest2.txt")) as f:
 with open(aoc_dir.joinpath("input/2023/day17input.txt")) as f:
     data = f.read().strip()
 
+# part1 = True
+part1 = False
 
 north = (0, -1)
 west = (-1, 0)
@@ -46,10 +48,11 @@ print(maxx,maxy)
 
 # mapprint(heatmap)
 
-bestlocs = {((0,0),east,0): 0}
-tocheck = [((0,0),east,0,0)]
+# get both east and south for part 2 because we can't turn before 4 steps otherwise, can just ignore it for part 1 but gets pruned quick anyways
+bestlocs = {((0,0),east,0): 0, ((0,0),south,0): 0}
+tocheck = [((0,0),east,0,0), ((0,0),south,0,0)]
 
-def getoptions(loc,prevdirection,stepsinthatdirection,cost):
+def getoptionsp1(loc,prevdirection,stepsinthatdirection,cost):
     # print("enter getoptions with", loc,prevdirection,stepsinthatdirection,cost)
     legaldirs = [
         (nxy,direction)
@@ -98,6 +101,12 @@ def getoptionsp2(loc,prevdirection,stepsinthatdirection,cost):
     # print("ret",ret)
     return ret
 
+if part1:
+    getoptions = getoptionsp1
+else:
+    getoptions = getoptionsp2
+
+
 minseen = None
 wannaprint = 1
 iterations = 0
@@ -117,9 +126,10 @@ while tocheck:
             tocheck.append((loc,prevdirection,stepsinthatdirection,cost))
             bestlocs[(loc,prevdirection,stepsinthatdirection)] = cost
             if loc == (maxx, maxy):
-                if not minseen or minseen > cost:
-                    minseen = cost
-                    print("best final seen until now:", cost)
+                if part1 or (not part1 and stepsinthatdirection >= 4):
+                    if not minseen or minseen > cost:
+                        minseen = cost
+                        print("best final seen until now:", cost)
     # print("tocheck",tocheck)
     # mapprint({loc:cost for ((loc,prevdirection,stepsinthatdirection),cost) in bestlocs.items()})
 
