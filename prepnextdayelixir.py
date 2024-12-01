@@ -18,7 +18,7 @@ print(existing)
 
 for day in range(1, 26):
     basename = f"day{str(day).zfill(2)}"
-    pyname = basename + ".py"
+    elixirname = basename + ".exs"
 
     # print(solution_dir.joinpath(pyname))
     # print(input_dir.joinpath(basename + "inputtest.txt"))
@@ -32,20 +32,34 @@ for day in range(1, 26):
     # with open(aoc_dir.joinpath("input/{str(currentyear)}/{basename}input.txt")) as f:
     #     data = f.read().strip()
     # """)
-    if pyname not in existing and not dry_run:
-        with open(solution_dir.joinpath(pyname), "w") as f:
+    if elixirname not in existing and not dry_run:
+        with open(solution_dir.joinpath(elixirname), "w") as f:
             f.write(
                 f"""
-import pathlib
-aoc_dir = pathlib.Path(__file__).resolve().absolute().parent.parent
-with open(aoc_dir.joinpath("input/{str(currentyear)}/{basename}inputtest.txt")) as f:
-# with open(aoc_dir.joinpath("input/{str(currentyear)}/{basename}input.txt")) as f:
-    data = f.read().strip()
 
-for line in data.splitlines():
-#for line in data.split("\\n\\n"):
+defmodule Part1 do
+    def run do
+        # File.read!("input/{str(currentyear)}/{basename}inputtest.txt")
+        File.read!("input/{str(currentyear)}/{basename}input.txt")
 
+        |> String.split("\\n")
+        |> IO.inspect(pretty: true)
+    end
+end
 
+defmodule Part2 do
+    def run do
+        # File.read!("input/2024/day01inputtest.txt")
+        File.read!("input/2024/day01input.txt")
+
+        |> String.split("\\n")
+        |> IO.inspect(pretty: true)
+
+    end
+end
+
+Part1.run()
+#Part2.run()
 """
             )
         with open(input_dir.joinpath(basename + "inputtest.txt"), "w") as f:
