@@ -37,29 +37,71 @@ for day in range(1, 26):
             f.write(
                 f"""
 
-defmodule Part1 do
-    def run do
-        # File.read!("input/{str(currentyear)}/{basename}inputtest.txt")
-        File.read!("input/{str(currentyear)}/{basename}input.txt")
 
-        |> String.split("\\n")
-        |> IO.inspect(pretty: true)
+defmodule Puzzle{basename} do
+    defp debug(msg, opts \\ []) do
+        default_opts = [pretty: true, charlists: :as_lists]
+        combined_opts = Keyword.merge(default_opts, opts)
+        IO.inspect(msg, combined_opts)
+        # msg
+    end
+
+
+    def testinput do
+        read_input("input/2024/day02inputtest.txt")
+    end
+
+    def realinput do
+        read_input("input/2024/day02input.txt")
+    end
+
+    def read_input(filename) do
+        File.read!(filename)
+        |> String.split("\\n", trim: true)
+        |> debug(label: "read_input 1")
+        |> Enum.map(&String.split/1)
+        |> debug(label: "read_input 2")
+        |> Enum.map(
+            fn line -> Enum.map(line, &String.to_integer/1) end
+        )
+        |> debug(label: "read_input 3")
+    end
+
+    def runpart1(input) do
+        input
+        |> Task.async_stream(fn line -> {{line, ____(line)}} end)
+        |> Enum.map(fn {{:ok, result}} -> result end)
+        # |> Enum.map(fn line -> {{line, safeline(line)}} end)
+        |> debug(label: "run2")
+        |> Enum.count(fn {{_line, sl}} -> sl end)
+        |> debug(label: "run3")
+    end
+
+    def runpart2(input) do
+        input
+        |> Enum.map(fn line -> {{line, dampened_safeline(line)}} end)
+        |> debug(label: "run2")
+        |> Enum.count(fn {{_line, sl}} -> sl end)
+        |> debug(label: "run3")
     end
 end
 
-defmodule Part2 do
-    def run do
-        # File.read!("input/2024/day01inputtest.txt")
-        File.read!("input/2024/day01input.txt")
+Puzzle{basename}.testinput()
+|> Puzzle{basename}.runpart1()
+|> IO.inspect(pretty: true, label: "testinput, part1")
 
-        |> String.split("\\n")
-        |> IO.inspect(pretty: true)
+Puzzle{basename}.realinput()
+|> Puzzle{basename}.runpart1()
+|> IO.inspect(pretty: true, label: "realinput, part1")
 
-    end
-end
+Puzzle{basename}.testinput()
+|> Puzzle{basename}.runpart2()
+|> IO.inspect(pretty: true, label: "testinput, part2")
 
-Part1.run()
-#Part2.run()
+Puzzle{basename}.realinput()
+|> Puzzle{basename}.runpart2()
+|> IO.inspect(pretty: true, label: "realinput, part2")
+
 """
             )
         testfilename = basename + "inputtest.txt"
