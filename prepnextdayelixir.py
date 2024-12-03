@@ -41,13 +41,16 @@ for day in range(1, 26):
 
 
 defmodule Puzzle{basename} do
-    defp debug(msg, opts \\\\ []) do
-        default_opts = [pretty: true, charlists: :as_lists]
-        combined_opts = Keyword.merge(default_opts, opts)
-        IO.inspect(msg, combined_opts)
-        # msg
+    defp debug(msg, opts) do
+        log_level = System.get_env("LOG_LEVEL")
+        if log_level == "debug" do
+            default_opts = [pretty: true, charlists: :as_lists]
+            combined_opts = Keyword.merge(default_opts, opts)
+            IO.inspect(msg, combined_opts)
+        else
+            msg
+        end
     end
-
 
     def testinput do
         read_input("input/{currentyear}/{testfilename}")
@@ -71,9 +74,9 @@ defmodule Puzzle{basename} do
 
     def runpart1(input) do
         input
-        |> Task.async_stream(fn line -> {{line, ____(line)}} end)
+        |> Task.async_stream(fn line -> {{line, todo1(line)}} end)
         |> Enum.map(fn {{:ok, result}} -> result end)
-        # |> Enum.map(fn line -> {{line, safeline(line)}} end)
+        # |> Enum.map(fn line -> {{line, todo1(line)}} end)
         |> debug(label: "run2")
         |> Enum.count(fn {{_line, sl}} -> sl end)
         |> debug(label: "run3")
@@ -81,7 +84,7 @@ defmodule Puzzle{basename} do
 
     def runpart2(input) do
         input
-        |> Enum.map(fn line -> {{line, dampened_safeline(line)}} end)
+        |> Enum.map(fn line -> {{line, todo2(line)}} end)
         |> debug(label: "run2")
         |> Enum.count(fn {{_line, sl}} -> sl end)
         |> debug(label: "run3")

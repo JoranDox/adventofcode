@@ -1,12 +1,15 @@
 
-
-
 defmodule Puzzleday03 do
-    defp debug(msg, opts \\ []) do
-        default_opts = [pretty: true, charlists: :as_lists]
-        combined_opts = Keyword.merge(default_opts, opts)
-        IO.inspect(msg, combined_opts)
-        # msg
+
+    defp debug(msg, opts) do
+        log_level = System.get_env("LOG_LEVEL")
+        if log_level == "debug" do
+            default_opts = [pretty: true, charlists: :as_lists]
+            combined_opts = Keyword.merge(default_opts, opts)
+            IO.inspect(msg, combined_opts)
+        else
+            msg
+        end
     end
 
 
@@ -39,9 +42,8 @@ defmodule Puzzleday03 do
 
     defp do_or_dont(string) do
         case string do
-            "do()" <> rest -> runpart1(rest)
-            "don't()" <> rest -> 0
-            rest -> runpart1(rest)
+            "don't()" <> _ -> 0
+            _ -> runpart1(string)
         end
     end
 
