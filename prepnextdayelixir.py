@@ -33,13 +33,15 @@ for day in range(1, 26):
     #     data = f.read().strip()
     # """)
     if elixirname not in existing and not dry_run:
+        testfilename = basename + "inputtest.txt"
+        realfilename = basename + "input.txt"
         with open(solution_dir.joinpath(elixirname), "w") as f:
             f.write(
                 f"""
 
 
 defmodule Puzzle{basename} do
-    defp debug(msg, opts \\ []) do
+    defp debug(msg, opts \\\\ []) do
         default_opts = [pretty: true, charlists: :as_lists]
         combined_opts = Keyword.merge(default_opts, opts)
         IO.inspect(msg, combined_opts)
@@ -48,11 +50,11 @@ defmodule Puzzle{basename} do
 
 
     def testinput do
-        read_input("input/2024/day02inputtest.txt")
+        read_input("input/{currentyear}/{testfilename}")
     end
 
     def realinput do
-        read_input("input/2024/day02input.txt")
+        read_input("input/{currentyear}/{realfilename}")
     end
 
     def read_input(filename) do
@@ -104,8 +106,6 @@ Puzzle{basename}.realinput()
 
 """
             )
-        testfilename = basename + "inputtest.txt"
-        realfilename = basename + "input.txt"
         if testfilename not in os.listdir(input_dir):
             with open(input_dir.joinpath(testfilename), "w") as f:
                 pass  # touch file
