@@ -196,6 +196,7 @@ defmodule Puzzleday05 do
             end)
         end)
         |> debug(label: "runpart2 3")
+        # |> Enum.sum() # <<<<<<<<<<<<<<< this doesn't work for some reason
         |> debug(label: "runpart2 4")
         # |> then(fn state -> state.rules_dag end)
         # |> debug(label: "runpart2 3", limit: :infinity)
@@ -218,10 +219,10 @@ end
 Puzzleday05.testinput()
 |> Puzzleday05.runpart2()
 # |> debug(label: "afterthatstuff")
-|> Enum.sum()
+|> Enum.sum() # <<<<<<<<<<<<<<< this works while the one above doesn't
 |> IO.inspect(pretty: true, label: "testinput, part2")
 
 Puzzleday05.realinput()
 |> Puzzleday05.runpart2()
-|> Enum.sum()
+|> Enum.sum() # <<<<<<<<<<<<<<< this works while the one above doesn't
 |> IO.inspect(pretty: true, label: "realinput, part2")
