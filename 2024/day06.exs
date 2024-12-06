@@ -30,7 +30,7 @@ defmodule Puzzleday06 do
             Enum.reduce(0..map.maxy, "", fn y, _acc ->
                 Enum.reduce(0..map.maxx, "", fn x, acc2 ->
                     case map[{x,y}] do
-                        nil -> acc2 <> "."
+                        nil -> acc2 <> " "
                         :obstacle -> acc2 <> "#"
                         :up -> acc2 <> "^"
                         :down -> acc2 <> "v"
@@ -146,22 +146,27 @@ defmodule Puzzleday06 do
 
     def simonestep(step_n, map) do
         step = onestep(map)
-
         {loc, direction, extra_info} = step
         step = {loc, direction} # remove extra_info
         map = Map.put(map, :path, [step(loc, direction) | Map.get(map, :path, [])]) # next step is overlap, step after that is where we want to put a blocker
         |> info(label: "simonestep #{step_n} newmap1")
 
-        if extra_info == :loop_detected do
-            debug("loop detected", label: "simonestep #{step_n} 0")
+        if step_n > 100000 do
+            # info("long path detected", [label: "simonestep #{step_n} 0"], true)
+            # twodeeviz({1, map}, true)
             {:halt, Map.put(map, :loop_detected, :loop_detected)}
         else
-            if outofbounds(step, map) do
-                debug("out of bounds", label: "simonestep #{step_n} 1")
-                {:halt, map}
+            if extra_info == :loop_detected do
+                debug("loop detected", label: "simonestep #{step_n} 0")
+                {:halt, Map.put(map, :loop_detected, :loop_detected)}
             else
-                debug("still going strong", label: "simonestep #{step_n} 2")
-                {:cont, Map.put(map, :agent, step) |> Map.put(loc, direction)}
+                if outofbounds(step, map) do
+                    debug("out of bounds", label: "simonestep #{step_n} 1")
+                    {:halt, map}
+                else
+                    debug("still going strong", label: "simonestep #{step_n} 2")
+                    {:cont, Map.put(map, :agent, step) |> Map.put(loc, direction)}
+                end
             end
         end
         |> debug(label: "simonestep #{step_n} 3")
@@ -174,7 +179,7 @@ defmodule Puzzleday06 do
         # |> Task.async_stream(fn line -> {line, todo1(line)} end)
         # |> Enum.map(fn {:ok, result} -> result end)
         |> debug(label: "run1")
-        |> then(fn map -> Enum.reduce_while(1..1000000, map, &simonestep/2) end)
+        |> then(fn map -> Enum.reduce_while(1..100000000, map, &simonestep/2) end)
         |> debug(label: "run2", limit: :infinity)
     end
 
@@ -198,17 +203,19 @@ defmodule Puzzleday06 do
             map
         end)
         |> then(fn map ->
-            # MapSet.new(map.path)
-            List.flatten(
-            Enum.map(0..map.maxy, fn y ->
-                Enum.map(0..map.maxx, fn x ->
-                    {x,y}
-                end)
-            end))
+            map.path
+            |> MapSet.new()
+            |> Enum.filter(fn loc -> elem(map.agent, 0) != loc end)
+            # List.flatten(
+            # Enum.map(0..map.maxy, fn y ->
+            #     Enum.map(0..map.maxx, fn x ->
+            #         {x,y}
+            #     end)
+            # end))
             |> Task.async_stream(
             # |> Enum.map(
                 fn loc ->
-                    info(loc, [label: "run2 2"], true)
+                    # info(loc, [label: "run2 2"], true)
                     input
                     |> Map.put(loc, :obstacle)
                     |> common()
