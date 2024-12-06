@@ -13,6 +13,10 @@ defmodule Puzzleday05 do
         end
     end
 
+    def thorvaldinput do
+        read_input("input/2024/day05inputtestthorvald.txt")
+    end
+
     def testinput do
         read_input("input/2024/day05inputtest.txt")
     end
@@ -226,3 +230,13 @@ Puzzleday05.realinput()
 |> Puzzleday05.runpart2()
 |> Enum.sum() # <<<<<<<<<<<<<<< this works while the one above doesn't
 |> IO.inspect(pretty: true, label: "realinput, part2")
+
+# Puzzleday05.thorvaldinput()
+# |> Puzzleday05.runpart1()
+# |> Enum.sum()
+# |> IO.inspect(pretty: true, label: "thorvaldinput, part2")
+
+# Puzzleday05.thorvaldinput()
+# |> Puzzleday05.runpart2()
+# |> Enum.sum()
+# |> IO.inspect(pretty: true, label: "thorvaldinput, part2")
