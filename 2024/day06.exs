@@ -151,8 +151,8 @@ defmodule Puzzleday06 do
         map = Map.put(map, :path, [step(loc, direction) | Map.get(map, :path, [])]) # next step is overlap, step after that is where we want to put a blocker
         |> info(label: "simonestep #{step_n} newmap1")
 
-        if step_n > 100000 do
-            # info("long path detected", [label: "simonestep #{step_n} 0"], true)
+        if step_n > 1000000 do
+            info("long path detected", [label: "simonestep #{step_n} 0"], true)
             # twodeeviz({1, map}, true)
             {:halt, Map.put(map, :loop_detected, :loop_detected)}
         else
@@ -205,7 +205,7 @@ defmodule Puzzleday06 do
         |> then(fn map ->
             map.path
             |> MapSet.new()
-            |> Enum.filter(fn loc -> elem(map.agent, 0) != loc end)
+            |> Enum.filter(fn loc -> elem(input.agent, 0) != loc end)
             # List.flatten(
             # Enum.map(0..map.maxy, fn y ->
             #     Enum.map(0..map.maxx, fn x ->
