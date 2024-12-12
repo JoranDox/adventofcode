@@ -87,17 +87,17 @@ defmodule Puzzleday11 do
 
 
     def cache_stone_2(map, stone, 1) do
-        debug(stone, label: "cache_stone 1 in")
+        debug(stone, label: "cache_stone_2 1 in")
         if Map.has_key?(map, {stone, 1}) do
-            debug(stone, label: "cache_stone 1 cache hit")
+            debug(stone, label: "cache_stone_2 1 cache hit")
             map
         else
-            debug(stone, label: "cache_stone 1 cache miss")
+            debug(stone, label: "cache_stone_2 1 cache miss")
             map = Map.put(
                 map,
                 {:result, stone, 1},
                 blink(stone)
-                |> debug(label: "cache_stone 1 after blink")
+                |> debug(label: "cache_stone_2 1 after blink")
                 |> List.flatten()
             )
             Map.put(
@@ -105,18 +105,18 @@ defmodule Puzzleday11 do
                 {:length, stone, 1},
                 Map.get(map, {:result, stone, 1})
                 |> Enum.count()
-                |> debug(label: "cache_stone 1 count")
+                |> debug(label: "cache_stone_2 1 count")
             )
         end
-        |> debug(label: "cache_stone 1 out")
+        |> debug(label: "cache_stone_2 1 out")
     end
     def cache_stone_2(map, stone, n) do
-        debug(stone, label: "cache_stone #{n} in")
+        debug(stone, label: "cache_stone_2 n=#{n} in")
         if Map.has_key?(map, {stone, n}) do
-            debug(stone, label: "cache_stone #{n} cache hit")
+            debug(stone, label: "cache_stone_2 n=#{n} cache hit")
             map
         else
-            debug(stone, label: "cache_stone #{n} cache miss")
+            debug(stone, label: "cache_stone_2 n=#{n} cache miss")
             blinked = cache_stone_2(map, stone, 1) |> Map.get({:result, stone, 1})
             map = Enum.reduce(blinked, map, fn newstone, acc ->
                 cache_stone_2(acc, newstone, n-1)
@@ -128,12 +128,12 @@ defmodule Puzzleday11 do
                 |> Enum.map(fn newstone ->
                     Map.get(map, {:length, newstone, n-1})
                 end)
-                |> debug(label: "cache_stone #{n} before sum")
+                |> debug(label: "cache_stone_2 n=#{n} before sum")
                 |> Enum.sum()
-                |> debug(label: "cache_stone #{n} after sum")
+                |> debug(label: "cache_stone_2 n=#{n} after sum")
             )
         end
-        |> debug(label: "cache_stone #{n} out")
+        |> debug(label: "cache_stone_2 n=#{n} out")
     end
 
     def read_input(filename) do
@@ -152,6 +152,7 @@ defmodule Puzzleday11 do
         cache = (
             stones
             |> Enum.reduce(%{}, fn stone, acc ->
+                debug(stone, label: "stone input")
                 cache_stone(acc, stone, num)
             end)
             |> debug(label: "merged map")
@@ -200,22 +201,22 @@ defmodule Puzzleday11 do
     end
 end
 
-Puzzleday11.testinput()
-|> Puzzleday11.runpart1(25)
-|> IO.inspect(pretty: true, label: "testinput, part1")
+# Puzzleday11.testinput()
+# |> Puzzleday11.runpart1(25)
+# |> IO.inspect(pretty: true, label: "testinput, part1")
 
-Puzzleday11.realinput()
-|> Puzzleday11.runpart1(25)
-|> IO.inspect(pretty: true, label: "realinput, part1")
+# Puzzleday11.realinput()
+# |> Puzzleday11.runpart1(25)
+# |> IO.inspect(pretty: true, label: "realinput, part1")
 
 Puzzleday11.testinput()
-|> Puzzleday11.runpart2(25)
+|> Puzzleday11.runpart2(3)
 |> IO.inspect(pretty: true, label: "testinput, part2")
 
 Puzzleday11.realinput()
-|> Puzzleday11.runpart2(25)
+|> Puzzleday11.runpart2(3)
 |> IO.inspect(pretty: true, label: "realinput, part2")
 
-Puzzleday11.realinput()
-|> Puzzleday11.runpart2(75)
-|> IO.inspect(pretty: true, label: "realinput, part2, 75")
+# Puzzleday11.realinput()
+# |> Puzzleday11.runpart2(75)
+# |> IO.inspect(pretty: true, label: "realinput, part2, 75")
