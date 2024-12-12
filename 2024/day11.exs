@@ -88,7 +88,7 @@ defmodule Puzzleday11 do
 
     def cache_stone_2(map, stone, 1) do
         debug(stone, label: "cache_stone_2 1 in")
-        if Map.has_key?(map, {stone, 1}) do
+        if Map.has_key?(map, {:results, stone, 1}) do
             debug(stone, label: "cache_stone_2 1 cache hit")
             map
         else
@@ -112,7 +112,7 @@ defmodule Puzzleday11 do
     end
     def cache_stone_2(map, stone, n) do
         debug(stone, label: "cache_stone_2 n=#{n} in")
-        if Map.has_key?(map, {stone, n}) do
+        if Map.has_key?(map, {:result, stone, n}) do
             debug(stone, label: "cache_stone_2 n=#{n} cache hit")
             map
         else
@@ -135,6 +135,79 @@ defmodule Puzzleday11 do
         end
         |> debug(label: "cache_stone_2 n=#{n} out")
     end
+
+    def etshaskey?(key) do
+        :ets.lookup(:cache, key) != []
+    end
+    def etsput(key, value) do
+        :ets.insert(:cache, {key, value})
+    end
+    def etsget(key) do
+        :ets.lookup(:cache, key)
+        |> hd()
+        |> elem(1)
+    end
+
+    def cache_stone_ets(stone, 1) do
+        debug(stone, label: "cache_stone_ets 1 in")
+        if etshaskey?({:result, stone, 1}) do
+            debug(stone, label: "cache_stone_ets 1 cache hit")
+            true
+        else
+            info(stone, label: "cache_stone_ets 1 cache miss")
+            blinked = (
+                blink(stone)
+                |> debug(label: "cache_stone_ets 1 after blink")
+                |> List.flatten()
+            )
+
+            etsput(
+                {:result, stone, 1},
+                blinked
+            )
+            etsput(
+                {:length, stone, 1},
+                blinked
+                |> Enum.count()
+                |> debug(label: "cache_stone_ets 1 count")
+            )
+            false
+        end
+        |> debug(label: "cache_stone_ets 1 out")
+    end
+    def cache_stone_ets(stone, n) do
+        debug(stone, label: "cache_stone_ets n=#{n} in")
+        if etshaskey?({:result, stone, n}) do
+            if n == 25 do
+                info(stone, label: "cache_stone_ets cache hit n=#{n}")
+            else
+                debug(stone, label: "cache_stone_ets cache hit n=#{n}")
+            end
+            true
+        else
+            debug(stone, label: "cache_stone_ets cache miss n=#{n}")
+            cache_stone_ets(stone, 1) # ensure this is cached
+            blinked = etsget({:result, stone, 1})
+            blinked
+            # |> Task.async_stream(fn newstone -> cache_stone_ets(newstone, n-1) end, timeout: :infinity)
+            # |> Enum.map(fn {:ok, result} -> result end)
+            |> Enum.map(fn newstone -> cache_stone_ets(newstone, n-1) end)
+
+            etsput(
+                {:length, stone, n},
+                blinked
+                |> Enum.map(fn newstone ->
+                    etsget({:length, newstone, n-1})
+                end)
+                |> debug(label: "cache_stone_2 n=#{n} before sum")
+                |> Enum.sum()
+                |> debug(label: "cache_stone_2 n=#{n} after sum")
+            )
+            false
+        end
+        |> debug(label: "cache_stone_2 n=#{n} out")
+    end
+
 
     def read_input(filename) do
         File.read!(filename)
@@ -179,27 +252,70 @@ defmodule Puzzleday11 do
         # |> Enum.map(fn line -> {line, todo1(line)} end)
     end
 
-    def runpart2(stones, num) do
-        cache = (
+    def runpart2(stones, total) do
+        cache = %{}
+        1..total
+        |> Enum.map(fn num ->
+            cache = (
+                stones
+                |> Enum.reduce(cache, fn stone, acc ->
+                    cache_stone_2(acc, stone, num)
+                end)
+                |> debug(label: "merged map #{num}")
+            )
+
+            cache
+            |> map_size()
+            |> info(label: "merged map size #{num}")
+
             stones
-            |> Enum.reduce(%{}, fn stone, acc ->
-                cache_stone_2(acc, stone, num)
+            |> Enum.map(fn stone ->
+                debug(stone, label: "stone1 #{num}")
+                Map.get(cache, {:length, stone, num})
             end)
-            |> info(label: "merged map")
-        )
+            |> info(label: "run1 #{num}")
+            |> List.flatten()
+            |> info(label: "run2 #{num}")
+            |> Enum.sum()
+            |> info(label: "run3 #{num}")
+        end)
+    end
+
+    def runpart2_ets(stones, total) do
+        1..total
+        |> Task.async_stream(fn num ->
+            # ensure cached
+            stones
+            # |> Task.async_stream(fn stone -> cache_stone_ets(stone, num) end, timeout: :infinity)
+            # |> Enum.map(fn {:ok, result} -> result end)
+            |> Enum.map(fn stone -> cache_stone_ets(stone, num) end)
+            # cache
+            # |> map_size()
+            # |> info(label: "merged map size #{num}")
+
+            stones
+            |> Enum.map(fn stone ->
+                debug(stone, label: "stone1 #{num}")
+                etsget({:length, stone, num})
+            end)
+            |> info(label: "run1 #{num}")
+            |> List.flatten()
+            |> info(label: "run2 #{num}")
+            |> Enum.sum()
+            |> info(label: "run3 #{num}")
+        end,
+        timeout: :infinity)
+        |> Enum.map(fn {:ok, result} -> result end)
 
         stones
         |> Enum.map(fn stone ->
-            debug(stone, label: "stone1")
-            Map.get(cache, {:length, stone, num})
+            etsget({:length, stone, total})
         end)
-        |> debug(label: "run1")
-        |> List.flatten()
-        |> debug(label: "run2")
         |> Enum.sum()
-        |> debug(label: "run3")
     end
 end
+
+:ets.new(:cache, [:public, :named_table])
 
 # Puzzleday11.testinput()
 # |> Puzzleday11.runpart1(25)
@@ -209,14 +325,22 @@ end
 # |> Puzzleday11.runpart1(25)
 # |> IO.inspect(pretty: true, label: "realinput, part1")
 
+# Puzzleday11.testinput()
+# |> Puzzleday11.runpart2(3)
+# |> IO.inspect(pretty: true, label: "testinput, part2")
+
 Puzzleday11.testinput()
-|> Puzzleday11.runpart2(3)
+|> Puzzleday11.runpart2_ets(3)
+|> IO.inspect(pretty: true, label: "testinput, part2")
+
+Puzzleday11.testinput()
+|> Puzzleday11.runpart2_ets(25)
 |> IO.inspect(pretty: true, label: "testinput, part2")
 
 Puzzleday11.realinput()
-|> Puzzleday11.runpart2(3)
+|> Puzzleday11.runpart2_ets(25)
 |> IO.inspect(pretty: true, label: "realinput, part2")
 
-# Puzzleday11.realinput()
-# |> Puzzleday11.runpart2(75)
-# |> IO.inspect(pretty: true, label: "realinput, part2, 75")
+Puzzleday11.realinput()
+|> Puzzleday11.runpart2_ets(75)
+|> IO.inspect(pretty: true, label: "realinput, part2, 75")
