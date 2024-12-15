@@ -59,7 +59,8 @@ defmodule Puzzleday15 do
                         :box -> acc2 <> "O"
                         :wall -> acc2 <> "#"
                         :robot -> acc2 <> "@"
-
+                        :boxleft -> acc2 <> "["
+                        :boxright -> acc2 <> "]"
                     end
                 end)
                 |> info([label: "twodeeviz 1"], force)
@@ -87,17 +88,54 @@ defmodule Puzzleday15 do
     def point2dstep(p, :left), do: %Point2d{x: p.x-1, y: p.y}
     def point2dstep(p, :right), do: %Point2d{x: p.x+1, y: p.y}
 
-    def trystep(map, robotorbox, direction) do
-        newpos = point2dstep(robotorbox, direction)
-        case Map.get(map, newpos) do
-            nil -> {true, newpos}
-            :wall -> {false, nil}
-            :box -> trystep(map, newpos, direction)
-            :robot -> {false, nil}
+    def trystep(map, robotorboxloc, direction) do
+        debug({robotorboxloc, direction}, label: "trystep in")
+        # take the robot or box out of the map
+        {whatshere, poppedmap} = Map.pop(map, robotorboxloc)
+        # find out what's in the new position
+        newpos = point2dstep(robotorboxloc, direction)
+        whatsthere = Map.get(poppedmap, newpos)
+        debug({{newpos.x, newpos.y}, whatsthere}, label: "trystep newpos, there")
+        # p1 code
+        # case whatsthere do
+        #     nil -> {true, newpos}
+        #     :wall -> {false, nil}
+        #     :box -> trystep(map, newpos, direction)
+        #     :robot -> {false, nil}
+        # end
+        case whatsthere do
+            nil -> Map.put(poppedmap, newpos, whatshere)
+            :wall -> false # but nothing happened
+            :box -> case trystep(poppedmap, newpos, direction) do
+                false -> false
+                newmap -> Map.put(newmap, newpos, whatshere)
+            end
+            :boxleft when direction in [:left, :right] -> case trystep(poppedmap, newpos, direction) do
+                false -> false
+                newmap -> Map.put(newmap, newpos, whatshere)
+            end
+            :boxright when direction in [:left, :right] -> case trystep(poppedmap, newpos, direction) do
+                false -> false
+                newmap -> Map.put(newmap, newpos, whatshere)
+            end
+            :boxleft -> case trystep(poppedmap, newpos, direction) do
+                false -> false
+                newmap -> case trystep(newmap, point2dstep(newpos, :right), direction) do
+                    false -> false
+                    newmap2 -> Map.put(newmap2, newpos, whatshere)
+                end
+            end
+            :boxright -> case trystep(poppedmap, newpos, direction) do
+                false -> false
+                newmap -> case trystep(newmap, point2dstep(newpos, :left), direction) do
+                    false -> false
+                    newmap2 -> Map.put(newmap2, newpos, whatshere)
+                end
+            end
         end
     end
 
-    def read_input(filename) do
+    def read_input(filename, part2 \\ :part1) do
         [map, moves] = (
             File.read!(filename)
             |> String.split("\n\n", trim: true)
@@ -115,11 +153,15 @@ defmodule Puzzleday15 do
                     |> Enum.with_index()
                     |> Enum.map(
                         fn {char, x} ->
-                            case char do
-                                "." -> nil
-                                "#" -> {%Point2d{x: x, y: y}, :wall}
-                                "O" -> {%Point2d{x: x, y: y}, :box}
-                                "@" -> [{%Point2d{x: x, y: y}, :robot}, {:robot, %Point2d{x: x, y: y}}]
+                            case {char, part2} do
+                                {".", :part1} -> nil
+                                {"#", :part1} -> {%Point2d{x: x, y: y}, :wall}
+                                {"O", :part1} -> {%Point2d{x: x, y: y}, :box}
+                                {"@", :part1} -> [{%Point2d{x: x, y: y}, :robot}, {:robot, %Point2d{x: x, y: y}}]
+                                {".", :part2} -> nil
+                                {"#", :part2} -> [{%Point2d{x: x*2, y: y}, :wall}, {%Point2d{x: x*2+1, y: y}, :wall}]
+                                {"O", :part2} -> [{%Point2d{x: x*2, y: y}, :boxleft}, {%Point2d{x: x*2+1, y: y}, :boxright}]
+                                {"@", :part2} -> [{%Point2d{x: x*2, y: y}, :robot}, {:robot, %Point2d{x: x*2, y: y}}]
                             end
                         end
                     )
@@ -156,39 +198,42 @@ defmodule Puzzleday15 do
     def steps([move | moves], robot, map) do
         debug({robot, move}, label: "steps")
         twodeeviz(map)
-        {canstep, finalpos} = trystep(map, robot, move)
-        |> debug(label: "steps trystep")
-        debug(map[finalpos], label: "steps finalpos")
-        debug(map[robot], label: "steps robot")
-        if canstep do
-            newpos = point2dstep(robot, move)
-            debug(map[newpos], label: "steps newpos")
-            # if new position is a box, move the box
-            map = if map[newpos] == :box do
-                Map.put(map, finalpos, :box)
-            else
-                map
-            end
-            # move robot
-            map = Map.put(map, robot, nil)
-            map = Map.put(map, newpos, :robot)
-            debug(map[finalpos], label: "steps finalpos after move")
-            debug(map[robot], label: "steps robot after move")
-            debug(map[newpos], label: "steps newpos after move")
-            steps(moves, newpos, map)
-        else
-            newpos = robot
-            steps(moves, newpos, map)
+        case trystep(map, robot, move) do
+            false -> steps(moves, robot, map)
+            newmap -> steps(moves, point2dstep(robot, move), newmap)
         end
+        # |> debug(label: "steps trystep")
+        # debug(map[finalpos], label: "steps finalpos")
+        # debug(map[robot], label: "steps robot")
+        # if canstep do
+        #     newpos = point2dstep(robot, move)
+        #     debug(map[newpos], label: "steps newpos")
+        #     # if new position is a box, move the box
+        #     map = if map[newpos] == :box do
+        #         Map.put(map, finalpos, :box)
+        #     else
+        #         map
+        #     end
+        #     # move robot
+        #     map = Map.put(map, robot, nil)
+        #     map = Map.put(map, newpos, :robot)
+        #     debug(map[finalpos], label: "steps finalpos after move")
+        #     debug(map[robot], label: "steps robot after move")
+        #     debug(map[newpos], label: "steps newpos after move")
+        #     steps(moves, newpos, map)
+        # else
+        #     newpos = robot
+        #     steps(moves, newpos, map)
+        # end
     end
 
     def score(map) do
         map
         |> Enum.map(fn {p, type} ->
-            if type == :box do
-                p.x + 100*p.y
-            else
-                0
+            case type do
+                :box -> p.x + 100*p.y
+                :boxleft -> p.x + 100*p.y
+                _ -> 0
             end
         end)
     end
@@ -206,29 +251,21 @@ defmodule Puzzleday15 do
         |> Enum.sum()
         |> debug(label: "run4")
     end
-
-    def runpart2(input) do
-        input
-        # |> Enum.map(fn line -> {line, todo2(line)} end)
-        |> debug(label: "run2")
-        # |> Enum.count(fn {_line, sl} -> sl end)
-        |> debug(label: "run3")
-    end
 end
 
 
-Puzzleday15.testinput()
+# Puzzleday15.read_input("input/2024/day15inputtest.txt")
+# |> Puzzleday15.runpart1()
+# |> IO.inspect(pretty: true, label: "testinput, part1")
+
+# Puzzleday15.read_input("input/2024/day15input.txt")
+# |> Puzzleday15.runpart1()
+# |> IO.inspect(pretty: true, label: "realinput, part1")
+
+Puzzleday15.read_input("input/2024/day15inputtest.txt", :part2)
 |> Puzzleday15.runpart1()
-|> IO.inspect(pretty: true, label: "testinput, part1")
+|> IO.inspect(pretty: true, label: "testinput, part2")
 
-Puzzleday15.realinput()
+Puzzleday15.read_input("input/2024/day15input.txt", :part2)
 |> Puzzleday15.runpart1()
-|> IO.inspect(pretty: true, label: "realinput, part1")
-
-# Puzzleday15.testinput()
-# |> Puzzleday15.runpart2()
-# |> IO.inspect(pretty: true, label: "testinput, part2")
-
-# Puzzleday15.realinput()
-# |> Puzzleday15.runpart2()
-# |> IO.inspect(pretty: true, label: "realinput, part2")
+|> IO.inspect(pretty: true, label: "realinput, part2")

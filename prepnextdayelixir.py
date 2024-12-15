@@ -52,14 +52,6 @@ defmodule Puzzle{basename} do
         end
     end
 
-    def testinput do
-        read_input("input/{currentyear}/{testfilename}")
-    end
-
-    def realinput do
-        read_input("input/{currentyear}/{realfilename}")
-    end
-
     def read_input(filename) do
         File.read!(filename)
         |> String.split("\\n", trim: true)
@@ -91,19 +83,20 @@ defmodule Puzzle{basename} do
     end
 end
 
-Puzzle{basename}.testinput()
+
+Puzzle{basename}.read_input("input/{currentyear}/{testfilename}")
 |> Puzzle{basename}.runpart1()
 |> IO.inspect(pretty: true, label: "testinput, part1")
 
-Puzzle{basename}.realinput()
+Puzzle{basename}.read_input("input/{currentyear}/{realfilename}")
 |> Puzzle{basename}.runpart1()
 |> IO.inspect(pretty: true, label: "realinput, part1")
 
-Puzzle{basename}.testinput()
+Puzzle{basename}.read_input("input/{currentyear}/{testfilename}")
 |> Puzzle{basename}.runpart2()
 |> IO.inspect(pretty: true, label: "testinput, part2")
 
-Puzzle{basename}.realinput()
+Puzzle{basename}.read_input("input/{currentyear}/{realfilename}")
 |> Puzzle{basename}.runpart2()
 |> IO.inspect(pretty: true, label: "realinput, part2")
 
