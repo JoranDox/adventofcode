@@ -44,30 +44,6 @@ defmodule Puzzleday19 do
         |> debug(label: "read_input 1")
     end
 
-
-    # def powersetscan(designtogo, towels) do
-    #     towels
-    #     |> Enum.map(fn towel ->
-    #         if designtogo == towel do
-    #             [towel | :good_ending]
-    #         else
-    #             if String.startswith(designtogo, towel) do
-    #                 ^towel <> rest = designtogo
-    #                 [towel | powersetscan(rest, towels)]
-    #             else
-    #                 :bad_ending
-    #             end
-    #         end
-    #         # case designtogo do
-    #         #     ^towel -> [towel]
-    #         #     ^towel <> rest -> [towel | powersetscan(rest, towels)]
-    #         #     _ -> []
-    #         # end
-    #     end)
-    #     |> Enum.filter(fn x -> x != :bad_ending end)
-    #     |> debug(label: "powersetscan out")
-    # end
-
     def runpart1(input) do
         {towels, designs} = input
 
