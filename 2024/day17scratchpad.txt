@@ -1,0 +1,1987 @@
+A highest 3 bits must be 100
+    * output = 0 = 000
+    * and A must be empty after more right shifts
+    * ergo either the bit shifts must match perfectly and/or the shifted higher bits must be 0
+    * this only happens at 100 (A=4)
+        => shift = 2^5 => 6 bits
+        => A (100) xor 4 (= 000)
+
+a has 16 * 3 bits
+=> 0..47
+
+
+ output (reversed)
+o  0   3   3   0   5   5   1   4   5   1   5   7   1   1   4   2
+
+ A
+ xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx
+ 100 101 010 110 100 100 100 001 011 011 010 110 111 010 111 101
+
+ 100 101 010 110 100 100 100 001 011 011 010 110 111 110
+                                               - --- --- 001
+                                               - --- --0 000
+                                               - 111 --- 111
+
+                                                   - --- 100 010
+                                                   - --0 11- 101
+                                                   - -01 0-- 100
+                                                   - 001 --- 111
+                                                   0 00- --- 110
+
+# KIA cuz worse
+ 100 101 101 000 101 011 011 001
+ 100 101 101 000 101 011 011 101
+ 100 101 010 110 100 111 010 001 011
+ 100 101 010 110 100 111 100 001 011
+ 100 101 010 110 100 111 011 001 011 011
+ 100 101 010 110 100 111 011 101 011 011
+ 100 101 010 110 100 111 010 101 011 011
+# KIA cuz dead end
+ 100 101 010 110 100 100 100 000
+ 100 101 010 110 100 111 011 111
+ 100 101 010 110 100 111 010 000
+ 100 101 010 110 100 111 010 010
+ 100 101 010 110 100 111 100 000
+ 100 101 010 110 100 111 100 111
+ 100 101 010 110 100 111 011 001 101
+ 100 101 010 110 100 111 010 101 100
+ 100 101 010 110 100 111 010 111 100 110
+this should match for four digits already
+                                 000 000 000 111 100 110 110 101
+                                 000 000 010 001 111 010 111 101
+                                 000 000 010 010 111 010 111 101
+                                                   a mod 8 = 101
+                                             a mod 8 xor 1 = 100
+
+reverseoutput 2: [
+                                             {3, "-- --- 100 010"},
+                                                         100 110,  a mod8 = 110, num = 010, 2
+                                             {4, "-- --0 11- 101"},
+                                                       0 11- 001,  a mod8 = 001, num = 010, 2
+                                             {5, "-- -01 0-- 100"},
+                                                      01 0-- 000,  a mod8 = 000, num = 010, 2
+                                             {6, "-- 001 --- 111"},
+                                                     001 --- 011,  a mod8 = 011, num = 010, 2
+                                             {7, "-0 00- --- 110"}
+                                                   0 00- --- 010,  a mod8 = 010, num = 010, 2
+]
+
+
+                                          -  ---  -- -     -
+                                                  -- --- 101 011
+                                                  -- --1 00- 010
+                                                  -- -01 1-- 101
+                                                  -- 010 --- 100
+                                                  -0 01- --- 111
+                                                  00 0-- --- 110
+
+/100 111 110 111 010 001 001 X impossible
+/100 111 110 111 010 011 001 X impossible
+/100 111 110 111 110 001 001 X same as other better route
+/100 011 110 000 110 001 001 X impossible
+/100 011 110 000 110 010 X impossible
+/100 011 110 000 001 X impossible
+/100 011 110 000 101 X impossible
+/100 111 110 000 001 X same as other better route
+/100 111 110 000 101 X same as other better route
+/100 111 110 000 110 X same as other better route
+/100 111 110 000 110 X same as other better route
+
+
+
+
+reverseoutput 0: [
+  {0, "-------X01"},
+  {1, "------1000"},
+  {2, "-----11X11"},
+  {3, "----110010"},
+  {4, "---001-101"},
+  {5, "--000--100"},
+  {6, "-011---111"},
+  {7, "010----110"}
+]
+reverseoutput 1: [
+  {0, "-------X0X"},
+  {1, "------10X0"},
+  {2, "-----11011"},
+  {3, "----111010"},
+  {4, "---000-101"},
+  {5, "--001--100"},
+  {6, "-010---111"},
+  {7, "011----110"}
+]
+reverseoutput 2: [
+  {0, "-------XX1"},
+  {1, "------1X00"},
+  {2, "-----10X11"},
+  {3, "----100010"},
+  {4, "---011-101"},
+  {5, "--010--100"},
+  {6, "-001---111"},
+  {7, "000----110"}
+]
+reverseoutput 3: [
+  {0, "-------XXX"},
+  {1, "------1XX0"},
+  {2, "-----10011"},
+  {3, "----101010"},
+  {4, "---010-101"},
+  {5, "--011--100"},
+  {6, "-000---111"},
+  {7, "001----110"}
+]
+
+reverseoutput 4: [
+  {0, "-------001"},
+  {1, "------0000"},
+  {2, "-----01X11"},
+  {3, "----010010"},
+  {4, "---101-101"},
+  {5, "--100--100"},
+  {6, "-111---111"},
+  {7, "110----110"}
+]
+reverseoutput 5: [
+  {0, "-------00X"},
+  {1, "------00X0"},
+  {2, "-----01011"},
+  {3, "----011010"},
+  {4, "---100-101"},
+  {5, "--101--100"},
+  {6, "-110---111"},
+  {7, "111----110"}
+]
+reverseoutput 6: [
+  {0, "-------0X1"},
+  {1, "------0X00"},
+  {2, "-----00X11"},
+  {3, "----000010"},
+  {4, "---111-101"},
+  {5, "--110--100"},
+  {6, "-101---111"},
+  {7, "100----110"}
+]
+reverseoutput 7: [
+  {0, "-------0XX"},
+  {1, "------0XX0"},
+  {2, "-----00011"},
+  {3, "----001010"},
+  {4, "---110-101"},
+  {5, "--111--100"},
+  {6, "-100---111"},
+  {7, "101----110"}
+]
+
+
+
+checkoutputp2 4240832: "partial match"
+checkoutputp2 4240833: "partial match"
+checkoutputp2 4240848: "partial match"
+checkoutputp2 4240849: "partial match"
+checkoutputp2 4240864: "partial match"
+checkoutputp2 4240865: "partial match"
+checkoutputp2 4240880: "partial match"
+checkoutputp2 4240881: "partial match"
+checkoutputp2 4240896: "partial match"
+checkoutputp2 4240897: "partial match"
+checkoutputp2 4240912: "partial match"
+checkoutputp2 4240913: "partial match"
+checkoutputp2 4240928: "partial match"
+checkoutputp2 4240929: "partial match"
+checkoutputp2 4240944: "partial match"
+checkoutputp2 4240945: "partial match"
+checkoutputp2 4240960: "partial match"
+checkoutputp2 4240961: "partial match"
+checkoutputp2 4240976: "partial match"
+checkoutputp2 4240977: "partial match"
+checkoutputp2 4240992: "partial match"
+checkoutputp2 4240993: "partial match"
+checkoutputp2 4241008: "partial match"
+checkoutputp2 4241009: "partial match"
+checkoutputp2 4241024: "partial match"
+checkoutputp2 4241025: "partial match"
+checkoutputp2 4241040: "partial match"
+checkoutputp2 4241041: "partial match"
+checkoutputp2 4241056: "partial match"
+checkoutputp2 4241057: "partial match"
+checkoutputp2 4241072: "partial match"
+checkoutputp2 4241073: "partial match"
+checkoutputp2 4241088: "partial match"
+checkoutputp2 4241089: "partial match"
+checkoutputp2 4241104: "partial match"
+checkoutputp2 4241105: "partial match"
+checkoutputp2 4241120: "partial match"
+checkoutputp2 4241121: "partial match"
+checkoutputp2 4241136: "partial match"
+checkoutputp2 4241137: "partial match"
+checkoutputp2 4241152: "partial match"
+checkoutputp2 4241153: "partial match"
+checkoutputp2 4241168: "partial match"
+checkoutputp2 4241169: "partial match"
+checkoutputp2 4241184: "partial match"
+checkoutputp2 4241185: "partial match"
+checkoutputp2 4241200: "partial match"
+checkoutputp2 4241201: "partial match"
+checkoutputp2 4241216: "partial match"
+checkoutputp2 4241217: "partial match"
+checkoutputp2 4241232: "partial match"
+checkoutputp2 4241233: "partial match"
+checkoutputp2 4241248: "partial match"
+checkoutputp2 4241249: "partial match"
+checkoutputp2 4241264: "partial match"
+checkoutputp2 4241265: "partial match"
+checkoutputp2 4241280: "partial match"
+checkoutputp2 4241281: "partial match"
+checkoutputp2 4241296: "partial match"
+checkoutputp2 4241297: "partial match"
+checkoutputp2 4241312: "partial match"
+checkoutputp2 4241313: "partial match"
+checkoutputp2 4241328: "partial match"
+checkoutputp2 4241329: "partial match"
+checkoutputp2 4241344: "partial match"
+checkoutputp2 4241345: "partial match"
+checkoutputp2 4241360: "partial match"
+checkoutputp2 4241361: "partial match"
+checkoutputp2 4241376: "partial match"
+checkoutputp2 4241377: "partial match"
+checkoutputp2 4241392: "partial match"
+checkoutputp2 4241393: "partial match"
+checkoutputp2 4241408: "partial match"
+checkoutputp2 4241409: "partial match"
+checkoutputp2 4241424: "partial match"
+checkoutputp2 4241425: "partial match"
+checkoutputp2 4241440: "partial match"
+checkoutputp2 4241441: "partial match"
+checkoutputp2 4241456: "partial match"
+checkoutputp2 4241457: "partial match"
+checkoutputp2 4241472: "partial match"
+checkoutputp2 4241473: "partial match"
+checkoutputp2 4241488: "partial match"
+checkoutputp2 4241489: "partial match"
+checkoutputp2 4241504: "partial match"
+checkoutputp2 4241505: "partial match"
+checkoutputp2 4241520: "partial match"
+checkoutputp2 4241521: "partial match"
+checkoutputp2 4241536: "partial match"
+checkoutputp2 4241537: "partial match"
+checkoutputp2 4241552: "partial match"
+checkoutputp2 4241553: "partial match"
+checkoutputp2 4241568: "partial match"
+checkoutputp2 4241569: "partial match"
+checkoutputp2 4241584: "partial match"
+checkoutputp2 4241585: "partial match"
+checkoutputp2 4241600: "partial match"
+checkoutputp2 4241601: "partial match"
+checkoutputp2 4241616: "partial match"
+checkoutputp2 4241617: "partial match"
+checkoutputp2 4241632: "partial match"
+checkoutputp2 4241633: "partial match"
+checkoutputp2 4241648: "partial match"
+checkoutputp2 4241649: "partial match"
+checkoutputp2 4241664: "partial match"
+checkoutputp2 4241665: "partial match"
+checkoutputp2 4241680: "partial match"
+checkoutputp2 4241681: "partial match"
+checkoutputp2 4241696: "partial match"
+checkoutputp2 4241697: "partial match"
+checkoutputp2 4241712: "partial match"
+checkoutputp2 4241713: "partial match"
+checkoutputp2 4241728: "partial match"
+checkoutputp2 4241729: "partial match"
+checkoutputp2 4241744: "partial match"
+checkoutputp2 4241745: "partial match"
+checkoutputp2 4241760: "partial match"
+checkoutputp2 4241761: "partial match"
+checkoutputp2 4241776: "partial match"
+checkoutputp2 4241777: "partial match"
+checkoutputp2 4241792: "partial match"
+checkoutputp2 4241793: "partial match"
+checkoutputp2 4241808: "partial match"
+checkoutputp2 4241809: "partial match"
+checkoutputp2 4241824: "partial match"
+checkoutputp2 4241825: "partial match"
+checkoutputp2 4241840: "partial match"
+checkoutputp2 4241841: "partial match"
+checkoutputp2 4241856: "partial match"
+checkoutputp2 4241857: "partial match"
+checkoutputp2 4241872: "partial match"
+checkoutputp2 4241873: "partial match"
+checkoutputp2 4241888: "partial match"
+checkoutputp2 4241889: "partial match"
+checkoutputp2 4241904: "partial match"
+checkoutputp2 4241905: "partial match"
+checkoutputp2 4241920: "partial match"
+checkoutputp2 4241921: "partial match"
+checkoutputp2 4241936: "partial match"
+checkoutputp2 4241937: "partial match"
+checkoutputp2 4241952: "partial match"
+checkoutputp2 4241953: "partial match"
+checkoutputp2 4241968: "partial match"
+checkoutputp2 4241969: "partial match"
+checkoutputp2 4241984: "partial match"
+checkoutputp2 4241985: "partial match"
+checkoutputp2 4242000: "partial match"
+checkoutputp2 4242001: "partial match"
+checkoutputp2 4242016: "partial match"
+checkoutputp2 4242017: "partial match"
+checkoutputp2 4242032: "partial match"
+checkoutputp2 4242033: "partial match"
+checkoutputp2 4242048: "partial match"
+checkoutputp2 4242049: "partial match"
+checkoutputp2 4242064: "partial match"
+checkoutputp2 4242065: "partial match"
+checkoutputp2 4242080: "partial match"
+checkoutputp2 4242081: "partial match"
+checkoutputp2 4242096: "partial match"
+checkoutputp2 4242097: "partial match"
+checkoutputp2 4242112: "partial match"
+checkoutputp2 4242113: "partial match"
+checkoutputp2 4242128: "partial match"
+checkoutputp2 4242129: "partial match"
+checkoutputp2 4242144: "partial match"
+checkoutputp2 4242145: "partial match"
+checkoutputp2 4242160: "partial match"
+checkoutputp2 4242161: "partial match"
+checkoutputp2 4242176: "partial match"
+checkoutputp2 4242177: "partial match"
+checkoutputp2 4242192: "partial match"
+checkoutputp2 4242193: "partial match"
+checkoutputp2 4242208: "partial match"
+checkoutputp2 4242209: "partial match"
+checkoutputp2 4242224: "partial match"
+checkoutputp2 4242225: "partial match"
+checkoutputp2 4242240: "partial match"
+checkoutputp2 4242241: "partial match"
+checkoutputp2 4242256: "partial match"
+checkoutputp2 4242257: "partial match"
+checkoutputp2 4242272: "partial match"
+checkoutputp2 4242273: "partial match"
+checkoutputp2 4242288: "partial match"
+checkoutputp2 4242289: "partial match"
+checkoutputp2 4242304: "partial match"
+checkoutputp2 4242305: "partial match"
+checkoutputp2 4242320: "partial match"
+checkoutputp2 4242321: "partial match"
+checkoutputp2 4242336: "partial match"
+checkoutputp2 4242337: "partial match"
+checkoutputp2 4242352: "partial match"
+checkoutputp2 4242353: "partial match"
+checkoutputp2 4242368: "partial match"
+checkoutputp2 4242369: "partial match"
+checkoutputp2 4242384: "partial match"
+checkoutputp2 4242385: "partial match"
+checkoutputp2 4242400: "partial match"
+checkoutputp2 4242401: "partial match"
+checkoutputp2 4242416: "partial match"
+checkoutputp2 4242417: "partial match"
+checkoutputp2 4242432: "partial match"
+checkoutputp2 4242433: "partial match"
+checkoutputp2 4242448: "partial match"
+checkoutputp2 4242449: "partial match"
+checkoutputp2 4242464: "partial match"
+checkoutputp2 4242465: "partial match"
+checkoutputp2 4242480: "partial match"
+checkoutputp2 4242481: "partial match"
+checkoutputp2 4242496: "partial match"
+checkoutputp2 4242497: "partial match"
+checkoutputp2 4242512: "partial match"
+checkoutputp2 4242513: "partial match"
+checkoutputp2 4242528: "partial match"
+checkoutputp2 4242529: "partial match"
+checkoutputp2 4242544: "partial match"
+checkoutputp2 4242545: "partial match"
+checkoutputp2 4242560: "partial match"
+checkoutputp2 4242561: "partial match"
+checkoutputp2 4242576: "partial match"
+checkoutputp2 4242577: "partial match"
+checkoutputp2 4242592: "partial match"
+checkoutputp2 4242593: "partial match"
+checkoutputp2 4242608: "partial match"
+checkoutputp2 4242609: "partial match"
+checkoutputp2 4242624: "partial match"
+checkoutputp2 4242625: "partial match"
+checkoutputp2 4242640: "partial match"
+checkoutputp2 4242641: "partial match"
+checkoutputp2 4242656: "partial match"
+checkoutputp2 4242657: "partial match"
+checkoutputp2 4242672: "partial match"
+checkoutputp2 4242673: "partial match"
+checkoutputp2 4242688: "partial match"
+checkoutputp2 4242689: "partial match"
+checkoutputp2 4242704: "partial match"
+checkoutputp2 4242705: "partial match"
+checkoutputp2 4242720: "partial match"
+checkoutputp2 4242721: "partial match"
+checkoutputp2 4242736: "partial match"
+checkoutputp2 4242737: "partial match"
+checkoutputp2 4242752: "partial match"
+checkoutputp2 4242753: "partial match"
+checkoutputp2 4242768: "partial match"
+checkoutputp2 4242769: "partial match"
+checkoutputp2 4242784: "partial match"
+checkoutputp2 4242785: "partial match"
+checkoutputp2 4242800: "partial match"
+checkoutputp2 4242801: "partial match"
+checkoutputp2 4242816: "partial match"
+checkoutputp2 4242817: "partial match"
+checkoutputp2 4242832: "partial match"
+checkoutputp2 4242833: "partial match"
+checkoutputp2 4242848: "partial match"
+checkoutputp2 4242849: "partial match"
+checkoutputp2 4242864: "partial match"
+checkoutputp2 4242865: "partial match"
+checkoutputp2 4242880: "partial match"
+checkoutputp2 4242881: "partial match"
+checkoutputp2 4242896: "partial match"
+checkoutputp2 4242897: "partial match"
+checkoutputp2 4242912: "partial match"
+checkoutputp2 4242913: "partial match"
+checkoutputp2 4242928: "partial match"
+checkoutputp2 4242929: "partial match"
+checkoutputp2 4242944: "partial match"
+checkoutputp2 4242945: "partial match"
+checkoutputp2 4242960: "partial match"
+checkoutputp2 4242961: "partial match"
+checkoutputp2 4242976: "partial match"
+checkoutputp2 4242977: "partial match"
+checkoutputp2 4242992: "partial match"
+checkoutputp2 4242993: "partial match"
+checkoutputp2 4243008: "partial match"
+checkoutputp2 4243009: "partial match"
+checkoutputp2 4243024: "partial match"
+checkoutputp2 4243025: "partial match"
+checkoutputp2 4243040: "partial match"
+checkoutputp2 4243041: "partial match"
+checkoutputp2 4243056: "partial match"
+checkoutputp2 4243057: "partial match"
+checkoutputp2 4243072: "partial match"
+checkoutputp2 4243073: "partial match"
+checkoutputp2 4243088: "partial match"
+checkoutputp2 4243089: "partial match"
+checkoutputp2 4243104: "partial match"
+checkoutputp2 4243105: "partial match"
+checkoutputp2 4243120: "partial match"
+checkoutputp2 4243121: "partial match"
+checkoutputp2 4243136: "partial match"
+checkoutputp2 4243137: "partial match"
+checkoutputp2 4243152: "partial match"
+checkoutputp2 4243153: "partial match"
+checkoutputp2 4243168: "partial match"
+checkoutputp2 4243169: "partial match"
+checkoutputp2 4243184: "partial match"
+checkoutputp2 4243185: "partial match"
+checkoutputp2 4243200: "partial match"
+checkoutputp2 4243201: "partial match"
+checkoutputp2 4243216: "partial match"
+checkoutputp2 4243217: "partial match"
+checkoutputp2 4243232: "partial match"
+checkoutputp2 4243233: "partial match"
+checkoutputp2 4243248: "partial match"
+checkoutputp2 4243249: "partial match"
+checkoutputp2 4243264: "partial match"
+checkoutputp2 4243265: "partial match"
+checkoutputp2 4243280: "partial match"
+checkoutputp2 4243281: "partial match"
+checkoutputp2 4243296: "partial match"
+checkoutputp2 4243297: "partial match"
+checkoutputp2 4243312: "partial match"
+checkoutputp2 4243313: "partial match"
+checkoutputp2 4243328: "partial match"
+checkoutputp2 4243329: "partial match"
+checkoutputp2 4243344: "partial match"
+checkoutputp2 4243345: "partial match"
+checkoutputp2 4243360: "partial match"
+checkoutputp2 4243361: "partial match"
+checkoutputp2 4243376: "partial match"
+checkoutputp2 4243377: "partial match"
+checkoutputp2 4243392: "partial match"
+checkoutputp2 4243393: "partial match"
+checkoutputp2 4243408: "partial match"
+checkoutputp2 4243409: "partial match"
+checkoutputp2 4243424: "partial match"
+checkoutputp2 4243425: "partial match"
+checkoutputp2 4243440: "partial match"
+checkoutputp2 4243441: "partial match"
+checkoutputp2 4243456: "partial match"
+checkoutputp2 4243457: "partial match"
+checkoutputp2 4243472: "partial match"
+checkoutputp2 4243473: "partial match"
+checkoutputp2 4243488: "partial match"
+checkoutputp2 4243489: "partial match"
+checkoutputp2 4243504: "partial match"
+checkoutputp2 4243505: "partial match"
+checkoutputp2 4243520: "partial match"
+checkoutputp2 4243521: "partial match"
+checkoutputp2 4243536: "partial match"
+checkoutputp2 4243537: "partial match"
+checkoutputp2 4243552: "partial match"
+checkoutputp2 4243553: "partial match"
+checkoutputp2 4243568: "partial match"
+checkoutputp2 4243569: "partial match"
+checkoutputp2 4243584: "partial match"
+checkoutputp2 4243585: "partial match"
+checkoutputp2 4243600: "partial match"
+checkoutputp2 4243601: "partial match"
+checkoutputp2 4243616: "partial match"
+checkoutputp2 4243617: "partial match"
+checkoutputp2 4243632: "partial match"
+checkoutputp2 4243633: "partial match"
+checkoutputp2 4243648: "partial match"
+checkoutputp2 4243649: "partial match"
+checkoutputp2 4243664: "partial match"
+checkoutputp2 4243665: "partial match"
+checkoutputp2 4243680: "partial match"
+checkoutputp2 4243681: "partial match"
+checkoutputp2 4243696: "partial match"
+checkoutputp2 4243697: "partial match"
+checkoutputp2 4243712: "partial match"
+checkoutputp2 4243713: "partial match"
+checkoutputp2 4243728: "partial match"
+checkoutputp2 4243729: "partial match"
+checkoutputp2 4243744: "partial match"
+checkoutputp2 4243745: "partial match"
+checkoutputp2 4243760: "partial match"
+checkoutputp2 4243761: "partial match"
+checkoutputp2 4243776: "partial match"
+checkoutputp2 4243777: "partial match"
+checkoutputp2 4243792: "partial match"
+checkoutputp2 4243793: "partial match"
+checkoutputp2 4243808: "partial match"
+checkoutputp2 4243809: "partial match"
+checkoutputp2 4243824: "partial match"
+checkoutputp2 4243825: "partial match"
+checkoutputp2 4243840: "partial match"
+checkoutputp2 4243841: "partial match"
+checkoutputp2 4243856: "partial match"
+checkoutputp2 4243857: "partial match"
+checkoutputp2 4243872: "partial match"
+checkoutputp2 4243873: "partial match"
+checkoutputp2 4243888: "partial match"
+checkoutputp2 4243889: "partial match"
+checkoutputp2 4243904: "partial match"
+checkoutputp2 4243905: "partial match"
+checkoutputp2 4243920: "partial match"
+checkoutputp2 4243921: "partial match"
+checkoutputp2 4243936: "partial match"
+checkoutputp2 4243937: "partial match"
+checkoutputp2 4243952: "partial match"
+checkoutputp2 4243953: "partial match"
+checkoutputp2 4243968: "partial match"
+checkoutputp2 4243969: "partial match"
+checkoutputp2 4243984: "partial match"
+checkoutputp2 4243985: "partial match"
+checkoutputp2 4244000: "partial match"
+checkoutputp2 4244001: "partial match"
+checkoutputp2 4244016: "partial match"
+checkoutputp2 4244017: "partial match"
+checkoutputp2 4244032: "partial match"
+checkoutputp2 4244033: "partial match"
+checkoutputp2 4244048: "partial match"
+checkoutputp2 4244049: "partial match"
+checkoutputp2 4244064: "partial match"
+checkoutputp2 4244065: "partial match"
+checkoutputp2 4244080: "partial match"
+checkoutputp2 4244081: "partial match"
+checkoutputp2 4244096: "partial match"
+checkoutputp2 4244097: "partial match"
+checkoutputp2 4244112: "partial match"
+checkoutputp2 4244113: "partial match"
+checkoutputp2 4244128: "partial match"
+checkoutputp2 4244129: "partial match"
+checkoutputp2 4244144: "partial match"
+checkoutputp2 4244145: "partial match"
+checkoutputp2 4244160: "partial match"
+checkoutputp2 4244161: "partial match"
+checkoutputp2 4244176: "partial match"
+checkoutputp2 4244177: "partial match"
+checkoutputp2 4244192: "partial match"
+checkoutputp2 4244193: "partial match"
+checkoutputp2 4244208: "partial match"
+checkoutputp2 4244209: "partial match"
+checkoutputp2 4244224: "partial match"
+checkoutputp2 4244225: "partial match"
+checkoutputp2 4244240: "partial match"
+checkoutputp2 4244241: "partial match"
+checkoutputp2 4244256: "partial match"
+checkoutputp2 4244257: "partial match"
+checkoutputp2 4244272: "partial match"
+checkoutputp2 4244273: "partial match"
+checkoutputp2 4244288: "partial match"
+checkoutputp2 4244289: "partial match"
+checkoutputp2 4244304: "partial match"
+checkoutputp2 4244305: "partial match"
+checkoutputp2 4244320: "partial match"
+checkoutputp2 4244321: "partial match"
+checkoutputp2 4244336: "partial match"
+checkoutputp2 4244337: "partial match"
+checkoutputp2 4244352: "partial match"
+checkoutputp2 4244353: "partial match"
+checkoutputp2 4244368: "partial match"
+checkoutputp2 4244369: "partial match"
+checkoutputp2 4244384: "partial match"
+checkoutputp2 4244385: "partial match"
+checkoutputp2 4244400: "partial match"
+checkoutputp2 4244401: "partial match"
+checkoutputp2 4244416: "partial match"
+checkoutputp2 4244417: "partial match"
+checkoutputp2 4244432: "partial match"
+checkoutputp2 4244433: "partial match"
+checkoutputp2 4244448: "partial match"
+checkoutputp2 4244449: "partial match"
+checkoutputp2 4244464: "partial match"
+checkoutputp2 4244465: "partial match"
+checkoutputp2 4244480: "partial match"
+checkoutputp2 4244481: "partial match"
+checkoutputp2 4244496: "partial match"
+checkoutputp2 4244497: "partial match"
+checkoutputp2 4244512: "partial match"
+checkoutputp2 4244513: "partial match"
+checkoutputp2 4244528: "partial match"
+checkoutputp2 4244529: "partial match"
+checkoutputp2 4244544: "partial match"
+checkoutputp2 4244545: "partial match"
+checkoutputp2 4244560: "partial match"
+checkoutputp2 4244561: "partial match"
+checkoutputp2 4244576: "partial match"
+checkoutputp2 4244577: "partial match"
+checkoutputp2 4244592: "partial match"
+checkoutputp2 4244593: "partial match"
+checkoutputp2 4244608: "partial match"
+checkoutputp2 4244609: "partial match"
+checkoutputp2 4244624: "partial match"
+checkoutputp2 4244625: "partial match"
+checkoutputp2 4244640: "partial match"
+checkoutputp2 4244641: "partial match"
+checkoutputp2 4244656: "partial match"
+checkoutputp2 4244657: "partial match"
+checkoutputp2 4244672: "partial match"
+checkoutputp2 4244673: "partial match"
+checkoutputp2 4244688: "partial match"
+checkoutputp2 4244689: "partial match"
+checkoutputp2 4244704: "partial match"
+checkoutputp2 4244705: "partial match"
+checkoutputp2 4244720: "partial match"
+checkoutputp2 4244721: "partial match"
+checkoutputp2 4244736: "partial match"
+checkoutputp2 4244737: "partial match"
+checkoutputp2 4244752: "partial match"
+checkoutputp2 4244753: "partial match"
+checkoutputp2 4244768: "partial match"
+checkoutputp2 4244769: "partial match"
+checkoutputp2 4244784: "partial match"
+checkoutputp2 4244785: "partial match"
+checkoutputp2 4244800: "partial match"
+checkoutputp2 4244801: "partial match"
+checkoutputp2 4244816: "partial match"
+checkoutputp2 4244817: "partial match"
+checkoutputp2 4244832: "partial match"
+checkoutputp2 4244833: "partial match"
+checkoutputp2 4244848: "partial match"
+checkoutputp2 4244849: "partial match"
+checkoutputp2 4244864: "partial match"
+checkoutputp2 4244865: "partial match"
+checkoutputp2 4244880: "partial match"
+checkoutputp2 4244881: "partial match"
+checkoutputp2 4244896: "partial match"
+checkoutputp2 4244897: "partial match"
+checkoutputp2 4244912: "partial match"
+checkoutputp2 4244913: "partial match"
+checkoutputp2 4244928: "partial match"
+checkoutputp2 4244929: "partial match"
+checkoutputp2 4244944: "partial match"
+checkoutputp2 4244945: "partial match"
+checkoutputp2 4244960: "partial match"
+checkoutputp2 4244961: "partial match"
+checkoutputp2 4244976: "partial match"
+checkoutputp2 4244977: "partial match"
+checkoutputp2 4244992: "partial match"
+checkoutputp2 4244993: "partial match"
+checkoutputp2 4245008: "partial match"
+checkoutputp2 4245009: "partial match"
+checkoutputp2 4245024: "partial match"
+checkoutputp2 4245025: "partial match"
+checkoutputp2 4245040: "partial match"
+checkoutputp2 4245041: "partial match"
+checkoutputp2 4245056: "partial match"
+checkoutputp2 4245057: "partial match"
+checkoutputp2 4245072: "partial match"
+checkoutputp2 4245073: "partial match"
+checkoutputp2 4245088: "partial match"
+checkoutputp2 4245089: "partial match"
+checkoutputp2 4245104: "partial match"
+checkoutputp2 4245105: "partial match"
+checkoutputp2 4245120: "partial match"
+checkoutputp2 4245121: "partial match"
+checkoutputp2 4245136: "partial match"
+checkoutputp2 4245137: "partial match"
+checkoutputp2 4245152: "partial match"
+checkoutputp2 4245153: "partial match"
+checkoutputp2 4245168: "partial match"
+checkoutputp2 4245169: "partial match"
+checkoutputp2 4245184: "partial match"
+checkoutputp2 4245185: "partial match"
+checkoutputp2 4245200: "partial match"
+checkoutputp2 4245201: "partial match"
+checkoutputp2 4245216: "partial match"
+checkoutputp2 4245217: "partial match"
+checkoutputp2 4245232: "partial match"
+checkoutputp2 4245233: "partial match"
+checkoutputp2 4245248: "partial match"
+checkoutputp2 4245249: "partial match"
+checkoutputp2 4245264: "partial match"
+checkoutputp2 4245265: "partial match"
+checkoutputp2 4245280: "partial match"
+checkoutputp2 4245281: "partial match"
+checkoutputp2 4245296: "partial match"
+checkoutputp2 4245297: "partial match"
+checkoutputp2 4245312: "partial match"
+checkoutputp2 4245313: "partial match"
+checkoutputp2 4245328: "partial match"
+checkoutputp2 4245329: "partial match"
+checkoutputp2 4245344: "partial match"
+checkoutputp2 4245345: "partial match"
+checkoutputp2 4245360: "partial match"
+checkoutputp2 4245361: "partial match"
+checkoutputp2 4245376: "partial match"
+checkoutputp2 4245377: "partial match"
+checkoutputp2 4245392: "partial match"
+checkoutputp2 4245393: "partial match"
+checkoutputp2 4245408: "partial match"
+checkoutputp2 4245409: "partial match"
+checkoutputp2 4245424: "partial match"
+checkoutputp2 4245425: "partial match"
+checkoutputp2 4245440: "partial match"
+checkoutputp2 4245441: "partial match"
+checkoutputp2 4245456: "partial match"
+checkoutputp2 4245457: "partial match"
+checkoutputp2 4245472: "partial match"
+checkoutputp2 4245473: "partial match"
+checkoutputp2 4245488: "partial match"
+checkoutputp2 4245489: "partial match"
+checkoutputp2 4245504: "partial match"
+checkoutputp2 4245505: "partial match"
+checkoutputp2 4245520: "partial match"
+checkoutputp2 4245521: "partial match"
+checkoutputp2 4245536: "partial match"
+checkoutputp2 4245537: "partial match"
+checkoutputp2 4245552: "partial match"
+checkoutputp2 4245553: "partial match"
+checkoutputp2 4245568: "partial match"
+checkoutputp2 4245569: "partial match"
+checkoutputp2 4245584: "partial match"
+checkoutputp2 4245585: "partial match"
+checkoutputp2 4245600: "partial match"
+checkoutputp2 4245601: "partial match"
+checkoutputp2 4245616: "partial match"
+checkoutputp2 4245617: "partial match"
+checkoutputp2 4245632: "partial match"
+checkoutputp2 4245633: "partial match"
+checkoutputp2 4245648: "partial match"
+checkoutputp2 4245649: "partial match"
+checkoutputp2 4245664: "partial match"
+checkoutputp2 4245665: "partial match"
+checkoutputp2 4245680: "partial match"
+checkoutputp2 4245681: "partial match"
+checkoutputp2 4245696: "partial match"
+checkoutputp2 4245697: "partial match"
+checkoutputp2 4245712: "partial match"
+checkoutputp2 4245713: "partial match"
+checkoutputp2 4245728: "partial match"
+checkoutputp2 4245729: "partial match"
+checkoutputp2 4245744: "partial match"
+checkoutputp2 4245745: "partial match"
+checkoutputp2 4245760: "partial match"
+checkoutputp2 4245761: "partial match"
+checkoutputp2 4245776: "partial match"
+checkoutputp2 4245777: "partial match"
+checkoutputp2 4245792: "partial match"
+checkoutputp2 4245793: "partial match"
+checkoutputp2 4245808: "partial match"
+checkoutputp2 4245809: "partial match"
+checkoutputp2 4245824: "partial match"
+checkoutputp2 4245825: "partial match"
+checkoutputp2 4245840: "partial match"
+checkoutputp2 4245841: "partial match"
+checkoutputp2 4245856: "partial match"
+checkoutputp2 4245857: "partial match"
+checkoutputp2 4245872: "partial match"
+checkoutputp2 4245873: "partial match"
+checkoutputp2 4245888: "partial match"
+checkoutputp2 4245889: "partial match"
+checkoutputp2 4245904: "partial match"
+checkoutputp2 4245905: "partial match"
+checkoutputp2 4245920: "partial match"
+checkoutputp2 4245921: "partial match"
+checkoutputp2 4245936: "partial match"
+checkoutputp2 4245937: "partial match"
+checkoutputp2 4245952: "partial match"
+checkoutputp2 4245953: "partial match"
+checkoutputp2 4245968: "partial match"
+checkoutputp2 4245969: "partial match"
+checkoutputp2 4245984: "partial match"
+checkoutputp2 4245985: "partial match"
+checkoutputp2 4246000: "partial match"
+checkoutputp2 4246001: "partial match"
+checkoutputp2 4246016: "partial match"
+checkoutputp2 4246017: "partial match"
+checkoutputp2 4246032: "partial match"
+checkoutputp2 4246033: "partial match"
+checkoutputp2 4246048: "partial match"
+checkoutputp2 4246049: "partial match"
+checkoutputp2 4246064: "partial match"
+checkoutputp2 4246065: "partial match"
+checkoutputp2 4246080: "partial match"
+checkoutputp2 4246081: "partial match"
+checkoutputp2 4246096: "partial match"
+checkoutputp2 4246097: "partial match"
+checkoutputp2 4246112: "partial match"
+checkoutputp2 4246113: "partial match"
+checkoutputp2 4246128: "partial match"
+checkoutputp2 4246129: "partial match"
+checkoutputp2 4246144: "partial match"
+checkoutputp2 4246145: "partial match"
+checkoutputp2 4246160: "partial match"
+checkoutputp2 4246161: "partial match"
+checkoutputp2 4246176: "partial match"
+checkoutputp2 4246177: "partial match"
+checkoutputp2 4246192: "partial match"
+checkoutputp2 4246193: "partial match"
+checkoutputp2 4246208: "partial match"
+checkoutputp2 4246209: "partial match"
+checkoutputp2 4246224: "partial match"
+checkoutputp2 4246225: "partial match"
+checkoutputp2 4246240: "partial match"
+checkoutputp2 4246241: "partial match"
+checkoutputp2 4246256: "partial match"
+checkoutputp2 4246257: "partial match"
+checkoutputp2 4246272: "partial match"
+checkoutputp2 4246273: "partial match"
+checkoutputp2 4246288: "partial match"
+checkoutputp2 4246289: "partial match"
+checkoutputp2 4246304: "partial match"
+checkoutputp2 4246305: "partial match"
+checkoutputp2 4246320: "partial match"
+checkoutputp2 4246321: "partial match"
+checkoutputp2 4246336: "partial match"
+checkoutputp2 4246337: "partial match"
+checkoutputp2 4246352: "partial match"
+checkoutputp2 4246353: "partial match"
+checkoutputp2 4246368: "partial match"
+checkoutputp2 4246369: "partial match"
+checkoutputp2 4246384: "partial match"
+checkoutputp2 4246385: "partial match"
+checkoutputp2 4246400: "partial match"
+checkoutputp2 4246401: "partial match"
+checkoutputp2 4246416: "partial match"
+checkoutputp2 4246417: "partial match"
+checkoutputp2 4246432: "partial match"
+checkoutputp2 4246433: "partial match"
+checkoutputp2 4246448: "partial match"
+checkoutputp2 4246449: "partial match"
+checkoutputp2 4246464: "partial match"
+checkoutputp2 4246465: "partial match"
+checkoutputp2 4246480: "partial match"
+checkoutputp2 4246481: "partial match"
+checkoutputp2 4246496: "partial match"
+checkoutputp2 4246497: "partial match"
+checkoutputp2 4246512: "partial match"
+checkoutputp2 4246513: "partial match"
+checkoutputp2 4246528: "partial match"
+checkoutputp2 4246529: "partial match"
+checkoutputp2 4246544: "partial match"
+checkoutputp2 4246545: "partial match"
+checkoutputp2 4246560: "partial match"
+checkoutputp2 4246561: "partial match"
+checkoutputp2 4246576: "partial match"
+checkoutputp2 4246577: "partial match"
+checkoutputp2 4246592: "partial match"
+checkoutputp2 4246593: "partial match"
+checkoutputp2 4246608: "partial match"
+checkoutputp2 4246609: "partial match"
+checkoutputp2 4246624: "partial match"
+checkoutputp2 4246625: "partial match"
+checkoutputp2 4246640: "partial match"
+checkoutputp2 4246641: "partial match"
+checkoutputp2 4246656: "partial match"
+checkoutputp2 4246657: "partial match"
+checkoutputp2 4246672: "partial match"
+checkoutputp2 4246673: "partial match"
+checkoutputp2 4246688: "partial match"
+checkoutputp2 4246689: "partial match"
+checkoutputp2 4246704: "partial match"
+checkoutputp2 4246705: "partial match"
+checkoutputp2 4246720: "partial match"
+checkoutputp2 4246721: "partial match"
+checkoutputp2 4246736: "partial match"
+checkoutputp2 4246737: "partial match"
+checkoutputp2 4246752: "partial match"
+checkoutputp2 4246753: "partial match"
+checkoutputp2 4246768: "partial match"
+checkoutputp2 4246769: "partial match"
+checkoutputp2 4246784: "partial match"
+checkoutputp2 4246785: "partial match"
+checkoutputp2 4246800: "partial match"
+checkoutputp2 4246801: "partial match"
+checkoutputp2 4246816: "partial match"
+checkoutputp2 4246817: "partial match"
+checkoutputp2 4246832: "partial match"
+checkoutputp2 4246833: "partial match"
+checkoutputp2 4246848: "partial match"
+checkoutputp2 4246849: "partial match"
+checkoutputp2 4246864: "partial match"
+checkoutputp2 4246865: "partial match"
+checkoutputp2 4246880: "partial match"
+checkoutputp2 4246881: "partial match"
+checkoutputp2 4246896: "partial match"
+checkoutputp2 4246897: "partial match"
+checkoutputp2 4246912: "partial match"
+checkoutputp2 4246913: "partial match"
+checkoutputp2 4246928: "partial match"
+checkoutputp2 4246929: "partial match"
+checkoutputp2 4246944: "partial match"
+checkoutputp2 4246945: "partial match"
+checkoutputp2 4246960: "partial match"
+checkoutputp2 4246961: "partial match"
+checkoutputp2 4246976: "partial match"
+checkoutputp2 4246977: "partial match"
+checkoutputp2 4246992: "partial match"
+checkoutputp2 4246993: "partial match"
+checkoutputp2 4247008: "partial match"
+checkoutputp2 4247009: "partial match"
+checkoutputp2 4247024: "partial match"
+checkoutputp2 4247025: "partial match"
+checkoutputp2 4247040: "partial match"
+checkoutputp2 4247041: "partial match"
+checkoutputp2 4247056: "partial match"
+checkoutputp2 4247057: "partial match"
+checkoutputp2 4247072: "partial match"
+checkoutputp2 4247073: "partial match"
+checkoutputp2 4247088: "partial match"
+checkoutputp2 4247089: "partial match"
+checkoutputp2 4247104: "partial match"
+checkoutputp2 4247105: "partial match"
+checkoutputp2 4247120: "partial match"
+checkoutputp2 4247121: "partial match"
+checkoutputp2 4247136: "partial match"
+checkoutputp2 4247137: "partial match"
+checkoutputp2 4247152: "partial match"
+checkoutputp2 4247153: "partial match"
+checkoutputp2 4247168: "partial match"
+checkoutputp2 4247169: "partial match"
+checkoutputp2 4247184: "partial match"
+checkoutputp2 4247185: "partial match"
+checkoutputp2 4247200: "partial match"
+checkoutputp2 4247201: "partial match"
+checkoutputp2 4247216: "partial match"
+checkoutputp2 4247217: "partial match"
+checkoutputp2 4247232: "partial match"
+checkoutputp2 4247233: "partial match"
+checkoutputp2 4247248: "partial match"
+checkoutputp2 4247249: "partial match"
+checkoutputp2 4247264: "partial match"
+checkoutputp2 4247265: "partial match"
+checkoutputp2 4247280: "partial match"
+checkoutputp2 4247281: "partial match"
+checkoutputp2 4247296: "partial match"
+checkoutputp2 4247297: "partial match"
+checkoutputp2 4247312: "partial match"
+checkoutputp2 4247313: "partial match"
+checkoutputp2 4247328: "partial match"
+checkoutputp2 4247329: "partial match"
+checkoutputp2 4247344: "partial match"
+checkoutputp2 4247345: "partial match"
+checkoutputp2 4247360: "partial match"
+checkoutputp2 4247361: "partial match"
+checkoutputp2 4247376: "partial match"
+checkoutputp2 4247377: "partial match"
+checkoutputp2 4247392: "partial match"
+checkoutputp2 4247393: "partial match"
+checkoutputp2 4247408: "partial match"
+checkoutputp2 4247409: "partial match"
+checkoutputp2 4247424: "partial match"
+checkoutputp2 4247425: "partial match"
+checkoutputp2 4247440: "partial match"
+checkoutputp2 4247441: "partial match"
+checkoutputp2 4247456: "partial match"
+checkoutputp2 4247457: "partial match"
+checkoutputp2 4247472: "partial match"
+checkoutputp2 4247473: "partial match"
+checkoutputp2 4247488: "partial match"
+checkoutputp2 4247489: "partial match"
+checkoutputp2 4247504: "partial match"
+checkoutputp2 4247505: "partial match"
+checkoutputp2 4247520: "partial match"
+checkoutputp2 4247521: "partial match"
+checkoutputp2 4247536: "partial match"
+checkoutputp2 4247537: "partial match"
+checkoutputp2 4247552: "partial match"
+checkoutputp2 4247553: "partial match"
+checkoutputp2 4247568: "partial match"
+checkoutputp2 4247569: "partial match"
+checkoutputp2 4247584: "partial match"
+checkoutputp2 4247585: "partial match"
+checkoutputp2 4247600: "partial match"
+checkoutputp2 4247601: "partial match"
+checkoutputp2 4247616: "partial match"
+checkoutputp2 4247617: "partial match"
+checkoutputp2 4247632: "partial match"
+checkoutputp2 4247633: "partial match"
+checkoutputp2 4247648: "partial match"
+checkoutputp2 4247649: "partial match"
+checkoutputp2 4247664: "partial match"
+checkoutputp2 4247665: "partial match"
+checkoutputp2 4247680: "partial match"
+checkoutputp2 4247681: "partial match"
+checkoutputp2 4247696: "partial match"
+checkoutputp2 4247697: "partial match"
+checkoutputp2 4247712: "partial match"
+checkoutputp2 4247713: "partial match"
+checkoutputp2 4247728: "partial match"
+checkoutputp2 4247729: "partial match"
+checkoutputp2 4247744: "partial match"
+checkoutputp2 4247745: "partial match"
+checkoutputp2 4247760: "partial match"
+checkoutputp2 4247761: "partial match"
+checkoutputp2 4247776: "partial match"
+checkoutputp2 4247777: "partial match"
+checkoutputp2 4247792: "partial match"
+checkoutputp2 4247793: "partial match"
+checkoutputp2 4247808: "partial match"
+checkoutputp2 4247809: "partial match"
+checkoutputp2 4247824: "partial match"
+checkoutputp2 4247825: "partial match"
+checkoutputp2 4247840: "partial match"
+checkoutputp2 4247841: "partial match"
+checkoutputp2 4247856: "partial match"
+checkoutputp2 4247857: "partial match"
+checkoutputp2 4247872: "partial match"
+checkoutputp2 4247873: "partial match"
+checkoutputp2 4247888: "partial match"
+checkoutputp2 4247889: "partial match"
+checkoutputp2 4247904: "partial match"
+checkoutputp2 4247905: "partial match"
+checkoutputp2 4247920: "partial match"
+checkoutputp2 4247921: "partial match"
+checkoutputp2 4247936: "partial match"
+checkoutputp2 4247937: "partial match"
+checkoutputp2 4247952: "partial match"
+checkoutputp2 4247953: "partial match"
+checkoutputp2 4247968: "partial match"
+checkoutputp2 4247969: "partial match"
+checkoutputp2 4247984: "partial match"
+checkoutputp2 4247985: "partial match"
+checkoutputp2 4248000: "partial match"
+checkoutputp2 4248001: "partial match"
+checkoutputp2 4248016: "partial match"
+checkoutputp2 4248017: "partial match"
+checkoutputp2 4248032: "partial match"
+checkoutputp2 4248033: "partial match"
+checkoutputp2 4248048: "partial match"
+checkoutputp2 4248049: "partial match"
+checkoutputp2 4248064: "partial match"
+checkoutputp2 4248065: "partial match"
+checkoutputp2 4248080: "partial match"
+checkoutputp2 4248081: "partial match"
+checkoutputp2 4248096: "partial match"
+checkoutputp2 4248097: "partial match"
+checkoutputp2 4248112: "partial match"
+checkoutputp2 4248113: "partial match"
+checkoutputp2 4248128: "partial match"
+checkoutputp2 4248129: "partial match"
+checkoutputp2 4248144: "partial match"
+checkoutputp2 4248145: "partial match"
+checkoutputp2 4248160: "partial match"
+checkoutputp2 4248161: "partial match"
+checkoutputp2 4248176: "partial match"
+checkoutputp2 4248177: "partial match"
+checkoutputp2 4248192: "partial match"
+checkoutputp2 4248193: "partial match"
+checkoutputp2 4248208: "partial match"
+checkoutputp2 4248209: "partial match"
+checkoutputp2 4248224: "partial match"
+checkoutputp2 4248225: "partial match"
+checkoutputp2 4248240: "partial match"
+checkoutputp2 4248241: "partial match"
+checkoutputp2 4248256: "partial match"
+checkoutputp2 4248257: "partial match"
+checkoutputp2 4248272: "partial match"
+checkoutputp2 4248273: "partial match"
+checkoutputp2 4248288: "partial match"
+checkoutputp2 4248289: "partial match"
+checkoutputp2 4248304: "partial match"
+checkoutputp2 4248305: "partial match"
+checkoutputp2 4248320: "partial match"
+checkoutputp2 4248321: "partial match"
+checkoutputp2 4248336: "partial match"
+checkoutputp2 4248337: "partial match"
+checkoutputp2 4248352: "partial match"
+checkoutputp2 4248353: "partial match"
+checkoutputp2 4248368: "partial match"
+checkoutputp2 4248369: "partial match"
+checkoutputp2 4248384: "partial match"
+checkoutputp2 4248385: "partial match"
+checkoutputp2 4248400: "partial match"
+checkoutputp2 4248401: "partial match"
+checkoutputp2 4248416: "partial match"
+checkoutputp2 4248417: "partial match"
+checkoutputp2 4248432: "partial match"
+checkoutputp2 4248433: "partial match"
+checkoutputp2 4248448: "partial match"
+checkoutputp2 4248449: "partial match"
+checkoutputp2 4248464: "partial match"
+checkoutputp2 4248465: "partial match"
+checkoutputp2 4248480: "partial match"
+checkoutputp2 4248481: "partial match"
+checkoutputp2 4248496: "partial match"
+checkoutputp2 4248497: "partial match"
+checkoutputp2 4248512: "partial match"
+checkoutputp2 4248513: "partial match"
+checkoutputp2 4248528: "partial match"
+checkoutputp2 4248529: "partial match"
+checkoutputp2 4248544: "partial match"
+checkoutputp2 4248545: "partial match"
+checkoutputp2 4248560: "partial match"
+checkoutputp2 4248561: "partial match"
+checkoutputp2 4248576: "partial match"
+checkoutputp2 4248577: "partial match"
+checkoutputp2 4248592: "partial match"
+checkoutputp2 4248593: "partial match"
+checkoutputp2 4248608: "partial match"
+checkoutputp2 4248609: "partial match"
+checkoutputp2 4248624: "partial match"
+checkoutputp2 4248625: "partial match"
+checkoutputp2 4248640: "partial match"
+checkoutputp2 4248641: "partial match"
+
+
+
+31157
+69309
+69437
+73405
+77501
+81597
+85693
+85821
+89789
+93885
+94141
+97981
+98237
+162229
+293301
+331453
+331581
+335549
+339645
+343741
+347837
+347965
+351933
+356029
+356285
+360125
+360381
+
+
+
+10722
+10786
+10805
+10813
+10820
+10823
+10828
+10831
+10836
+10839
+10844
+10847
+10850
+10855
+10863
+10871
+10879
+10914
+10933
+10941
+10978
+11042
+11061
+11069
+11076
+11084
+11092
+11100
+11106
+11170
+11189
+11197
+11234
+11270
+11278
+11286
+11294
+11298
+11302
+11310
+11317
+11318
+11325
+11326
+11332
+11334
+11335
+11340
+11342
+11343
+11348
+11350
+11351
+11356
+11358
+11359
+11362
+11366
+11367
+11374
+11375
+11382
+11383
+11390
+11391
+11426
+11445
+11453
+11490
+11554
+11573
+11581
+11588
+11596
+11604
+11612
+11618
+11682
+11701
+11709
+11746
+11810
+11829
+11837
+11844
+11847
+11852
+11855
+11860
+11863
+11868
+11871
+11874
+11879
+11887
+11895
+11903
+11938
+11957
+11965
+12002
+12066
+12085
+12093
+12100
+12108
+12116
+12124
+12130
+12194
+12213
+12221
+12258
+12294
+12302
+12310
+12318
+12322
+12326
+12334
+12341
+12342
+12349
+12350
+12356
+12358
+12359
+12364
+12366
+12367
+12372
+12374
+12375
+12380
+12382
+12383
+12386
+12390
+12391
+12398
+12399
+12406
+12407
+12414
+12415
+12450
+12469
+12477
+12514
+12578
+12597
+12605
+12612
+12620
+12628
+12636
+12642
+12706
+12725
+12733
+12770
+12834
+12853
+12861
+12868
+12871
+12876
+12879
+12884
+12887
+12892
+12895
+12898
+12903
+12911
+12919
+12927
+12962
+12981
+12989
+13026
+13090
+13109
+13117
+13124
+13132
+13140
+13148
+13154
+13218
+13237
+13245
+13282
+13318
+13326
+13334
+13342
+13346
+13350
+13358
+13365
+13366
+13373
+13374
+13380
+13382
+13383
+13388
+13390
+13391
+13396
+13398
+13399
+13404
+13406
+13407
+13410
+13414
+13415
+13422
+13423
+13430
+13431
+13438
+13439
+13474
+13493
+13501
+13538
+13602
+13621
+13629
+13636
+13644
+13652
+13660
+13666
+13730
+13749
+13757
+13794
+13858
+13877
+13885
+13892
+13895
+13900
+13903
+13908
+13911
+13916
+13919
+13922
+13927
+13935
+13943
+13951
+13986
+14005
+14013
+14050
+14114
+14133
+14141
+14148
+14156
+14164
+14172
+14178
+14242
+14261
+14269
+14306
+14342
+14350
+14358
+14366
+14370
+14374
+14382
+14389
+14390
+14397
+14398
+14404
+14406
+14407
+14412
+14414
+14415
+14420
+14422
+14423
+14428
+14430
+14431
+14434
+14438
+14439
+14446
+14447
+14454
+14455
+14462
+14463
+14498
+14517
+14525
+14562
+14626
+14645
+14653
+14660
+14668
+14676
+14684
+14690
+14754
+14773
+14781
+14818
+14882
+14901
+14909
+14916
+14919
+14924
+14927
+14932
+14935
+14940
+14943
+14946
+14951
+14959
+14967
+14975
+15010
+15029
+15037
+15074
+15138
+15157
+15165
+15172
+15180
+15188
+15196
+15202
+15266
+15285
+15293
+15330
+15366
+15374
+15382
+15390
+15394
+15398
+15406
+15413
+15414
+15421
+15422
+15428
+15430
+15431
+15436
+15438
+15439
+15444
+15446
+15447
+15452
+15454
+15455
+15458
+15462
+15463
+15470
+15471
+15478
+15479
+15486
+15487
+15522
+15541
+15549
+15586
+15650
+15669
+15677
+15684
+15692
+15700
+15708
+15714
+15778
+15797
+15805
+15842
+15906
+15925
+15933
+15940
+15943
+15948
+15951
+15956
+15959
+15964
+15967
+15970
+15975
+15983
+15991
+15999
+16034
+16053
+16061
+16098
+16162
+16181
+16189
+16196
+16204
+16212
+16220
+16226
+16290
+16309
+16317
+16354
+16390
+16398
+16406
+16414
+16418
+16422
+16430
+16437
+16438
+16445
+16446
+16452
+16454
+16455
+16460
+16462
+16463
+16468
+16470
+16471
+16476
+16478
+16479
+16482
+16486
+16487
+16494
+16495
+16502
+16503
+16510
+16511
+16546
+16565
+16573
+16610
+16674
+16693
+16701
+16708
+16716
+16724
+16732
+16738
+16802
+16821
+16829
+16866
+16930
+16949
+16957
+16964
+16967
+16972
+16975
+16980
+16983
+16988
+16991
+16994
+16999
+17007
+17015
+17023
+17058
+17077
+17085
+17122
+17186
+17205
+17213
+17220
+17228
+17236
+17244
+17250
+17314
+17333
+17341
+17378
+17414
+17422
+17430
+17438
+17442
+17446
+17454
+17461
+17462
+17469
+17470
+17476
+17478
+17479
+17484
+17486
+17487
+17492
+17494
+17495
+17500
+17502
+17503
+17506
+17510
+17511
+17518
+17519
+17526
+17527
+17534
+17535
+17570
+17589
+17597
+17634
+17698
+17717
+17725
+17732
+17740
+17748
+17756
+17762
+17826
+17845
+17853
+17890
+17954
+17973
+17981
+17988
+17991
+17996
+17999
+18004
+18007
+18012
+18015
+18018
+18023
+18031
+18039
+18047
+18082
+18101
+18109
+18146
+18210
+18229
+18237
+18244
+18252
+18260
+18268
+18274
+18338
+18357
+18365
+18402
+18438
+18446
+18454
+18462
+18466
+18470
+18478
+18485
+18486
+18493
+18494
+18500
+18502
+18503
+18508
+18510
+18511
+18516
+18518
+18519
+18524
+18526
+18527
+18530
+18534
+18535
+18542
+18543
+18550
+18551
+18558
+18559
+18594
+18613
+18621
+18658
+18722
+18741
+18749
+18756
+18764
+18772
+18780
+18786
+18850
+18869
+18877
+18914
+18978
+18997
+19005
+19012
+19015
+19020
+19023
+19028
+19031
+19036
+19039
+19042
+19047
+19055
+19063
+19071
+19106
+19125
+19133
+19170
+19234
+19253
+19261
+19268
+19276
+19284
+19292
+19298
+19362
+19381
+19389
+19426
+19462
+19470
+19478
+19486
+19490
+19494
+19502
+19509
+19510
+19517
+19518
+19524
+19526
+19527
+19532
+19534
+19535
+19540
+19542
+19543
+19548
+19550
+19551
+19554
+19558
+19559
+19566
+19567
+19574
+19575
+19582
+19583
+19618
+19637
+19645
+19682
+19746
+19765
+19773
+19780
+19788
+19796
+19804
+19810
+19874
+19893
+19901
+19938
+20002
+20021
+20029
+20036
+20039
+20044
+20047
+20052
+20055
+20060
+20063
+20066
+20071
+20079
+20087
+20095
+20130
+20149
+20157
+20194
+20258
+20277
+20285
+20292
+20300
+20308
+20316
+20322
+20386
+20405
+20413
+20450
+20486
+20494
+20502
+20510
+20514
+20518
+20526
+20533
+20534
+20541
+20542
+20548
+20550
+20551
+20556
+20558
+20559
+20564
+20566
+20567
+20572
+20574
+20575
+20578
+20582
+20583
+20590
+20591
+20598
+20599
+20606
+20607
+20642
+20661
+20669
+20706
+20770
+20789
+20797
+20804
+20812
+20820
+20828
+20834
+20898
+20917
+20925

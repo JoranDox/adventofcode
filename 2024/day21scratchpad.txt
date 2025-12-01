@@ -1,0 +1,157 @@
+<v<A >>^A vA ^A  <vA <A A >>^A A vA <^A >A A vA ^A  <vA >^A A <A >A  <v<A >A >^A A A vA <^A >A
+   <    A  >  A    v  < <    A A  >   ^  A A  >  A    v   A A  ^  A     <  v   A A A  >   ^  A
+        ^     A              < <         ^ ^     A        > >     A            v v v         A
+              3                                  7                9                          A
+
+
+v<<A >>^A vA ^A  v<<A >>^A A v<A <A >>^A A vA A <^A >A  v<A >^A A <A >A v<A <A >>^A A A vA <^A >A
+   <    A  >  A     <    A A   v  <    A A  > >   ^  A    v   A A  ^  A   v  <    A A A  >   ^  A
+        ^     A          ^ ^           < <           A        > >     A           v v v         A
+              3                                      7                9                         A
+
+
+
+< -> [v<<]A[>>^]
+> ->     vA^
+^ ->     <A>
+v ->  [<v]A[^>]
+
+
+(3) [ [<v]A[^>] [v<<]A[>>^] [v<<]A[>>^]] A
+(2) [     v          <           <     ] A[>>^]      A       < A >   A [v A ^  < A     A >] A [<v]A         A         A[^>] A
+(2) [     v          <           <     ] A[>>^]      A       < A >   A [v A ^  < A > < A >] A [<v]A[^>] [<v]A[^>] [<v]A[^>] A
+(1)                                      <           A         ^     A [  >      ^     ^  ] A     v         v         v     A
+(1)                                                 <A              ^A                   >^^A                            vvvA
+(1)                                                 <A>          [<^]A[>v]               ^^^Avvv                            A
+(0)                                                  0               2                      9                               A
+
+A:^ = A<A
+A:> = AvA
+A:v = A<vA
+A:< = Av<<A
+
+^:A = A>A
+>:A = A^A
+v:A = A>^A
+<:A = A>>^A
+
+^:> = never? (A>vA | Av>A)
+^:< = Av<A
+
+>:^ = never? (A<^A | A^<A)
+>:v = A<A
+
+v:> = A>A
+v:< = A<A
+
+<:^ = A>^A
+<:v = A>A
+
+
+029A:
+A <vA <A A >>^A vA A <^A >A <v<A >>^A vA ^A <vA >^A <v<A >^A >A A vA ^A <v<A >A >^A A A vA <^A >A
+A   v  < <    A  > >   ^  A    <    A  >  A   v   A    <   ^  A A  >  A    <  v   A A A  >   ^  A
+A             <           A         ^     A       >           ^ ^     A           v v v         A
+A                         0               2                           9                         A
+
+980A:
+A <v<A >>^A A A vA ^A <vA <A A >>^A vA A <^A >A <v<A >A >^A A A vA <^A >A <vA >^A <A >A
+A    <    A A A  >  A   v  < <    A  > >   ^  A    <  v   A A A  >   ^  A   v   A  ^  A
+A         ^ ^ ^     A             <           A           v v v         A       >     A
+A                   9                         8                         0             A
+
+179A:
+A <v<A >>^A <vA <A >>^A A vA A <^A >A <v<A >>^A A vA ^A <vA >^A A <A >A <v<A >A >^A A A vA <^A >A
+A    <    A   v  <    A A  > >   ^  A    <    A A  >  A   v   A A  ^  A    <  v   A A A  >   ^  A
+A         ^           < <           A         ^ ^     A       > >     A           v v v         A
+A                                   1                 7               9                         A
+
+my 179
+A <<vA A >A >^A A vA <^A >A vA ^A <<vA >>^A A vA ^A <vA >^A A <A >A <<vA >A >^A A A vA <^A >A
+A    < <  v   A A  >   ^  A  >  A    <    A A  >  A   v   A A  ^  A    <  v   A A A  >   ^  A
+A             < <         ^     A         ^ ^     A       > >     A           v v v         A
+A                               1                 7               9                         A
+
+
+456A:
+A <v<A >>^A A <vA <A >>^A A vA A <^A >A <vA >^A <A >A <vA >^A <A >A <v<A >A >^A A vA <^A >A
+A    <    A A   v  <    A A  > >   ^  A   v   A  ^  A   v   A  ^  A    <  v   A A  >   ^  A
+A         ^ ^           < <           A       >     A       >     A           v v         A
+A                                     4             5             6                       A
+
+379A:
+A <v<A >>^A vA ^A <vA <A A >>^A A vA <^A >A | A vA ^A <vA >^A A <A >A <v<A >A >^A A A vA <^A >A
+A    <    A  >  A   v  < <    A A  >   ^  A   A  >  A   v   A A  ^  A    <  v   A A A  >   ^  A
+A         ^     A             < <         ^   ^     A       > >     A           v v v         A
+A               3                                   7               9                         A
+
+mine:
+129A:
+A ? ? ?                           A <vA >^A <A >A <vA >^A <v<A >^A >A A vA ^A <v<A >A >^A A A vA <^A >A
+A ? ? ?                           A   v   A  ^  A   v   A    <   ^  A A  >  A    <  v   A A A  >   ^  A
+A ^ < <                           A       >     A       >           ^ ^     A           v v v         A
+A                                 1             2                           9                         A
+
+
+974A:
+A <v<A >>^A A A vA ^A
+A    <    A A A  >  A v < < A A > > ^ A
+A         ^ ^ ^     A       < <       A v A ? A
+A                   9                 7   4   A
+
+805A:
+
+671A:
+
+386A:
+
+
+
+mine output
+
+129 A v<<A >>^A <vA <A >>^A A vA A <^A >A <vA >^A <A >A <vA >^A v<<A >^A >A A vA ^A v<<A >A >^A A A vA <^A >A
+129 A    <    A   v  <    A A  > >   ^  A   v   A  ^  A   v   A    <   ^  A A  >  A    <  v   A A A  >   ^  A
+129 A         ^           < <           A       >     A       >           ^ ^     A           v v v         A
+129 A                                   1             2                           9                         A
+
+974 A v<<A >>^A A A vA ^A <vA <A A >>^A A vA A <^A >A v<<A >A >^A vA <^A >A <vA >^A A v<<A >>^A A vA <^A >A
+974 A    <    A A A  >  A   v  < <    A A  > >   ^  A    <  v   A  >   ^  A   v   A A    <    A A  >   ^  A
+974 A         ^ ^ ^     A             < <           A           v         A       > >         v v         A
+974 A                   9                           7                     4                               A
+
+805 A <vA <A A >>^A vA <^A >A A A vA ^A v<<A >A >^A A A vA <^A >A v<<A >>^A A vA ^A <vA >^A v<<A >>^A A vA <^A >A
+805 A   v  < <    A  >   ^  A A A  >  A    <  v   A A A  >   ^  A    <    A A  >  A   v   A    <    A A  >   ^  A
+805 A             <         ^ ^ ^     A           v v v         A         ^ ^     A       >         v v         A
+805 A                                 8                         0                 5                             A
+
+671 A v<<A >>^A A vA ^A <vA <A A >>^A A vA <^A >A vA ^A v<<A >A >^A A vA <^A >A <vA >^A A v<<A >>^A vA <^A >A
+671 A    <    A A  >  A   v  < <    A A  >   ^  A  >  A    <  v   A A  >   ^  A   v   A A    <    A  >   ^  A
+671 A         ^ ^     A             < <         ^     A           v v         A       > >         v         A
+671 A                 6                               7                       1                             A
+
+386 A v<<A >>^A vA ^A <vA <A A >>^A vA <^A >A A vA ^A <vA >^A v<<A >>^A vA <^A >A v<<A >A >^A A vA <^A >A
+386 A    <    A  >  A   v  < <    A  >   ^  A A  >  A   v   A    <    A  >   ^  A    <  v   A A  >   ^  A
+386 A         ^     A             <         ^ ^     A       >         v         A           v v         A
+386 A               3                               8                           6                       A
+
+
+
+129 A <A v<A A >>^A vA ^A vA <^A A >A <vA A A >^A
+129 A  ^   < <    A  >  A  >   ^ ^  A   v v v   A
+129 A             1     2           9           A
+
+974 A <A A A >A v<<AA >>^A <vA >^A vA A <A A >^A
+974 A  ^ ^ ^  A    <<    A   v   A  > >  v v   A
+974 A         9          7       4             A
+
+805 A v<<A >^A A A >A <vA A A >^A <A A >A vA <A A >^A
+805 A    <   ^ ^ ^  A   v v v   A  ^ ^  A  >  v v   A
+805 A               8           0       5           A
+
+671 A <A A >A v<<A A >^A >A <vA A >^A vA A <A >^A
+671 A  ^ ^  A    < <   ^  A   v v   A  > >  v   A
+671 A       6             7         1           A
+
+386 A <A >A v<<A >^A A >A vA <A >^A <vA A >^A
+386 A  ^  A    <   ^ ^  A  >  v   A   v v   A
+386 A     3             8         6         A
