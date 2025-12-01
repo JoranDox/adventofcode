@@ -1,7 +1,7 @@
 import os
 import pathlib
 
-currentyear = 2024
+currentyear = 2025
 dry_run = False
 path = pathlib.Path(__file__).resolve().absolute()
 print(path, type(path))
