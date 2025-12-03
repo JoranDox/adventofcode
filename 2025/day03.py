@@ -26,8 +26,7 @@ accum2 = 0
 numturnons = 12
 for line in data.splitlines():
     turnons = list(line[:numturnons])
-    assert len(turnons) == numturnons
-    tozip = []
+    tozip: list[str] = []
     for i in range(numturnons):
         tozip.append(line[i:])
 
