@@ -48,12 +48,15 @@ for line in data.splitlines():
 
 """
             )
+        print("Created solution file:", pyname)
         testfilename = basename + "inputtest.txt"
         realfilename = basename + "input.txt"
         if testfilename not in os.listdir(input_dir):
             with open(input_dir.joinpath(testfilename), "w") as f:
                 pass  # touch file
+            print("Created test file:", testfilename)
         if realfilename not in os.listdir(input_dir):
             with open(input_dir.joinpath(realfilename), "w") as f:
                 pass  # touch file
+            print("Created real file:", realfilename)
         break
